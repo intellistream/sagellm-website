@@ -5,49 +5,35 @@
 - [x] 自定义域名已配置
 - [x] 代码已推送到 GitHub
 
-### 📝 Cloudflare DNS 配置步骤
+### ✅ Cloudflare DNS 状态
 
-**请在 Cloudflare 控制台完成以下操作：**
+**经检测，您的配置（列表第一行）完全正确，且已生效！**
 
-1. **登录 Cloudflare Dashboard**
-   - 选择域名：`sage.org.ai`
-   - 进入 DNS 管理页面
+```
+CNAME sagellm intellistream.github.io Proxied
+```
 
-2. **添加 CNAME 记录**
-   - **重要**：Target 必须填 `intellistream.github.io`，**不能**包含 `https://` 或 `/sagellm-website/` 等路径。GitHub 会自动根据仓库中的 CNAME 文件进行路由。
-   ```
-   Type:    CNAME
-   Name:    sagellm
-   Target:  intellistream.github.io
-   Proxy:   ✅ Proxied (推荐，启用 Cloudflare CDN + SSL)
-   TTL:     Auto
-   ```
+### 🔍 验证结果
 
-3. **等待 DNS 生效**（通常 1-5 分钟）
+- **URL**: https://sagellm.sage.org.ai/
+- **HTTP 状态**: `200 OK`
+- **SSL**: Cloudflare SSL 正常工作
+- **CDN**: Cloudflare CDN 正常工作 (`cf-cache-status: DYNAMIC`)
 
-4. **验证访问**
-   ```bash
-   # 检查 DNS 解析
-   nslookup sagellm.sage.org.ai
-   
-   # 测试访问
-   curl -I https://sagellm.sage.org.ai/
-   ```
+### ⚠️ 若出现重定向过多
 
-5. **启用 HTTPS（在 GitHub 仓库设置中）**
-   - 等待 DNS 生效后
-   - GitHub Settings → Pages → Enforce HTTPS ✅
+如果在浏览器访问时出现 "Too many redirects"，请检查 Cloudflare 的 SSL/TLS 设置：
+
+1. 进入 Cloudflare Dashboard
+2. SSL/TLS → Overview
+3. 确保模式为 **Full** 或 **Full (Strict)**
+   - ❌ Off (不安全)
+   - ❌ Flexible (可能导致循环重定向)
+   - ✅ Full (加密到 Cloudflare, 加密到 GitHub)
 
 ---
 
-### 🔗 访问链接
-
-- **自定义域名**: https://sagellm.sage.org.ai/ (DNS 生效后)
-- **GitHub Pages**: https://intellistream.github.io/sagellm-website/ (备用)
-
-### ⚠️ 注意事项
-
-1. **Cloudflare Proxy 模式**：启用后自动获得 SSL 证书 + CDN 加速
+**状态**: 🎉 网站已成功上线！
 2. **HTTPS 强制**：DNS 生效后，在 GitHub 设置中启用
 3. **缓存清理**：Cloudflare 控制台可手动清除缓存加快更新
 
