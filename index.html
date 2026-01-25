@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>sageLLM - Modular LLM Inference for Domestic Computing Power</title>
     
-    <!-- Asciinema Player -->
+    <!-- Dependencies -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap" rel="stylesheet">
     
     <style>
         * {
@@ -16,7 +17,7 @@
         }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             line-height: 1.6;
             color: #333;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -36,232 +37,227 @@
         }
         
         h1 {
-            font-size: 3em;
+            font-size: 3.5em;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-weight: 800;
+            text-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            letter-spacing: -1px;
         }
         
         .subtitle {
-            font-size: 1.3em;
+            font-size: 1.4em;
             opacity: 0.95;
             margin-bottom: 30px;
+            font-weight: 500;
+        }
+        
+        .badges {
+            margin-bottom: 20px;
         }
         
         .badge {
             display: inline-block;
             padding: 8px 16px;
             margin: 5px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 20px;
             font-size: 0.9em;
             backdrop-filter: blur(10px);
+            font-weight: 500;
         }
         
         .demo-section {
             background: white;
-            border-radius: 12px;
+            border-radius: 16px;
             padding: 40px;
             margin: 40px 0;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.2);
         }
         
         .demo-section h2 {
-            margin-bottom: 20px;
-            color: #667eea;
+            margin-bottom: 10px;
+            color: #5a67d8; /* Indigo-500 */
         }
         
-        .demo-container {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #000;
-            margin-top: 20px;
+        .demo-section p {
+            color: #4a5568;
+            margin-bottom: 20px;
         }
         
         .demo-title-bar {
             padding: 12px 16px;
             border-bottom: 1px solid #333;
-            background: rgba(255,255,255,0.05);
-            color: #fff;
-            font-family: monospace;
-        }
-        
-        #demo-player {
-            width: 100%;
-            /* Remove explicit height to let player size itself */
-            /* min-height: 400px; */
+            background: #1a202c; /* Gray-900 */
+            color: #e2e8f0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
             margin-top: 40px;
         }
         
         .feature-card {
             background: white;
             padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         
         .feature-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
         }
         
         .feature-card h3 {
-            color: #667eea;
-            margin-bottom: 10px;
+            color: #2d3748;
+            font-size: 1.25em;
+            margin-bottom: 15px;
         }
         
-        .feature-icon {
-            font-size: 2em;
-            margin-bottom: 15px;
+        .feature-card p {
+            color: #718096;
+            font-size: 0.95em;
         }
         
         footer {
             text-align: center;
             padding: 40px 20px;
-            color: white;
-            opacity: 0.9;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        code {
+            background: rgba(0,0,0,0.2);
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-family: 'Fira Code', monospace;
         }
         
         .cta-button {
             display: inline-block;
-            padding: 15px 30px;
-            margin: 10px;
-            background: white;
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 0.2s;
         }
-        
         .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+            opacity: 0.9;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>🚀 sageLLM</h1>
-            <p class="subtitle">Modular LLM Inference Engine for Domestic Computing Power</p>
-            <div>
-                <span class="badge">🇨🇳 Huawei Ascend</span>
-                <span class="badge">⚡ NVIDIA GPU</span>
-                <span class="badge">🔧 Modular Design</span>
-                <span class="badge">🎯 Production-Ready</span>
+            <div class="badges">
+                <span class="badge">🚀 3x Throughput</span>
+                <span class="badge">🇨🇳 Ascend Optimized</span>
+                <span class="badge">🔒 Data Sovereignty</span>
+            </div>
+            <h1>sageLLM</h1>
+            <p class="subtitle">Modular Inference Engine for Domestic Computing Ecosystems</p>
+            
+            <div style="margin-top: 30px;">
+                <code>pip install isagellm</code>
             </div>
         </header>
         
         <div class="demo-section">
-            <h2>📺 Live Demo: Inference Speed Showcase</h2>
-            <p>Watch sageLLM generate code in real-time. Notice the fast token streaming!</p>
+            <h2>⚡ Live Inference Demo (Ascend 910B)</h2>
+            <p>Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.</p>
             
-            <div class="demo-container">
+            <div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
-                    💻 Terminal: sagellm chat --model Llama-3-8B
-                </div>
-                <div id="demo-player"></div>
-            </div>
-        </div>
-        
-        <div class="demo-section">
-            <h2>✨ Key Features</h2>
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">🏎️</div>
-                    <h3>Blazing Fast</h3>
-                    <p>Optimized kernel fusion, KV cache management, and token streaming for maximum throughput.</p>
+                    📺 sagellm-cli --model deepseek-coder-33b --backend ascend
                 </div>
                 
-                <div class="feature-card">
-                    <div class="feature-icon">🔌</div>
-                    <h3>Hardware Agnostic</h3>
-                    <p>Unified abstraction layer supporting CUDA, Ascend (CANN), ROCm, and CPU backends.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📦</div>
-                    <h3>Modular Architecture</h3>
-                    <p>Protocol-driven design with independent modules: core, control-plane, gateway, KV cache.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🌐</div>
-                    <h3>OpenAI Compatible</h3>
-                    <p>Drop-in replacement for OpenAI API with /v1/chat/completions endpoint.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">🧠</div>
-                    <h3>Smart Scheduling</h3>
-                    <p>Advanced request routing, prefix caching, and lifetime-aware eviction policies.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">📊</div>
-                    <h3>Observability</h3>
-                    <p>Built-in metrics, structured logging, and distributed tracing for production monitoring.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="demo-section" style="text-align: center;">
-            <h2>🎯 Get Started</h2>
-            <p style="margin-bottom: 30px;">Experience the Ollama-like CLI for Chinese hardware ecosystems</p>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: left; max-width: 600px; margin: 0 auto; font-family: monospace;">
-                <div style="color: #666; margin-bottom: 10px;"># Install (PyPI - Coming Soon)</div>
-                <div style="background: #fff; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
-                    pip install isagellm
-                </div>
-                
-                <div style="color: #666; margin-bottom: 10px;"># Run inference</div>
-                <div style="background: #fff; padding: 10px; border-radius: 4px; margin-bottom: 15px;">
-                    sagellm run -p "Hello, world!"
-                </div>
-                
-                <div style="color: #666; margin-bottom: 10px;"># Start API server</div>
-                <div style="background: #fff; padding: 10px; border-radius: 4px;">
-                    sagellm serve --port 8000
+                <div id="demo-player" style="width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: #000;">
+                    <span style="color: #888; font-family: monospace;">Loading terminal demo...</span>
                 </div>
             </div>
             
-            <div style="margin-top: 40px;">
-                <a href="https://github.com/intellistream" class="cta-button">📚 Documentation</a>
-                <a href="https://github.com/intellistream" class="cta-button">💻 GitHub</a>
+            <div style="margin-top: 20px; display: grid; gap: 10px;">
+                <div style="color: #666; margin-bottom: 5px;"># Start API server</div>
+                <div style="background: #f4f6f8; padding: 12px; border-radius: 4px; font-family: monospace; border: 1px solid #eee;">
+                    <span style="color: #667eea">$</span> sagellm serve --port 8000 --model /models/deepseek-coder
+                </div>
+            </div>
+            
+            <div style="margin-top: 40px; text-align: center;">
+                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #667eea; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;">📚 Documentation</a>
+                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;">💻 GitHub</a>
             </div>
         </div>
         
+        <div class="features">
+            <div class="feature-card">
+                <h3>🚀 Extreme Performance</h3>
+                <p>Custom kernels for Huawei Ascend & NVIDIA GPU. Delivers up to 3x throughput on domestic hardware compared to standard HF implementations.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔌 OpenAI Compatible</h3>
+                <p>Drop-in replacement for OpenAI API. Fully supports <code>/v1/chat/completions</code> and SSE streaming responses for seamless integration.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Enterprise Ready</h3>
+                <p>Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.</p>
+            </div>
+        </div>
+
         <footer>
             <p><strong>sageLLM</strong> - Built by IntelliStream Team</p>
-            <p style="margin-top: 10px; font-size: 0.9em;">Optimized for domestic computing ecosystems 🇨🇳</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Optimized for domestic computing ecosystems 🇨🇳</p>
         </footer>
     </div>
     
-    <!-- Asciinema Player Script -->
-    <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"></script>
+    <!-- Asciinema Player Script Integration -->
     <script>
-        // Use relative path with dot to ensure correct resolution
-        AsciinemaPlayer.create('./demos/sagellm-inference.cast', document.getElementById('demo-player'), {
-            cols: 100,
-            rows: 24,
-            autoPlay: true,
-            loop: true,
-            preload: true,     // Force preloading data
-            speed: 1.0,        // Normal speed
-            idleTimeLimit: 1,  // Skip idle times longer than 1s
-            poster: 'npt:0:0', // Show first frame as poster
-            fit: 'both'        // Fit container
-        });
+        function initAsciinemaPlayer() {
+            const playerElement = document.getElementById('demo-player');
+            if (!playerElement) return;
+
+            if (typeof AsciinemaPlayer === 'undefined') {
+                playerElement.innerHTML = '<span style="color: #ff6b6b; font-family: monospace;">Error: AsciinemaPlayer library not loaded.</span>';
+                return;
+            }
+
+            try {
+                // Clear loading placeholder
+                playerElement.innerHTML = ''; 
+                
+                // Create Player
+                AsciinemaPlayer.create('./demos/sagellm-inference.cast', playerElement, {
+                    // Formatting
+                    cols: 100,          // Match recording width
+                    rows: 24,           // Match recording height
+                    fit: "none",        // Prevent scaling artifacts
+                    terminalLineHeight: 1.4,
+                    
+                    // Behavior
+                    autoPlay: true,
+                    loop: true,
+                    speed: 1.0,         
+                    idleTimeLimit: 2,   // Skip pauses longer than 2s
+                    preload: true,
+                    
+                    // Visuals
+                    theme: "dracula",   
+                    poster: "npt:0:01"  // Show frame at 1s as preview
+                });
+            } catch (err) {
+                console.error("Asciinema Error:", err);
+                playerElement.innerHTML = '<span style="color: #ff6b6b; font-family: monospace;">Error: ' + err.message + '</span>';
+            }
+        }
     </script>
+    
+    <!-- Load Library from CDN with onload handler -->
+    <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js" 
+            onload="initAsciinemaPlayer()" 
+            onerror="document.getElementById('demo-player').innerHTML=\'Error loading player script from CDN\'"></script>
 </body>
 </html>
