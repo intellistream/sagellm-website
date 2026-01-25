@@ -34,6 +34,29 @@
             text-align: center;
             padding: 60px 20px 40px;
             color: white;
+            position: relative;
+        }
+
+        .lang-toggle {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.12);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 999px;
+            cursor: pointer;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .lang-toggle:focus {
+            outline: 2px solid rgba(255, 255, 255, 0.35);
+            outline-offset: 2px;
         }
         
         h1 {
@@ -73,6 +96,90 @@
             padding: 40px;
             margin: 40px 0;
             box-shadow: 0 20px 40px -5px rgba(0,0,0,0.2);
+        }
+
+        .section {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            margin: 40px 0;
+            box-shadow: 0 20px 40px -5px rgba(0,0,0,0.2);
+        }
+
+        .section h2 {
+            margin-bottom: 10px;
+            color: #5a67d8;
+        }
+
+        .section p {
+            color: #4a5568;
+            margin-bottom: 18px;
+        }
+
+        .arch-flow {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        @media (max-width: 900px) {
+            .arch-flow {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .arch-box {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px 14px;
+            background: #f8fafc;
+        }
+
+        .arch-box h4 {
+            margin: 0 0 6px;
+            color: #2d3748;
+            font-size: 1.02em;
+        }
+
+        .arch-box p {
+            margin: 0;
+            color: #718096;
+            font-size: 0.92em;
+        }
+
+        .arch-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+            margin-top: 16px;
+        }
+
+        .arch-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px;
+            background: white;
+        }
+
+        .arch-card strong {
+            color: #2d3748;
+        }
+
+        .arch-meta {
+            color: #718096;
+            font-size: 0.92em;
+            margin-top: 6px;
+        }
+
+        .bullets {
+            margin: 10px 0 0;
+            padding-left: 18px;
+            color: #4a5568;
+        }
+
+        .bullets li {
+            margin: 6px 0;
         }
         
         .demo-section h2 {
@@ -153,13 +260,16 @@
 <body>
     <div class="container">
         <header>
+            <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">
+                <span id="langToggleText">中文</span>
+            </button>
             <div class="badges">
-                <span class="badge">🚀 3x Throughput</span>
-                <span class="badge">🇨🇳 Ascend Optimized</span>
-                <span class="badge">🔒 Data Sovereignty</span>
+                <span class="badge" data-i18n="badge_perf">🚀 3x Throughput</span>
+                <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend Optimized</span>
+                <span class="badge" data-i18n="badge_private">🔒 Data Sovereignty</span>
             </div>
             <h1>sageLLM</h1>
-            <p class="subtitle">Modular Inference Engine for Domestic Computing Ecosystems</p>
+            <p class="subtitle" data-i18n="subtitle">Modular Inference Engine for Domestic Computing Ecosystems</p>
             
             <div style="margin-top: 30px;">
                 <code>pip install isagellm</code>
@@ -167,8 +277,8 @@
         </header>
         
         <div class="demo-section">
-            <h2>⚡ Live Inference Demo (Ascend 910B)</h2>
-            <p>Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.</p>
+            <h2 data-i18n="demo_title">⚡ Live Inference Demo (Ascend 910B)</h2>
+            <p data-i18n="demo_desc">Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.</p>
             
             <div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
@@ -181,39 +291,269 @@
             </div>
             
             <div style="margin-top: 20px; display: grid; gap: 10px;">
-                <div style="color: #666; margin-bottom: 5px;"># Start API server</div>
+                <div style="color: #666; margin-bottom: 5px;" data-i18n="start_api"># Start API server</div>
                 <div style="background: #f4f6f8; padding: 12px; border-radius: 4px; font-family: monospace; border: 1px solid #eee;">
                     <span style="color: #667eea">$</span> sagellm serve --port 8000 --model /models/deepseek-coder
                 </div>
             </div>
             
             <div style="margin-top: 40px; text-align: center;">
-                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #667eea; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;">📚 Documentation</a>
-                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;">💻 GitHub</a>
+                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #667eea; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;" data-i18n="cta_docs">📚 Documentation</a>
+                <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;" data-i18n="cta_github">💻 GitHub</a>
+            </div>
+        </div>
+
+        <div class="section" id="architecture">
+            <h2 data-i18n="arch_title">🏗️ Architecture (Protocol v0.1)</h2>
+            <p data-i18n="arch_desc">A minimal, service-ready chain designed for reproducibility, observability, and heterogeneous accelerators (Ascend/NVIDIA/...).</p>
+
+            <div class="arch-flow" aria-label="Minimal service chain">
+                <div class="arch-box">
+                    <h4 data-i18n="arch_flow_client_title">Client / Benchmark</h4>
+                    <p data-i18n="arch_flow_client_desc">Fixed workloads, regression reports.</p>
+                </div>
+                <div class="arch-box">
+                    <h4 data-i18n="arch_flow_gw_title">Gateway</h4>
+                    <p data-i18n="arch_flow_gw_desc">OpenAI-compatible API + SSE streaming.</p>
+                </div>
+                <div class="arch-box">
+                    <h4 data-i18n="arch_flow_cp_title">Control Plane</h4>
+                    <p data-i18n="arch_flow_cp_desc">Routing, queueing, scheduling, engine assignment.</p>
+                </div>
+                <div class="arch-box">
+                    <h4 data-i18n="arch_flow_eng_title">Engine(s)</h4>
+                    <p data-i18n="arch_flow_eng_desc">CPU/Accelerator execution + metrics output.</p>
+                </div>
+            </div>
+
+            <div class="arch-grid" style="margin-top: 22px;">
+                <div class="arch-card">
+                    <strong data-i18n="arch_contract_title">Contract & observability</strong>
+                    <div class="arch-meta">
+                        <ul class="bullets">
+                            <li>
+                                <span data-i18n="arch_contract_ids_prefix">End-to-end propagation:</span>
+                                <code>trace_id</code>, <code>request_id</code>, <code>engine_id</code>
+                            </li>
+                            <li data-i18n="arch_contract_protocol">Strict protocol: Schema / Errors / Metrics / Timestamps follow Protocol v0.1</li>
+                            <li data-i18n="arch_contract_cpu">CPU engine must produce full metrics for CI (no-GPU regression)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="arch-card">
+                    <strong data-i18n="arch_repos_title">Multi-repo responsibility</strong>
+                    <div class="arch-meta">
+                        <ul class="bullets">
+                            <li><code>sagellm-protocol</code>: <span data-i18n="arch_repo_protocol">Protocol v0.1 (types/errors/metrics)</span></li>
+                            <li><code>sagellm-backend</code>: <span data-i18n="arch_repo_backend">BackendProvider (Device/Stream)</span></li>
+                            <li><code>sagellm-comm</code>: <span data-i18n="arch_repo_comm">CommBackend (topology/collectives)</span></li>
+                            <li><code>sagellm-core</code>: <span data-i18n="arch_repo_core">Engine runtime (mock-first, metrics)</span></li>
+                            <li><code>sagellm-kv-cache</code>: <span data-i18n="arch_repo_kv">KV pool + transfer (prefix-aware)</span></li>
+                            <li><code>sagellm-compression</code>: <span data-i18n="arch_repo_compression">Quantization / sparsity acceleration</span></li>
+                            <li><code>sagellm-control-plane</code>: <span data-i18n="arch_repo_cp">Routing/Scheduling</span></li>
+                            <li><code>sagellm-gateway</code>: <span data-i18n="arch_repo_gw">OpenAI API + SSE + ID injection</span></li>
+                            <li><code>sagellm-demo</code> + <code>sagellm-benchmark</code>: <span data-i18n="arch_repo_demo">E2E runner + regression</span></li>
+                            <li><code>isagellm</code> (umbrella): <span data-i18n="arch_repo_umbrella">single CLI entry + stable API exports</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="arch-card">
+                    <strong data-i18n="arch_m1_title">M1 Demo Contract workloads</strong>
+                    <div class="arch-meta">
+                        <ul class="bullets">
+                            <li data-i18n="arch_m1_short">Short: 128 prompt → 128 output</li>
+                            <li data-i18n="arch_m1_long">Long: 2048 prompt → 512 output</li>
+                            <li data-i18n="arch_m1_stress">Stress: 512 prompt → 128 output (concurrency + KV budget pressure)</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         
         <div class="features">
             <div class="feature-card">
-                <h3>🚀 Extreme Performance</h3>
-                <p>Custom kernels for Huawei Ascend & NVIDIA GPU. Delivers up to 3x throughput on domestic hardware compared to standard HF implementations.</p>
+                <h3 data-i18n="feat_perf_title">🚀 Extreme Performance</h3>
+                <p data-i18n="feat_perf_desc">Custom kernels for Huawei Ascend & NVIDIA GPU. Delivers up to 3x throughput on domestic hardware compared to standard HF implementations.</p>
             </div>
             <div class="feature-card">
-                <h3>🔌 OpenAI Compatible</h3>
-                <p>Drop-in replacement for OpenAI API. Fully supports <code>/v1/chat/completions</code> and SSE streaming responses for seamless integration.</p>
+                <h3 data-i18n="feat_openai_title">🔌 OpenAI Compatible</h3>
+                <p>
+                    <span data-i18n="feat_openai_desc_prefix">Drop-in replacement for OpenAI API. Fully supports</span>
+                    <code>/v1/chat/completions</code>
+                    <span data-i18n="feat_openai_desc_suffix">and SSE streaming responses for seamless integration.</span>
+                </p>
             </div>
             <div class="feature-card">
-                <h3>🛡️ Enterprise Ready</h3>
-                <p>Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.</p>
+                <h3 data-i18n="feat_enterprise_title">🛡️ Enterprise Ready</h3>
+                <p data-i18n="feat_enterprise_desc">Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.</p>
             </div>
         </div>
 
         <footer>
-            <p><strong>sageLLM</strong> - Built by IntelliStream Team</p>
-            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Optimized for domestic computing ecosystems 🇨🇳</p>
+            <p><strong>sageLLM</strong> <span data-i18n="footer_line1">- Built by IntelliStream Team</span></p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;" data-i18n="footer_line2">Optimized for domestic computing ecosystems 🇨🇳</p>
         </footer>
     </div>
-    
+
+    <script>
+        const I18N = {
+            en: {
+                title: "sageLLM - Modular LLM Inference for Domestic Computing Power",
+                badge_perf: "🚀 3x Throughput",
+                badge_ascend: "🇨🇳 Ascend Optimized",
+                badge_private: "🔒 Data Sovereignty",
+                subtitle: "Modular Inference Engine for Domestic Computing Ecosystems",
+                demo_title: "⚡ Live Inference Demo (Ascend 910B)",
+                demo_desc: "Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.",
+                start_api: "# Start API server",
+                cta_docs: "📚 Documentation",
+                cta_github: "💻 GitHub",
+
+                arch_title: "🏗️ Architecture (Protocol v0.1)",
+                arch_desc: "A minimal, service-ready chain designed for reproducibility, observability, and heterogeneous accelerators (Ascend/NVIDIA/...).",
+                arch_flow_client_title: "Client / Benchmark",
+                arch_flow_client_desc: "Fixed workloads, regression reports.",
+                arch_flow_gw_title: "Gateway",
+                arch_flow_gw_desc: "OpenAI-compatible API + SSE streaming.",
+                arch_flow_cp_title: "Control Plane",
+                arch_flow_cp_desc: "Routing, queueing, scheduling, engine assignment.",
+                arch_flow_eng_title: "Engine(s)",
+                arch_flow_eng_desc: "CPU/Accelerator execution + metrics output.",
+
+                arch_contract_title: "Contract & observability",
+                arch_contract_ids_prefix: "End-to-end propagation:",
+                arch_contract_protocol: "Strict protocol: Schema / Errors / Metrics / Timestamps follow Protocol v0.1",
+                arch_contract_cpu: "CPU engine must produce full metrics for CI (no-GPU regression)",
+
+                arch_repos_title: "Multi-repo responsibility",
+                arch_repo_protocol: "Protocol v0.1 (types/errors/metrics)",
+                arch_repo_backend: "BackendProvider (Device/Stream)",
+                arch_repo_comm: "CommBackend (topology/collectives)",
+                arch_repo_core: "Engine runtime (mock-first, metrics)",
+                arch_repo_kv: "KV pool + transfer (prefix-aware)",
+                arch_repo_compression: "Quantization / sparsity acceleration",
+                arch_repo_cp: "Routing/Scheduling",
+                arch_repo_gw: "OpenAI API + SSE + ID injection",
+                arch_repo_demo: "E2E runner + regression",
+                arch_repo_umbrella: "single CLI entry + stable API exports",
+
+                arch_m1_title: "M1 Demo Contract workloads",
+                arch_m1_short: "Short: 128 prompt → 128 output",
+                arch_m1_long: "Long: 2048 prompt → 512 output",
+                arch_m1_stress: "Stress: 512 prompt → 128 output (concurrency + KV budget pressure)",
+
+                feat_perf_title: "🚀 Extreme Performance",
+                feat_perf_desc: "Custom kernels for Huawei Ascend & NVIDIA GPU. Delivers up to 3x throughput on domestic hardware compared to standard HF implementations.",
+                feat_openai_title: "🔌 OpenAI Compatible",
+                feat_openai_desc_prefix: "Drop-in replacement for OpenAI API. Fully supports",
+                feat_openai_desc_suffix: "and SSE streaming responses for seamless integration.",
+                feat_enterprise_title: "🛡️ Enterprise Ready",
+                feat_enterprise_desc: "Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.",
+
+                footer_line1: "sageLLM - Built by IntelliStream Team",
+                footer_line2: "Optimized for domestic computing ecosystems 🇨🇳",
+                toggle_text: "中文"
+            },
+            zh: {
+                title: "sageLLM - 面向国产算力生态的模块化推理引擎",
+                badge_perf: "🚀 3x 吞吐提升",
+                badge_ascend: "🇨🇳 昇腾优化",
+                badge_private: "🔒 数据主权",
+                subtitle: "面向国产算力生态的模块化 LLM 推理引擎",
+                demo_title: "⚡ 实时推理演示（Ascend 910B）",
+                demo_desc: "在单卡 Ascend 910B 上运行 DeepSeek-Coder-33B 的实时流式输出。",
+                start_api: "# 启动 API 服务",
+                cta_docs: "📚 文档",
+                cta_github: "💻 GitHub",
+
+                arch_title: "🏗️ 系统架构（Protocol v0.1）",
+                arch_desc: "最小服务化链路，强调可回归、可复现、可观测，并支持异构加速（昇腾/NVIDIA/...）。",
+                arch_flow_client_title: "客户端 / Benchmark",
+                arch_flow_client_desc: "固定 workload，产出回归报告。",
+                arch_flow_gw_title: "网关 Gateway",
+                arch_flow_gw_desc: "OpenAI 兼容 API + SSE 流式响应。",
+                arch_flow_cp_title: "控制面 Control Plane",
+                arch_flow_cp_desc: "路由、排队、调度、分配 engine。",
+                arch_flow_eng_title: "引擎 Engine(s)",
+                arch_flow_eng_desc: "CPU/加速器执行 + 输出 metrics。",
+
+                arch_contract_title: "契约与可观测性",
+                arch_contract_ids_prefix: "全链路贯穿：",
+                arch_contract_protocol: "严格遵循 Protocol v0.1：Schema / Errors / Metrics / Timestamps",
+                arch_contract_cpu: "CPU 引擎也必须输出完整 metrics（CI 无 GPU 环境可回归）",
+
+                arch_repos_title: "多仓库责任边界",
+                arch_repo_protocol: "Protocol v0.1（types/errors/metrics）",
+                arch_repo_backend: "BackendProvider（Device/Stream）",
+                arch_repo_comm: "CommBackend（拓扑发现 / 集合通信）",
+                arch_repo_core: "引擎运行时（mock-first、metrics）",
+                arch_repo_kv: "KV 内存池 + 传输（前缀感知）",
+                arch_repo_compression: "量化 / 稀疏加速",
+                arch_repo_cp: "路由/调度",
+                arch_repo_gw: "OpenAI API + SSE + ID 注入",
+                arch_repo_demo: "E2E runner + 回归",
+                arch_repo_umbrella: "统一 CLI 入口 + 稳定 API 导出",
+
+                arch_m1_title: "M1 Demo Contract 工作负载",
+                arch_m1_short: "短输入：128 prompt → 128 output",
+                arch_m1_long: "长输入：2048 prompt → 512 output",
+                arch_m1_stress: "压力段：512 prompt → 128 output（并发 + KV 预算压力）",
+
+                feat_perf_title: "🚀 极致性能",
+                feat_perf_desc: "面向昇腾与 NVIDIA 的定制优化，国产算力场景下吞吐最高可提升 3 倍。",
+                feat_openai_title: "🔌 OpenAI 兼容",
+                feat_openai_desc_prefix: "可作为 OpenAI API 的替代实现，支持",
+                feat_openai_desc_suffix: "与 SSE 流式返回。",
+                feat_enterprise_title: "🛡️ 企业可用",
+                feat_enterprise_desc: "支持本地化部署，强调数据主权；支持多卡并行与可观测性落地。",
+
+                footer_line1: "- IntelliStream 团队",
+                footer_line2: "面向国产算力生态优化 🇨🇳",
+                toggle_text: "English"
+            }
+        };
+
+        function detectDefaultLang() {
+            const stored = localStorage.getItem("sagellm_lang");
+            if (stored === "zh" || stored === "en") return stored;
+            const nav = (navigator.language || "en").toLowerCase();
+            return nav.startsWith("zh") ? "zh" : "en";
+        }
+
+        function setLang(lang) {
+            const dict = I18N[lang] || I18N.en;
+            document.documentElement.lang = lang;
+            document.title = dict.title;
+
+            for (const el of document.querySelectorAll("[data-i18n]")) {
+                const key = el.getAttribute("data-i18n");
+                const text = dict[key];
+                if (typeof text === "string") {
+                    el.textContent = text;
+                }
+            }
+
+            const toggle = document.getElementById("langToggleText");
+            if (toggle) toggle.textContent = dict.toggle_text;
+            localStorage.setItem("sagellm_lang", lang);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const initial = detectDefaultLang();
+            setLang(initial);
+
+            const btn = document.getElementById("langToggle");
+            if (btn) {
+                btn.addEventListener("click", () => {
+                    const current = localStorage.getItem("sagellm_lang") || initial;
+                    setLang(current === "zh" ? "en" : "zh");
+                });
+            }
+        });
+    </script>
+
     <!-- Asciinema Player Script Integration -->
     <script>
         function initAsciinemaPlayer() {
