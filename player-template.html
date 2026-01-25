@@ -1,0 +1,69 @@
+<!--
+  Asciinema Player Integration Template (SageLLM)
+
+  Dependencies:
+  - asciinema-player css (CDN)
+  - asciinema-player js (CDN)
+-->
+
+<!-- 1. Add to <head> -->
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css" />
+
+<!-- 2. The Container -->
+<div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
+    <!-- Title Bar -->
+    <div style="padding: 12px 16px; border-bottom: 1px solid #333; background: rgba(255,255,255,0.05); color: #fff;">
+        <span style="font-family: monospace;">📺 Live Demo: SageLLM Inference Engine</span>
+    </div>
+
+    <!-- Player Element -->
+    <div id="demo-player" style="width: 100%; min-height: 300px; display: flex; align-items: center; justify-content: center;">
+        <span style="color: #888;">Loading terminal demo...</span>
+    </div>
+</div>
+
+<!-- 3. Initialization Script (Add to end of <body>) -->
+<script>
+    function initAsciinemaPlayer() {
+        const playerElement = document.getElementById('demo-player');
+        if (!playerElement) return;
+
+        if (typeof AsciinemaPlayer === 'undefined') {
+            playerElement.innerHTML = '<span style="color: #ff6b6b">Error: AsciinemaPlayer library not loaded.</span>';
+            return;
+        }
+
+        try {
+            // Clear loading placeholder
+            playerElement.innerHTML = '';
+
+            // Create Player
+            AsciinemaPlayer.create('/assets/sagellm-inference.cast', playerElement, {
+                // Formatting
+                cols: 100,
+                rows: 24,
+                fit: "none",
+                terminalLineHeight: 1.5,
+
+                // Behavior
+                autoPlay: true,
+                loop: true,
+                speed: 0.8,        // 0.8x speed for inference text generation visibility
+                idleTimeLimit: 2,
+                preload: true,
+
+                // Visuals
+                theme: "dracula",
+                poster: "npt:0:05"
+            });
+        } catch (err) {
+            console.error("Asciinema Error:", err);
+            playerElement.innerHTML = '<span style="color: #ff6b6b">Error: ' + err.message + '</span>';
+        }
+    }
+</script>
+
+<!-- 4. Load Library from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"
+        onload="initAsciinemaPlayer()"
+        onerror="document.getElementById('demo-player').innerHTML='Error loading player script'"></script>

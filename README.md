@@ -1,72 +1,51 @@
-# sageLLM Website
+# Website Demo Kit (SageLLM Inference)
 
-**Public demo site for sageLLM inference engine**
+This kit helps you create and embed "Live Terminal Demos" for the SageLLM Inference Engine.
 
-This repository contains interactive demos and marketing materials for sageLLM - a modular LLM inference engine optimized for domestic computing power (Huawei Ascend, NVIDIA).
+## Components
 
-## 🎬 Live Demos
+1. **`record_helper.sh`**: A script to help you record a terminal session using `asciinema`.
+1. **`player-template.html`**: A copy-paste ready HTML snippet using `asciinema-player` (v3.8.0).
 
-Interactive terminal recordings showcasing sageLLM's inference speed and capabilities.
+## Task: Record Inference Demo
 
-## 📁 Repository Structure
+We want to show the speed and quality of SageLLM's inference.
 
-```
-sagellm-website/
-├── demos/                  # Terminal recordings (.cast files)
-│   └── sagellm-inference.cast
-├── assets/                 # Images, videos, CSS
-├── index.html             # Landing page
-└── README.md
-```
+### 1. Preparation
 
-## 🚀 Quick Start
-
-### View Locally
+Ensure you have the environment set up and a model loaded.
 
 ```bash
-# Serve locally with Python
-python3 -m http.server 8000
-
-# Or use any static file server
-npx serve .
-```
-
-Open http://localhost:8000 in your browser.
-
-### Deploy to GitHub Pages
-
-This repository is configured for GitHub Pages deployment:
-
-1. Push to GitHub
-2. Enable GitHub Pages in repository settings (Source: `main` branch, root folder)
-3. Visit `https://<username>.github.io/sagellm-website/`
-
-## 🎥 Recording Demos
-
-Demos use [asciinema](https://asciinema.org/) for terminal recordings:
-
-```bash
-# Install asciinema
 pip install asciinema
-
-# Record a new demo
-asciinema rec demos/my-demo.cast
-
-# Preview
-asciinema play demos/my-demo.cast
+# Ensure 'sagellm chat' or equivalent command is ready
 ```
 
-## 📝 License
+### 2. Recording
 
-Public demo materials - showcasing sageLLM capabilities.
+Run the helper script:
 
-**Note**: sageLLM core engine is proprietary. This repository only contains demo materials.
+```bash
+cd devtools/website-demo-kit
+./record_helper.sh sagellm-inference.cast
+```
 
-## 🔗 Related Repositories
+**What to record:**
 
-- **sageLLM Core** (Private): Main inference engine
-- **Documentation** (Private): Technical documentation
+1. Start the CLI: `sagellm chat --model llama-3-8b` (or your preferred command).
+1. Type a prompt, e.g., "Explain quantum entanglement in simple terms."
+1. Let the tokens stream (this looks great in the player!).
+1. Exit cleanly.
 
----
+### 3. Embed in Website
 
-**Maintained by**: IntelliStream Team
+1. Copy `sagellm-inference.cast` to `docs/assets/`.
+1. Use the code from `player-template.html`.
+1. Update the path:
+   ```javascript
+   AsciinemaPlayer.create('/assets/sagellm-inference.cast', ...
+   ```
+
+## Customization
+
+- `speed`: Set to `0.8` (slightly slower than 1.0) to make the text streaming easier to read.
+- `theme`: `dracula` matches our branding.
