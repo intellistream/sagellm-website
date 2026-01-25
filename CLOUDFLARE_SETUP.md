@@ -14,6 +14,7 @@
    - 进入 DNS 管理页面
 
 2. **添加 CNAME 记录**
+   - **重要**：Target 必须填 `intellistream.github.io`，**不能**包含 `https://` 或 `/sagellm-website/` 等路径。GitHub 会自动根据仓库中的 CNAME 文件进行路由。
    ```
    Type:    CNAME
    Name:    sagellm

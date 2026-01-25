@@ -252,12 +252,17 @@
     <!-- Asciinema Player Script -->
     <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"></script>
     <script>
-        AsciinemaPlayer.create('demos/sagellm-inference.cast', document.getElementById('demo-player'), {
+        // Use relative path with dot to ensure correct resolution
+        AsciinemaPlayer.create('./demos/sagellm-inference.cast', document.getElementById('demo-player'), {
             cols: 100,
             rows: 24,
             autoPlay: true,
             loop: true,
-            idleTimeLimit: 2
+            preload: true,     // Force preloading data
+            speed: 1.0,        // Normal speed
+            idleTimeLimit: 1,  // Skip idle times longer than 1s
+            poster: 'npt:0:0', // Show first frame as poster
+            fit: 'both'        // Fit container
         });
     </script>
 </body>
