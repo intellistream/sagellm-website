@@ -48,20 +48,23 @@ def create_cast_file(filename):
         nonlocal current_time
         # Simulate token generation (words or subwords)
         import re
+        # Fix: terminal needs \r\n for new line, regular string has only \n
+        text = text.replace('\n', '\r\n')
         tokens = re.split(r'(\s+)', text)
         for token in tokens:
+            if not token: continue
             events.append([current_time, "o", token])
             current_time += token_speed
 
     # 1. Type the command
-    type_command("sagellm chat --model Llama-3-8B")
+    type_command("sagellm-cli --model deepseek-coder-33b --backend ascend")
     
     # 2. Output engine info
     print_output("\u001b[1m[SageLLM]\u001b[0m Initializing engine...", 0)
     current_time += 0.5
-    print_output("\u001b[1m[SageLLM]\u001b[0m Engine: \u001b[32mcpu\u001b[0m (Mock Mode)", 0)
-    print_output("\u001b[1m[SageLLM]\u001b[0m Model: \u001b[36mLlama-3-8B\u001b[0m", 0)
-    print_output("\u001b[1m[SageLLM]\u001b[0m Device: \u001b[33mHuawei Ascend 910B (Simulated)\u001b[0m", 0)
+    print_output("\u001b[1m[SageLLM]\u001b[0m Engine: \u001b[32mascend\u001b[0m (NPU-910B)", 0)
+    print_output("\u001b[1m[SageLLM]\u001b[0m Model: \u001b[36mdeepseek-coder-33b\u001b[0m", 0)
+    print_output("\u001b[1m[SageLLM]\u001b[0m Backend: \u001b[33mHuawei Ascend 910B\u001b[0m", 0)
     current_time += 0.2
     
     # 3. Interactive Chat
