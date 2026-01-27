@@ -277,12 +277,12 @@
         </header>
         
         <div class="demo-section">
-            <h2 data-i18n="demo_title">⚡ Live Inference Demo (Ascend 910B)</h2>
-            <p data-i18n="demo_desc">Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.</p>
+            <h2 data-i18n="demo_title">⚡ Live Inference Demo</h2>
+            <p data-i18n="demo_desc">Real-time streaming response powered by sageLLM engine (CPU/CUDA backends available).</p>
             
             <div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
-                    📺 sagellm-cli --model deepseek-coder-33b --backend ascend
+                    📺 sagellm-cli --backend cpu
                 </div>
                 
                 <div id="demo-player" style="width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: #000;">
@@ -304,70 +304,87 @@
         </div>
 
         <div class="section" id="architecture">
-            <h2 data-i18n="arch_title">🏗️ Architecture (Protocol v0.1)</h2>
-            <p data-i18n="arch_desc">A minimal, service-ready chain designed for reproducibility, observability, and heterogeneous accelerators (Ascend/NVIDIA/...).</p>
+            <h2 data-i18n="arch_title">🏗️ System Architecture</h2>
+            <p data-i18n="arch_desc">Layered design with protocol-first approach, CPU-first development, and PD separation for optimal performance.</p>
 
-            <div class="arch-flow" aria-label="Minimal service chain">
-                <div class="arch-box">
-                    <h4 data-i18n="arch_flow_client_title">Client / Benchmark</h4>
-                    <p data-i18n="arch_flow_client_desc">Fixed workloads, regression reports.</p>
-                </div>
-                <div class="arch-box">
-                    <h4 data-i18n="arch_flow_gw_title">Gateway</h4>
-                    <p data-i18n="arch_flow_gw_desc">OpenAI-compatible API + SSE streaming.</p>
-                </div>
-                <div class="arch-box">
-                    <h4 data-i18n="arch_flow_cp_title">Control Plane</h4>
-                    <p data-i18n="arch_flow_cp_desc">Routing, queueing, scheduling, engine assignment.</p>
-                </div>
-                <div class="arch-box">
-                    <h4 data-i18n="arch_flow_eng_title">Engine(s)</h4>
-                    <p data-i18n="arch_flow_eng_desc">CPU/Accelerator execution + metrics output.</p>
-                </div>
+            <div style="margin: 30px 0; text-align: center;">
+                <svg viewBox="0 0 800 600" style="max-width: 100%; height: auto; background: #f8fafc; border-radius: 12px; padding: 20px;">
+                    <!-- Client -->
+                    <rect x="320" y="20" width="160" height="60" rx="8" fill="#667eea" stroke="#5a67d8" stroke-width="2"/>
+                    <text x="400" y="50" text-anchor="middle" fill="white" font-size="16" font-weight="600">Client / Benchmark</text>
+                    
+                    <!-- Arrow -->
+                    <path d="M 400 80 L 400 120" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Gateway -->
+                    <rect x="320" y="120" width="160" height="60" rx="8" fill="#48bb78" stroke="#38a169" stroke-width="2"/>
+                    <text x="400" y="145" text-anchor="middle" fill="white" font-size="14" font-weight="600">Gateway (L5)</text>
+                    <text x="400" y="165" text-anchor="middle" fill="white" font-size="11">OpenAI API + SSE</text>
+                    
+                    <!-- Arrow -->
+                    <path d="M 400 180 L 400 220" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Control Plane -->
+                    <rect x="320" y="220" width="160" height="60" rx="8" fill="#ed8936" stroke="#dd6b20" stroke-width="2"/>
+                    <text x="400" y="245" text-anchor="middle" fill="white" font-size="14" font-weight="600">Control Plane (L4)</text>
+                    <text x="400" y="265" text-anchor="middle" fill="white" font-size="11">Routing + Scheduling</text>
+                    
+                    <!-- Arrow -->
+                    <path d="M 400 280 L 400 320" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Core -->
+                    <rect x="320" y="320" width="160" height="60" rx="8" fill="#4299e1" stroke="#3182ce" stroke-width="2"/>
+                    <text x="400" y="345" text-anchor="middle" fill="white" font-size="14" font-weight="600">Core Engine (L3)</text>
+                    <text x="400" y="365" text-anchor="middle" fill="white" font-size="11">PD Separation + Metrics</text>
+                    
+                    <!-- Branch to 3 components -->
+                    <path d="M 400 380 L 400 400 M 200 400 L 600 400" stroke="#333" stroke-width="2"/>
+                    <path d="M 200 400 L 200 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 400 400 L 400 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path d="M 600 400 L 600 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Bottom 3 boxes -->
+                    <rect x="80" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
+                    <text x="150" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">Backend (L1)</text>
+                    <text x="150" y="462" text-anchor="middle" fill="white" font-size="10">CPU / CUDA</text>
+                    <text x="150" y="477" text-anchor="middle" fill="white" font-size="10">Device + Stream</text>
+                    
+                    <rect x="330" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
+                    <text x="400" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">Comm (L1)</text>
+                    <text x="400" y="462" text-anchor="middle" fill="white" font-size="10">Topology</text>
+                    <text x="400" y="477" text-anchor="middle" fill="white" font-size="10">Collective Ops</text>
+                    
+                    <rect x="580" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
+                    <text x="650" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">KV Cache (L2)</text>
+                    <text x="650" y="462" text-anchor="middle" fill="white" font-size="10">Pool + Transfer</text>
+                    <text x="650" y="477" text-anchor="middle" fill="white" font-size="10">Prefix-Aware</text>
+                    
+                    <!-- Protocol Foundation -->
+                    <rect x="200" y="520" width="400" height="50" rx="8" fill="#2d3748" stroke="#1a202c" stroke-width="2"/>
+                    <text x="400" y="545" text-anchor="middle" fill="white" font-size="14" font-weight="600">Protocol (L0) - Types, Errors, Metrics</text>
+                    <text x="400" y="560" text-anchor="middle" fill="white" font-size="10">trace_id, request_id, engine_id</text>
+                    
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
             </div>
 
-            <div class="arch-grid" style="margin-top: 22px;">
-                <div class="arch-card">
-                    <strong data-i18n="arch_contract_title">Contract & observability</strong>
-                    <div class="arch-meta">
-                        <ul class="bullets">
-                            <li>
-                                <span data-i18n="arch_contract_ids_prefix">End-to-end propagation:</span>
-                                <code>trace_id</code>, <code>request_id</code>, <code>engine_id</code>
-                            </li>
-                            <li data-i18n="arch_contract_protocol">Strict protocol: Schema / Errors / Metrics / Timestamps follow Protocol v0.1</li>
-                            <li data-i18n="arch_contract_cpu">CPU engine must produce full metrics for CI (no-GPU regression)</li>
-                        </ul>
-                    </div>
+            <div style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
+                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
+                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_pd_title">✅ PD Separation</h4>
+                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_pd_desc">Prefill and Decode phases run independently for optimal resource utilization</p>
                 </div>
-
-                <div class="arch-card">
-                    <strong data-i18n="arch_repos_title">Multi-repo responsibility</strong>
-                    <div class="arch-meta">
-                        <ul class="bullets">
-                            <li><code>sagellm-protocol</code>: <span data-i18n="arch_repo_protocol">Protocol v0.1 (types/errors/metrics)</span></li>
-                            <li><code>sagellm-backend</code>: <span data-i18n="arch_repo_backend">BackendProvider (Device/Stream)</span></li>
-                            <li><code>sagellm-comm</code>: <span data-i18n="arch_repo_comm">CommBackend (topology/collectives)</span></li>
-                            <li><code>sagellm-core</code>: <span data-i18n="arch_repo_core">Engine runtime (mock-first, metrics)</span></li>
-                            <li><code>sagellm-kv-cache</code>: <span data-i18n="arch_repo_kv">KV pool + transfer (prefix-aware)</span></li>
-                            <li><code>sagellm-compression</code>: <span data-i18n="arch_repo_compression">Quantization / sparsity acceleration</span></li>
-                            <li><code>sagellm-control-plane</code>: <span data-i18n="arch_repo_cp">Routing/Scheduling</span></li>
-                            <li><code>sagellm-gateway</code>: <span data-i18n="arch_repo_gw">OpenAI API + SSE + ID injection</span></li>
-                            <li><code>sagellm-demo</code> + <code>sagellm-benchmark</code>: <span data-i18n="arch_repo_demo">E2E runner + regression</span></li>
-                            <li><code>isagellm</code> (umbrella): <span data-i18n="arch_repo_umbrella">single CLI entry + stable API exports</span></li>
-                        </ul>
-                    </div>
+                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78;">
+                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_cpu_title">✅ CPU-First</h4>
+                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_cpu_desc">All components work on CPU by default, GPU/NPU are optional accelerators</p>
                 </div>
-
-                <div class="arch-card">
-                    <strong data-i18n="arch_m1_title">M1 Demo Contract workloads</strong>
-                    <div class="arch-meta">
-                        <ul class="bullets">
-                            <li data-i18n="arch_m1_short">Short: 128 prompt → 128 output</li>
-                            <li data-i18n="arch_m1_long">Long: 2048 prompt → 512 output</li>
-                            <li data-i18n="arch_m1_stress">Stress: 512 prompt → 128 output (concurrency + KV budget pressure)</li>
-                        </ul>
-                    </div>
+                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #ed8936;">
+                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_obs_title">✅ Observable</h4>
+                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_obs_desc">Full metrics tracing with trace_id, request_id, timestamps at every layer</p>
                 </div>
             </div>
         </div>
@@ -405,44 +422,21 @@
                 badge_ascend: "🇨🇳 Ascend Optimized",
                 badge_private: "🔒 Data Sovereignty",
                 subtitle: "Modular Inference Engine for Domestic Computing Ecosystems",
-                demo_title: "⚡ Live Inference Demo (Ascend 910B)",
-                demo_desc: "Real-time streaming response from DeepSeek-Coder-33B running on single-card Ascend 910B.",
+                demo_title: "⚡ Live Inference Demo",
+                demo_desc: "Real-time streaming response powered by sageLLM engine (CPU/CUDA backends available).",
                 start_api: "# Start API server",
                 cta_docs: "📚 Documentation",
                 cta_github: "💻 GitHub",
 
-                arch_title: "🏗️ Architecture (Protocol v0.1)",
-                arch_desc: "A minimal, service-ready chain designed for reproducibility, observability, and heterogeneous accelerators (Ascend/NVIDIA/...).",
-                arch_flow_client_title: "Client / Benchmark",
-                arch_flow_client_desc: "Fixed workloads, regression reports.",
-                arch_flow_gw_title: "Gateway",
-                arch_flow_gw_desc: "OpenAI-compatible API + SSE streaming.",
-                arch_flow_cp_title: "Control Plane",
-                arch_flow_cp_desc: "Routing, queueing, scheduling, engine assignment.",
-                arch_flow_eng_title: "Engine(s)",
-                arch_flow_eng_desc: "CPU/Accelerator execution + metrics output.",
-
-                arch_contract_title: "Contract & observability",
-                arch_contract_ids_prefix: "End-to-end propagation:",
-                arch_contract_protocol: "Strict protocol: Schema / Errors / Metrics / Timestamps follow Protocol v0.1",
-                arch_contract_cpu: "CPU engine must produce full metrics for CI (no-GPU regression)",
-
-                arch_repos_title: "Multi-repo responsibility",
-                arch_repo_protocol: "Protocol v0.1 (types/errors/metrics)",
-                arch_repo_backend: "BackendProvider (Device/Stream)",
-                arch_repo_comm: "CommBackend (topology/collectives)",
-                arch_repo_core: "Engine runtime (mock-first, metrics)",
-                arch_repo_kv: "KV pool + transfer (prefix-aware)",
-                arch_repo_compression: "Quantization / sparsity acceleration",
-                arch_repo_cp: "Routing/Scheduling",
-                arch_repo_gw: "OpenAI API + SSE + ID injection",
-                arch_repo_demo: "E2E runner + regression",
-                arch_repo_umbrella: "single CLI entry + stable API exports",
-
-                arch_m1_title: "M1 Demo Contract workloads",
-                arch_m1_short: "Short: 128 prompt → 128 output",
-                arch_m1_long: "Long: 2048 prompt → 512 output",
-                arch_m1_stress: "Stress: 512 prompt → 128 output (concurrency + KV budget pressure)",
+                arch_title: "🏗️ System Architecture",
+                arch_desc: "Layered design with protocol-first approach, CPU-first development, and PD separation for optimal performance.",
+                
+                arch_pd_title: "✅ PD Separation",
+                arch_pd_desc: "Prefill and Decode phases run independently for optimal resource utilization",
+                arch_cpu_title: "✅ CPU-First",
+                arch_cpu_desc: "All components work on CPU by default, GPU/NPU are optional accelerators",
+                arch_obs_title: "✅ Observable",
+                arch_obs_desc: "Full metrics tracing with trace_id, request_id, timestamps at every layer",
 
                 feat_perf_title: "🚀 Extreme Performance",
                 feat_perf_desc: "Custom kernels for Huawei Ascend & NVIDIA GPU. Delivers up to 3x throughput on domestic hardware compared to standard HF implementations.",
@@ -462,44 +456,21 @@
                 badge_ascend: "🇨🇳 昇腾优化",
                 badge_private: "🔒 数据主权",
                 subtitle: "面向国产算力生态的模块化 LLM 推理引擎",
-                demo_title: "⚡ 实时推理演示（Ascend 910B）",
-                demo_desc: "在单卡 Ascend 910B 上运行 DeepSeek-Coder-33B 的实时流式输出。",
+                demo_title: "⚡ 实时推理演示",
+                demo_desc: "基于 sageLLM 引擎的实时流式输出（支持 CPU/CUDA 后端）。",
                 start_api: "# 启动 API 服务",
                 cta_docs: "📚 文档",
                 cta_github: "💻 GitHub",
 
-                arch_title: "🏗️ 系统架构（Protocol v0.1）",
-                arch_desc: "最小服务化链路，强调可回归、可复现、可观测，并支持异构加速（昇腾/NVIDIA/...）。",
-                arch_flow_client_title: "客户端 / Benchmark",
-                arch_flow_client_desc: "固定 workload，产出回归报告。",
-                arch_flow_gw_title: "网关 Gateway",
-                arch_flow_gw_desc: "OpenAI 兼容 API + SSE 流式响应。",
-                arch_flow_cp_title: "控制面 Control Plane",
-                arch_flow_cp_desc: "路由、排队、调度、分配 engine。",
-                arch_flow_eng_title: "引擎 Engine(s)",
-                arch_flow_eng_desc: "CPU/加速器执行 + 输出 metrics。",
-
-                arch_contract_title: "契约与可观测性",
-                arch_contract_ids_prefix: "全链路贯穿：",
-                arch_contract_protocol: "严格遵循 Protocol v0.1：Schema / Errors / Metrics / Timestamps",
-                arch_contract_cpu: "CPU 引擎也必须输出完整 metrics（CI 无 GPU 环境可回归）",
-
-                arch_repos_title: "多仓库责任边界",
-                arch_repo_protocol: "Protocol v0.1（types/errors/metrics）",
-                arch_repo_backend: "BackendProvider（Device/Stream）",
-                arch_repo_comm: "CommBackend（拓扑发现 / 集合通信）",
-                arch_repo_core: "引擎运行时（mock-first、metrics）",
-                arch_repo_kv: "KV 内存池 + 传输（前缀感知）",
-                arch_repo_compression: "量化 / 稀疏加速",
-                arch_repo_cp: "路由/调度",
-                arch_repo_gw: "OpenAI API + SSE + ID 注入",
-                arch_repo_demo: "E2E runner + 回归",
-                arch_repo_umbrella: "统一 CLI 入口 + 稳定 API 导出",
-
-                arch_m1_title: "M1 Demo Contract 工作负载",
-                arch_m1_short: "短输入：128 prompt → 128 output",
-                arch_m1_long: "长输入：2048 prompt → 512 output",
-                arch_m1_stress: "压力段：512 prompt → 128 output（并发 + KV 预算压力）",
+                arch_title: "🏗️ 系统架构",
+                arch_desc: "分层设计，遵循协议优先、CPU 优先、PD 分离原则，实现最优性能。",
+                
+                arch_pd_title: "✅ PD 分离",
+                arch_pd_desc: "Prefill 和 Decode 阶段独立运行，实现资源最优利用",
+                arch_cpu_title: "✅ CPU 优先",
+                arch_cpu_desc: "所有组件默认支持 CPU，GPU/NPU 为可选加速器",
+                arch_obs_title: "✅ 可观测",
+                arch_obs_desc: "每层都有完整的 metrics 追踪（trace_id、request_id、时间戳）",
 
                 feat_perf_title: "🚀 极致性能",
                 feat_perf_desc: "面向昇腾与 NVIDIA 的定制优化，国产算力场景下吞吐最高可提升 3 倍。",
