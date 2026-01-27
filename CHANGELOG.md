@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修正 API server 示例命令：使用 `sage-llm serve` 而非 `sagellm serve`
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
+ - 清理 README 中的 demo 录制/嵌入说明。
 
 ### Added
 - Ascend NPU engine implementation announcement (0.3.x release).
