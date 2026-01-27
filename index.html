@@ -263,6 +263,17 @@
             <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">
                 <span id="langToggleText">中文</span>
             </button>
+            
+            <!-- 0.3 Release Banner -->
+            <div style="background: rgba(255, 215, 0, 0.15); border: 2px solid rgba(255, 215, 0, 0.4); border-radius: 12px; padding: 16px 24px; margin-bottom: 20px; backdrop-filter: blur(10px);">
+                <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px;">
+                    🎉 sageLLM 0.3 正式发布
+                </div>
+                <div style="font-size: 1em; opacity: 0.95; font-weight: 500;">
+                    一行安装，一行推理，支持 CPU/GPU/Ascend NPU
+                </div>
+            </div>
+            
             <div class="badges">
                 <span class="badge" data-i18n="badge_perf">🚀 3x Throughput</span>
                 <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend Optimized</span>
@@ -300,6 +311,51 @@
             <div style="margin-top: 40px; text-align: center;">
                 <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #667eea; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;" data-i18n="cta_docs">📚 Documentation</a>
                 <a href="https://github.com/intellistream" class="cta-button" style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;" data-i18n="cta_github">💻 GitHub</a>
+            </div>
+        </div>
+
+        <!-- Quickstart Section -->
+        <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);">
+            <h2 style="color: #667eea;">🚀 Quick Start (v0.3)</h2>
+            <p style="color: #4a5568; margin-bottom: 25px;">Get started with sageLLM in seconds. Copy and paste these commands:</p>
+            
+            <div style="display: grid; gap: 20px;">
+                <!-- Install -->
+                <div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">📦 Install</div>
+                    <div style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
+                        <span style="color: #48bb78;">$</span> pip install isagellm
+                    </div>
+                </div>
+                
+                <!-- Hello World -->
+                <div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">👋 Hello World</div>
+                    <div style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
+                        <span style="color: #48bb78;">$</span> sage-llm hello
+                    </div>
+                </div>
+                
+                <!-- Run Inference -->
+                <div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">⚡ Run Inference</div>
+                    <div style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
+                        <span style="color: #48bb78;">$</span> sage-llm run -p <span style="color: #fbbf24;">"Hello, world!"</span> --max-tokens 32
+                    </div>
+                </div>
+                
+                <!-- Start Server -->
+                <div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">🌐 Start OpenAI-Compatible Server</div>
+                    <div style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
+                        <span style="color: #48bb78;">$</span> sage-llm serve --port 8000
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; padding: 16px; background: #edf2f7; border-left: 4px solid #667eea; border-radius: 6px;">
+                <strong style="color: #2d3748;">💡 Note:</strong> 
+                <span style="color: #4a5568;">All commands work on CPU by default. Add <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--device cuda</code> or <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--device npu</code> for GPU/NPU acceleration.</span>
             </div>
         </div>
 
