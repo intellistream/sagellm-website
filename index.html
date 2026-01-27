@@ -293,7 +293,7 @@
             
             <div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
-                    📺 sagellm-cli --backend cpu
+                    📺 sage-llm run --backend ascend
                 </div>
                 
                 <div id="demo-player" style="width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: #000;">
@@ -304,7 +304,7 @@
             <div style="margin-top: 20px; display: grid; gap: 10px;">
                 <div style="color: #666; margin-bottom: 5px;" data-i18n="start_api"># Start API server</div>
                 <div style="background: #f4f6f8; padding: 12px; border-radius: 4px; font-family: monospace; border: 1px solid #eee;">
-                    <span style="color: #667eea">$</span> sagellm serve --port 8000 --model /models/deepseek-coder
+                    <span style="color: #667eea">$</span> sage-llm serve --port 8000 --backend ascend
                 </div>
             </div>
             
@@ -411,7 +411,7 @@
                     <text x="400" y="477" text-anchor="middle" fill="white" font-size="10">Collective Ops</text>
                     
                     <rect x="580" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
-                    <text x="650" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">KV Cache (L2)</text>
+                    <text x="650" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">KV Cache (L1)</text>
                     <text x="650" y="462" text-anchor="middle" fill="white" font-size="10">Pool + Transfer</text>
                     <text x="650" y="477" text-anchor="middle" fill="white" font-size="10">Prefix-Aware</text>
                     
