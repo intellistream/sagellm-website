@@ -8,14 +8,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-- sageLLM 0.3 release alignment.
-- 0.3 release announcement banner in hero section.
-- Quickstart code examples (install, hello, run, serve).
-- Instructions for recording new demos for 0.3 release.
+- Ascend NPU engine implementation announcement (0.3.x release).
+- Backend selection examples (`--backend ascend`).
+- Updated demo recording instructions with Ascend NPU examples.
 
 ### Changed
-- Bumped version to 0.3.0.0.
-- Enhanced README with 0.3 release highlights.
+- Updated all PyPI package references to 0.3.x.x version.
+- Enhanced 0.3 release banner: "Ascend NPU 引擎已实现".
+- Updated badge: "Ascend NPU Native" (was "Ascend Optimized").
+- Updated Quick Start examples with Ascend backend support.
+- Updated architecture diagram: Backend box now shows "CPU/CUDA/Ascend".
+- Updated demo description: "CPU/CUDA/Ascend backends available".
 
 ### Fixed
 - (N/A)

@@ -267,16 +267,16 @@
             <!-- 0.3 Release Banner -->
             <div style="background: rgba(255, 215, 0, 0.15); border: 2px solid rgba(255, 215, 0, 0.4); border-radius: 12px; padding: 16px 24px; margin-bottom: 20px; backdrop-filter: blur(10px);">
                 <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px;">
-                    🎉 sageLLM 0.3 正式发布
+                    🎉 sageLLM 0.3 正式发布 - Ascend NPU 引擎已实现
                 </div>
                 <div style="font-size: 1em; opacity: 0.95; font-weight: 500;">
-                    一行安装，一行推理，支持 CPU/GPU/Ascend NPU
+                    一行安装，一行推理，完整支持 CPU/CUDA/Ascend NPU 三大后端
                 </div>
             </div>
             
             <div class="badges">
                 <span class="badge" data-i18n="badge_perf">🚀 3x Throughput</span>
-                <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend Optimized</span>
+                <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend NPU Native</span>
                 <span class="badge" data-i18n="badge_private">🔒 Data Sovereignty</span>
             </div>
             <h1>sageLLM</h1>
@@ -289,7 +289,7 @@
         
         <div class="demo-section">
             <h2 data-i18n="demo_title">⚡ Live Inference Demo</h2>
-            <p data-i18n="demo_desc">Real-time streaming response powered by sageLLM engine (CPU/CUDA backends available).</p>
+            <p data-i18n="demo_desc">Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends available).</p>
             
             <div class="demo-container" style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
@@ -355,7 +355,7 @@
             
             <div style="margin-top: 25px; padding: 16px; background: #edf2f7; border-left: 4px solid #667eea; border-radius: 6px;">
                 <strong style="color: #2d3748;">💡 Note:</strong> 
-                <span style="color: #4a5568;">All commands work on CPU by default. Add <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--device cuda</code> or <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--device npu</code> for GPU/NPU acceleration.</span>
+                <span style="color: #4a5568;">All commands work on CPU by default. Add <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--backend cuda</code> for NVIDIA GPU or <code style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--backend ascend</code> for Huawei Ascend NPU acceleration.</span>
             </div>
         </div>
 
@@ -401,9 +401,9 @@
                     
                     <!-- Bottom 3 boxes -->
                     <rect x="80" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
-                    <text x="150" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">Backend (L1)</text>
-                    <text x="150" y="462" text-anchor="middle" fill="white" font-size="10">CPU / CUDA</text>
-                    <text x="150" y="477" text-anchor="middle" fill="white" font-size="10">Device + Stream</text>
+                    <text x="150" y="440" text-anchor="middle" fill="white" font-size="13" font-weight="600">Backend (L1)</text>
+                    <text x="150" y="457" text-anchor="middle" fill="white" font-size="10">CPU/CUDA/Ascend</text>
+                    <text x="150" y="472" text-anchor="middle" fill="white" font-size="10">Device + Stream</text>
                     
                     <rect x="330" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5" stroke-width="2"/>
                     <text x="400" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">Comm (L1)</text>
@@ -475,11 +475,11 @@
             en: {
                 title: "sageLLM - Modular LLM Inference for Domestic Computing Power",
                 badge_perf: "🚀 3x Throughput",
-                badge_ascend: "🇨🇳 Ascend Optimized",
+                badge_ascend: "🇨🇳 Ascend NPU Native",
                 badge_private: "🔒 Data Sovereignty",
                 subtitle: "Modular Inference Engine for Domestic Computing Ecosystems",
                 demo_title: "⚡ Live Inference Demo",
-                demo_desc: "Real-time streaming response powered by sageLLM engine (CPU/CUDA backends available).",
+                demo_desc: "Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends available).",
                 start_api: "# Start API server",
                 cta_docs: "📚 Documentation",
                 cta_github: "💻 GitHub",
