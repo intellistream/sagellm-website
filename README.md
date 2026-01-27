@@ -1,6 +1,34 @@
 # Website Demo Kit (SageLLM Inference)
 
-This kit helps you create and embed "Live Terminal Demos" for the SageLLM Inference Engine.
+**🎉 sageLLM 0.3.x 正式发布！** 一行安装，一行推理，完整支持 CPU/CUDA/Ascend NPU 三大后端。
+
+## 0.3.x Release Highlights
+
+- ✅ **统一 CLI 工具**：`sage-llm` 命令行工具，支持 hello/run/serve
+- ✅ **CPU-First 设计**：所有功能默认 CPU，可选 GPU/NPU 加速
+- ✅ **Ascend NPU 原生支持**：Ascend 后端引擎已实现（MVP），支持 PD 分离
+- ✅ **OpenAI 兼容 API**：完整支持 `/v1/chat/completions` 和流式响应
+- ✅ **一行安装**：`pip install isagellm`
+- ✅ **模块化架构**：Protocol-first, Fail-fast, Observable
+
+## Quick Start (v0.3.x)
+
+```bash
+# 安装
+pip install isagellm
+
+# Hello World
+sage-llm hello
+
+# 运行推理 (CPU 默认)
+sage-llm run -p "Hello, world!" --max-tokens 32
+
+# 运行推理 (Ascend NPU)
+sage-llm run -p "Hello, world!" --max-tokens 32 --backend ascend
+
+# 启动 OpenAI 兼容服务器
+sage-llm serve --port 8000
+```
 
 ## Components
 
@@ -11,7 +39,49 @@ This kit helps you create and embed "Live Terminal Demos" for the SageLLM Infere
 
 We want to show the speed and quality of SageLLM's inference.
 
-### 1. Preparation
+### Recording 0.3 Demo (Updated)
+
+**Target:** 展示 sageLLM 0.3 的完整流程（安装 → hello → run → serve）
+
+**Steps:**
+
+1. **Prepare environment**
+   ```bash
+   pip install asciinema
+   # Ensure isagellm 0.3.0 is installed
+   pip install isagellm --upgrade
+   ```
+
+2. **Record the demo**
+   ```bash
+   cd /home/shuhao/sagellm-website
+   ./record_helper.sh demos/sagellm-0.3-release.cast
+   ```
+
+3. **What to record:**
+   ```bash
+   # 1. Show version
+   sage-llm --version
+   
+   # 2. Hello world
+   sage-llm hello
+   
+   # 3. Run inference (CPU default)
+   sage-llm run -p "Explain quantum computing in one sentence" --max-tokens 32
+   
+   # 4. Run inference (Ascend NPU)
+   sage-llm run -p "What is machine learning?" --max-tokens 32 --backend ascend
+   
+   # 5. Start server (show startup, then Ctrl+C)
+   sage-llm serve --port 8000
+   # (Wait 3 seconds, then Ctrl+C)
+   ```
+
+4. **Embed in index.html**
+   - Already configured to load `demos/sagellm-0.3-release.cast`
+   - Update the cast file path in the asciinema player if needed
+
+### 1. Preparation (Legacy Instructions)
 
 Ensure you have the environment set up and a model loaded.
 

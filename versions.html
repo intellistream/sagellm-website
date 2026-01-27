@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sageLLM - Versions</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .version-card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .version-card h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .package-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e3e8f0 100%);
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .package-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .package-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .package-version {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #764ba2;
+            margin-bottom: 10px;
+        }
+
+        .package-links {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .package-links a {
+            display: inline-block;
+            padding: 8px 16px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.2s;
+        }
+
+        .package-links a:hover {
+            background: #764ba2;
+        }
+
+        .update-info {
+            text-align: center;
+            color: white;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .install-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .install-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+
+        pre {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 sageLLM</h1>
+            <p>Package Versions & Installation Guide</p>
+        </header>
+
+        <div class="install-section">
+            <h2>📥 Quick Installation</h2>
+            <pre><code># Install full stack (recommended)
+pip install isagellm
+
+# Or install specific packages
+pip install isagellm-core isagellm-backend</code></pre>
+        </div>
+
+        <div class="version-card">
+            <h2>📦 Core Packages</h2>
+            <div class="package-grid">
+                <div class="package-item">
+                    <div class="package-name">sagellm (umbrella)</div>
+                    <div class="package-version">v0.2.3.3</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm/0.2.3.3/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-protocol</div>
+                    <div class="package-version">v0.1.1.0</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-protocol/0.1.1.0/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-protocol" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-backend</div>
+                    <div class="package-version">v0.2.1.6</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-backend/0.2.1.6/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-backend" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-core</div>
+                    <div class="package-version">v0.2.2.8</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-core/0.2.2.8/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-core" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="version-card">
+            <h2>🏗️ Infrastructure Packages</h2>
+            <div class="package-grid">
+                <div class="package-item">
+                    <div class="package-name">sagellm-control-plane</div>
+                    <div class="package-version">v0.1.1.5</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-control-plane/0.1.1.5/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-control-plane" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-gateway</div>
+                    <div class="package-version">v0.1.1.5</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-gateway/0.1.1.5/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-gateway" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-kv-cache</div>
+                    <div class="package-version">v0.1.1.6</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-kv-cache/0.1.1.6/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-kv-cache" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-comm</div>
+                    <div class="package-version">v0.1.1.7</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-comm/0.1.1.7/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-comm" target="_blank">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="package-item">
+                    <div class="package-name">sagellm-compression</div>
+                    <div class="package-version">v0.1.1.7</div>
+                    <div class="package-links">
+                        <a href="https://pypi.org/project/isagellm-compression/0.1.1.7/" target="_blank">PyPI</a>
+                        <a href="https://github.com/intellistream/sagellm-compression" target="_blank">GitHub</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="update-info">
+            <p>Last Updated: 2026-01-27</p>
+            <p>Website: <a href="https://sagellm.sage.org.ai" style="color: white;">sagellm.sage.org.ai</a></p>
+            <p>Maintained by IntelliStream Team</p>
+        </div>
+    </div>
+</body>
+</html>
