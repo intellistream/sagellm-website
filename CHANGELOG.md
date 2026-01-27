@@ -14,13 +14,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Instructions for recording new demos for 0.3 release.
 
 ### Changed
-- Bumped version to 0.3.0.
+- Bumped version to 0.3.0.0.
 - Enhanced README with 0.3 release highlights.
 
 ### Fixed
 - (N/A)
 
-## [0.2.0] - 2025-01-15
+## [0.2.0.0] - 2025-01-15
 
 ### Added
 - Initial public website with architecture diagram.
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Improved responsive design for mobile devices.
 
-## [0.1.0] - 2024-12-01
+## [0.1.0.0] - 2024-12-01
 
 ### Added
 - Initial website structure and landing page.
