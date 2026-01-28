@@ -1,0 +1,218 @@
+[
+    {
+        "entry_id": "multi_v0_3_2_910b_llama3_70b",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 185.3,
+            "tbt_ms": 28.5,
+            "tpot_ms": 28.5,
+            "throughput_tps": 35.1,
+            "peak_mem_mb": 458752,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 16384,
+            "kv_used_bytes": 536870912,
+            "evict_count": 8,
+            "evict_ms": 12.3,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "openEuler 22.03"
+        },
+        "kv_cache_config": {
+            "enable_prefix_cache": true,
+            "kv_budget_tokens": 32768,
+            "eviction_policy": "lru"
+        },
+        "metadata": {
+            "test_date": "2026-01-26",
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B --backend ascend --devices npu:0,1,2,3,4,5,6,7 --tp 8",
+            "git_commit": "a7f8e9d",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "多机通信优化，支持 ring topology"
+        }
+    },
+    {
+        "entry_id": "multi_v0_3_1_910b_llama3_70b",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 198.7,
+            "tbt_ms": 30.2,
+            "tpot_ms": 30.2,
+            "throughput_tps": 33.1,
+            "peak_mem_mb": 475136,
+            "error_rate": 0.02,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 16384,
+            "kv_used_bytes": 536870912,
+            "evict_count": 10,
+            "evict_ms": 14.5,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "openEuler 22.03"
+        },
+        "kv_cache_config": {
+            "enable_prefix_cache": true,
+            "kv_budget_tokens": 32768,
+            "eviction_policy": "lru"
+        },
+        "metadata": {
+            "test_date": "2026-01-18",
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B --backend ascend --devices npu:0,1,2,3,4,5,6,7 --tp 8",
+            "git_commit": "b3d5c2a",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "修复多机通信 bug"
+        }
+    },
+    {
+        "entry_id": "multi_v0_3_0_910b_llama3_70b",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 215.4,
+            "tbt_ms": 32.8,
+            "tpot_ms": 32.8,
+            "throughput_tps": 30.5,
+            "peak_mem_mb": 491520,
+            "error_rate": 0.03,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 16384,
+            "kv_used_bytes": 536870912,
+            "evict_count": 12,
+            "evict_ms": 16.2,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.0",
+            "core": "0.1.0.3",
+            "control_plane": "0.1.0.0",
+            "gateway": "0.1.0.0",
+            "kv_cache": "0.1.0.1",
+            "comm": "0.1.0.0",
+            "compression": null,
+            "benchmark": "0.1.0.0"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "openEuler 22.03"
+        },
+        "kv_cache_config": {
+            "enable_prefix_cache": true,
+            "kv_budget_tokens": 32768,
+            "eviction_policy": "lru"
+        },
+        "metadata": {
+            "test_date": "2026-01-10",
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B --backend ascend --devices npu:0,1,2,3,4,5,6,7 --tp 8",
+            "git_commit": "e1a2f5b",
+            "release_date": "2026-01-08",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "首个支持多机分布式推理的版本"
+        }
+    }
+]

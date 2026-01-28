@@ -1,0 +1,307 @@
+[
+    {
+        "entry_id": "single_v0_3_2_a100_qwen2_7b",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 42.3,
+            "tbt_ms": 11.8,
+            "tpot_ms": 11.8,
+            "throughput_tps": 84.7,
+            "peak_mem_mb": 15360,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.8,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04"
+        },
+        "kv_cache_config": null,
+        "metadata": {
+            "test_date": "2026-01-25",
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B --backend cuda --device cuda:0",
+            "git_commit": "a7f8e9d",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "优化 CUDA kernel 性能，提升 15% 吞吐量"
+        }
+    },
+    {
+        "entry_id": "single_v0_3_1_a100_qwen2_7b",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 45.2,
+            "tbt_ms": 12.5,
+            "tpot_ms": 12.5,
+            "throughput_tps": 80.0,
+            "peak_mem_mb": 15872,
+            "error_rate": 0.02,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.1,
+            "spec_accept_rate": 0.72
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04"
+        },
+        "kv_cache_config": null,
+        "metadata": {
+            "test_date": "2026-01-18",
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B --backend cuda --device cuda:0",
+            "git_commit": "b3d5c2a",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "修复 KV cache 驱逐策略 bug"
+        }
+    },
+    {
+        "entry_id": "single_v0_3_0_a100_qwen2_7b",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 48.5,
+            "tbt_ms": 13.2,
+            "tpot_ms": 13.2,
+            "throughput_tps": 75.8,
+            "peak_mem_mb": 16384,
+            "error_rate": 0.03,
+            "prefix_hit_rate": 0.82,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.5,
+            "spec_accept_rate": 0.68
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.0",
+            "core": "0.1.0.3",
+            "control_plane": "0.1.0.0",
+            "gateway": "0.1.0.0",
+            "kv_cache": "0.1.0.1",
+            "comm": "0.1.0.0",
+            "compression": null,
+            "benchmark": "0.1.0.0"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04"
+        },
+        "kv_cache_config": null,
+        "metadata": {
+            "test_date": "2026-01-10",
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B --backend cuda --device cuda:0",
+            "git_commit": "e1a2f5b",
+            "release_date": "2026-01-08",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "首个稳定版本，支持 Ascend NPU"
+        }
+    },
+    {
+        "entry_id": "single_v0_2_5_a100_qwen2_7b",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 52.1,
+            "tbt_ms": 14.0,
+            "tpot_ms": 14.0,
+            "throughput_tps": 71.4,
+            "peak_mem_mb": 17408,
+            "error_rate": 0.04,
+            "prefix_hit_rate": 0.78,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.8,
+            "spec_accept_rate": 0.65
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.0.5",
+            "core": "0.1.0.2",
+            "control_plane": null,
+            "gateway": null,
+            "kv_cache": "0.1.0.0",
+            "comm": null,
+            "compression": null,
+            "benchmark": "0.1.0.0"
+        },
+        "environment": {
+            "pytorch_version": "2.0.1",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04"
+        },
+        "kv_cache_config": null,
+        "metadata": {
+            "test_date": "2025-12-28",
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B --backend cuda --device cuda:0",
+            "git_commit": "c9b4d7e",
+            "release_date": "2025-12-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Beta 版本，Ascend NPU 实验性支持"
+        }
+    },
+    {
+        "entry_id": "single_v0_3_2_910b_qwen2_7b",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 55.8,
+            "tbt_ms": 15.2,
+            "tpot_ms": 15.2,
+            "throughput_tps": 65.8,
+            "peak_mem_mb": 14336,
+            "error_rate": 0.02,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.3,
+            "spec_accept_rate": 0.70
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "openEuler 22.03"
+        },
+        "kv_cache_config": null,
+        "metadata": {
+            "test_date": "2026-01-25",
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B --backend ascend --device npu:0",
+            "git_commit": "a7f8e9d",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "优化 Ascend NPU kernel，提升 10% 性能"
+        }
+    }
+]
