@@ -1,6 +1,6 @@
 [
   {
-    "entry_id": "03444909-6094-49a9-b800-573384f1156f",
+    "entry_id": "4ef3d7c7-aa72-4811-8aa6-5acf090ecf8f",
     "sagellm_version": "0.3.0.3",
     "config_type": "multi_gpu",
     "hardware": {
@@ -14,7 +14,7 @@
       "total_memory_gb": 158.5
     },
     "model": {
-      "name": "gpt2",
+      "name": "unknown",
       "parameters": "unknown",
       "precision": "FP32",
       "quantization": "None"
@@ -27,11 +27,11 @@
       "dataset": "default"
     },
     "metrics": {
-      "ttft_ms": 1689.396619796753,
-      "tbt_ms": 0.04715486006303267,
-      "tpot_ms": 0.04715486006303267,
-      "throughput_tps": 59.27071802108857,
-      "peak_mem_mb": 1162,
+      "ttft_ms": 954.2383193969727,
+      "tbt_ms": 0.03286034169823233,
+      "tpot_ms": 0.03286034169823233,
+      "throughput_tps": 104.58287421712296,
+      "peak_mem_mb": 991,
       "error_rate": 0.0,
       "prefix_hit_rate": 0.0,
       "kv_used_tokens": 1000,
@@ -67,10 +67,10 @@
       "prefix_cache_enabled": true
     },
     "metadata": {
-      "submitted_at": "2026-01-28T08:55:09.204121+00:00",
+      "submitted_at": "2026-01-28T13:30:17.642670+00:00",
       "submitter": "sagellm-benchmark automated run",
       "data_source": "automated-benchmark",
-      "reproducible_cmd": "sagellm-benchmark run --workload short --backend cpu --model gpt2",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
       "git_commit": null,
       "release_date": "2026-01-28",
       "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
