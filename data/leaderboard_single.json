@@ -1,6 +1,85 @@
 [
   {
-    "entry_id": "4ef3d7c7-aa72-4811-8aa6-5acf090ecf8f",
+    "entry_id": "58e2e698-e654-4230-bc70-c97dc2a4d085",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "single_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 1,
+      "interconnect": "None",
+      "chips_per_node": 1,
+      "intra_node_interconnect": "None",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 79.25
+    },
+    "model": {
+      "name": "gpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 2048,
+      "output_length": 512,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 2279.590447743734,
+      "tbt_ms": 0.09345526647086094,
+      "tpot_ms": 0.09345526647086094,
+      "throughput_tps": 43.831197194594424,
+      "peak_mem_mb": 1166,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 600,
+      "kv_used_bytes": 153600,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:54:58.993498+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: long_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "b17f6614-e6a1-4eec-b57c-9b58ae500afa",
     "sagellm_version": "0.3.0.3",
     "config_type": "multi_gpu",
     "hardware": {
@@ -14,7 +93,7 @@
       "total_memory_gb": 158.5
     },
     "model": {
-      "name": "unknown",
+      "name": "distilgpt2",
       "parameters": "unknown",
       "precision": "FP32",
       "quantization": "None"
@@ -27,11 +106,11 @@
       "dataset": "default"
     },
     "metrics": {
-      "ttft_ms": 954.2383193969727,
-      "tbt_ms": 0.03286034169823233,
-      "tpot_ms": 0.03286034169823233,
-      "throughput_tps": 104.58287421712296,
-      "peak_mem_mb": 991,
+      "ttft_ms": 975.6916999816895,
+      "tbt_ms": 0.03391805321279198,
+      "tpot_ms": 0.03391805321279198,
+      "throughput_tps": 102.38339955109224,
+      "peak_mem_mb": 992,
       "error_rate": 0.0,
       "prefix_hit_rate": 0.0,
       "kv_used_tokens": 1000,
@@ -67,7 +146,7 @@
       "prefix_cache_enabled": true
     },
     "metadata": {
-      "submitted_at": "2026-01-28T13:30:17.642670+00:00",
+      "submitted_at": "2026-01-28T13:50:56.179302+00:00",
       "submitter": "sagellm-benchmark automated run",
       "data_source": "automated-benchmark",
       "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
@@ -79,13 +158,172 @@
     }
   },
   {
-    "entry_id": "2908b9e8-9376-4c5b-888f-a6e1ae007966",
+    "entry_id": "6e459ca3-8148-4a36-88db-90293faab327",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "single_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 1,
+      "interconnect": "None",
+      "chips_per_node": 1,
+      "intra_node_interconnect": "None",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 79.25
+    },
+    "model": {
+      "name": "distilgpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 2048,
+      "output_length": 512,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 1048.784653345744,
+      "tbt_ms": 0.11298792932170007,
+      "tpot_ms": 0.11298792932170007,
+      "throughput_tps": 94.67920841374017,
+      "peak_mem_mb": 987,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 600,
+      "kv_used_bytes": 153600,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:55:38.855307+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: long_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "c4299844-a23e-4c3d-a53f-11fb469d1c90",
     "sagellm_version": "0.3.0.3",
     "config_type": "multi_gpu",
     "hardware": {
       "vendor": "NVIDIA",
       "chip_model": "NVIDIA A100 80GB PCIe",
       "chip_count": 2,
+      "interconnect": "NVLink",
+      "chips_per_node": 2,
+      "intra_node_interconnect": "NVLink",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 158.5
+    },
+    "model": {
+      "name": "gpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 2048,
+      "output_length": 512,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 1881.1846574147542,
+      "tbt_ms": 0.1068115234375,
+      "tpot_ms": 0.1068115234375,
+      "throughput_tps": 53.363877373263605,
+      "peak_mem_mb": 1164,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 600,
+      "kv_used_bytes": 153600,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:50:28.798723+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: long_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "638cac48-5290-4dbb-acec-f64578d74577",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "multi_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 2,
+      "interconnect": "NVLink",
       "chips_per_node": 2,
       "intra_node_interconnect": "NVLink",
       "memory_per_chip_gb": 79.25,
@@ -105,11 +343,11 @@
       "dataset": "default"
     },
     "metrics": {
-      "ttft_ms": 1659.9644660949707,
-      "tbt_ms": 0.056869815094302396,
-      "tpot_ms": 0.056869815094302396,
-      "throughput_tps": 60.1955241799209,
-      "peak_mem_mb": 1146,
+      "ttft_ms": 1689.3131256103516,
+      "tbt_ms": 0.07014563589385062,
+      "tpot_ms": 0.07014563589385062,
+      "throughput_tps": 59.276537729645085,
+      "peak_mem_mb": 1163,
       "error_rate": 0.0,
       "prefix_hit_rate": 0.0,
       "kv_used_tokens": 1000,
@@ -145,10 +383,247 @@
       "prefix_cache_enabled": true
     },
     "metadata": {
-      "submitted_at": "2026-01-28T08:53:09.986456+00:00",
+      "submitted_at": "2026-01-28T13:50:06.987540+00:00",
       "submitter": "sagellm-benchmark automated run",
       "data_source": "automated-benchmark",
-      "reproducible_cmd": "sagellm-benchmark run --workload short --backend cpu --model gpt2",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: short_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "30d76796-ef21-4b53-8e6f-96d21fdafd9f",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "single_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 1,
+      "interconnect": "None",
+      "chips_per_node": 1,
+      "intra_node_interconnect": "None",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 79.25
+    },
+    "model": {
+      "name": "gpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 128,
+      "output_length": 128,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 2094.5648670196533,
+      "tbt_ms": 0.06588540896020754,
+      "tpot_ms": 0.06588540896020754,
+      "throughput_tps": 47.6563732468502,
+      "peak_mem_mb": 1169,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 1000,
+      "kv_used_bytes": 256000,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:54:34.938182+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: short_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "a6a63f1e-f8e9-4d55-86cb-eabe26c3f11f",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "multi_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 2,
+      "interconnect": "NVLink",
+      "chips_per_node": 2,
+      "intra_node_interconnect": "NVLink",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 158.5
+    },
+    "model": {
+      "name": "distilgpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 2048,
+      "output_length": 512,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 1003.1216144561768,
+      "tbt_ms": 0.10575108255200114,
+      "tpot_ms": 0.10575108255200114,
+      "throughput_tps": 99.00923825499314,
+      "peak_mem_mb": 998,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 600,
+      "kv_used_bytes": 153600,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:51:15.188389+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+      "git_commit": null,
+      "release_date": "2026-01-28",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: long_input",
+      "verified": false
+    }
+  },
+  {
+    "entry_id": "e177f318-a7ae-4c47-813b-113d727d429d",
+    "sagellm_version": "0.3.0.3",
+    "config_type": "single_gpu",
+    "hardware": {
+      "vendor": "NVIDIA",
+      "chip_model": "NVIDIA A100 80GB PCIe",
+      "chip_count": 1,
+      "interconnect": "None",
+      "chips_per_node": 1,
+      "intra_node_interconnect": "None",
+      "memory_per_chip_gb": 79.25,
+      "total_memory_gb": 79.25
+    },
+    "model": {
+      "name": "distilgpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 128,
+      "output_length": 128,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 1017.4273014068604,
+      "tbt_ms": 0.0669026615643742,
+      "tpot_ms": 0.0669026615643742,
+      "throughput_tps": 97.78223358131568,
+      "peak_mem_mb": 1007,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 1000,
+      "kv_used_bytes": 256000,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.1.1.0",
+      "backend": "0.3.0.6",
+      "core": "0.3.0.5",
+      "control_plane": "0.1.1.5",
+      "gateway": "0.1.1.5",
+      "kv_cache": "0.1.1.6",
+      "comm": "0.1.1.7",
+      "compression": "0.1.1.7",
+      "benchmark": "0.3.0.3"
+    },
+    "environment": {
+      "os": "Linux 6.2.0-26-generic",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": "12.8",
+      "cann_version": null,
+      "driver_version": "570.124.06"
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-01-28T13:55:19.543994+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
       "git_commit": null,
       "release_date": "2026-01-28",
       "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
