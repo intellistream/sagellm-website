@@ -26,6 +26,7 @@
 |--------|------|------|------|
 | `entry_id` | string | ✅ | 唯一标识符（UUID v4 格式） |
 | `sagellm_version` | string | ✅ | sageLLM umbrella 包版本号（如 `0.2.3.3`） |
+| `config_type` | string | ✅ | 配置类型：`"single_gpu"`, `"multi_gpu"`, `"multi_node"` |
 | `hardware` | object | ✅ | 硬件配置 |
 | `model` | object | ✅ | 模型配置 |
 | `workload` | object | ✅ | Workload 配置 |
@@ -46,14 +47,16 @@
 |--------|------|------|------|------|
 | `vendor` | string | ✅ | 芯片厂商 | `"NVIDIA"`, `"Huawei"`, `"Intel"`, `"AMD"` |
 | `chip_model` | string | ✅ | 芯片型号 | `"A100-80GB"`, `"Ascend 910B"`, `"Xeon Gold 6248R"` |
-| `chip_count` | integer | ✅ | 芯片数量 | `1`, `8`, `16` |
-| `interconnect` | string | ✅ | 互联类型 | `"None"`, `"NVLink"`, `"HCCS"`, `"InfiniBand"`, `"PCIe"` |
+| `chip_count` | integer | ✅ | 总芯片数量（所有节点） | `1`, `8`, `16` |
+| `chips_per_node` | integer | ⚠️ | 每节点芯片数（多机必填） | `4`, `8` |
+| `intra_node_interconnect` | string | ✅ | 节点内卡间互联 | `"None"`, `"NVLink"`, `"HCCS"`, `"PCIe"` |
 | `memory_per_chip_gb` | number | ⬜ | 单卡显存（GB） | `80`, `64`, `32` |
 | `total_memory_gb` | number | ⬜ | 总显存（GB） | `80`, `512`, `1024` |
 
-**单机 vs 多机差异**：
-- **单机**：`chip_count = 1`, `interconnect = "None"`
-- **多机**：`chip_count >= 2`, `interconnect != "None"`
+**配置类型对应**：
+- **单机单卡** (`config_type="single_gpu"`): `chip_count=1`, `intra_node_interconnect="None"`, `cluster=null`
+- **单机多卡** (`config_type="multi_gpu"`): `chip_count>1`, `intra_node_interconnect="NVLink/HCCS"`, `cluster=null`
+- **多机多卡** (`config_type="multi_node"`): `chip_count>1`, `chips_per_node>0`, `cluster!=null`
 
 ---
 
@@ -110,11 +113,17 @@
 |--------|------|------|------|------|
 | `node_count` | integer | ✅ | 节点数量 | `2`, `4`, `8` |
 | `comm_backend` | string | ✅ | 通信后端 | `"NCCL"`, `"HCCL"`, `"RCCL"`, `"Gloo"` |
-| `topology_type` | string | ✅ | 网络拓扑 | `"Multi-Node-InfiniBand"`, `"Multi-Node-NVLink"` |
+| `inter_node_network` | string | ✅ | 节点间网络类型（网卡） | `"InfiniBand"`, `"Ethernet"`, `"RoCE"`, `"NVLink-Switch"` |
+| `network_bandwidth_gbps` | integer | ⬜ | 网络带宽（Gbps） | `100`, `200`, `400` |
+| `topology_type` | string | ✅ | 物理拓扑 | `"Ring"`, `"Tree"`, `"Mesh"`, `"All-to-All"` |
 | `parallelism` | object | ⬜ | 并行策略 | - |
 | `parallelism.tensor_parallel` | integer | ⬜ | 张量并行度 | `2`, `4`, `8` |
 | `parallelism.pipeline_parallel` | integer | ⬜ | 流水线并行度 | `2`, `4` |
 | `parallelism.data_parallel` | integer | ⬜ | 数据并行度 | `1`, `2` |
+
+**说明**：
+- `inter_node_network` - **节点间网卡类型**（回答你的问题2）
+- `topology_type` - **物理连接拓扑**（如何组网）
 
 **单机 vs 多机区分规则**：
 ```json

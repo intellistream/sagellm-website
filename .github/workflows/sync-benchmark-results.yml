@@ -1,16 +1,24 @@
 name: Sync Benchmark Results from sagellm-benchmark
 
+# ⚠️ 如果 sagellm-benchmark 是私有仓库，需要配置 PAT_TOKEN:
+# 1. 创建 PAT: GitHub Settings → Developer settings → Personal access tokens
+# 2. 权限: repo (Full control)
+# 3. 添加到本仓库 Secrets: Settings → Secrets → Actions → New secret
+#    Name: PAT_TOKEN
+#    Value: <your-token>
+#
+
 on:
-  # 定期自动同步（每天一次）
-  schedule:
-    - cron: '0 0 * * *'  # 每天 UTC 00:00
-  
-  # 手动触发
-  workflow_dispatch:
-  
-  # 当 benchmark 仓库有新提交时触发（通过 repository_dispatch）
+  # 主要同步方式：当 benchmark 仓库 main/main-dev 有新提交时自动触发
   repository_dispatch:
     types: [benchmark-updated]
+  
+  # 手动触发（用于测试或紧急同步）
+  workflow_dispatch:
+  
+  # 定期备份同步（每天 UTC 00:00，北京时间 08:00）
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
   sync-results:
@@ -28,7 +36,9 @@ jobs:
         with:
           repository: intellistream/sagellm-benchmark
           path: benchmark
-          ref: main-dev  # 从 main-dev 分支拉取最新结果
+          # 使用触发事件传递的分支，如果没有则默认 main-dev
+          ref: ${{ github.event.client_payload.ref || 'main-dev' }}
+          token: ${{ secrets.PAT_TOKEN }}  # 访问私有仓库需要 PAT
       
       - name: Find and copy leaderboard files
         id: copy-files
