@@ -1,0 +1,79 @@
+{
+  "entry_id": "ef70f5ee-614f-4ede-9bb5-b8616cb99257",
+  "sagellm_version": "0.3.0.3",
+  "config_type": "multi_gpu",
+  "hardware": {
+    "vendor": "NVIDIA",
+    "chip_model": "NVIDIA A100 80GB PCIe",
+    "chip_count": 2,
+    "interconnect": "NVLink",
+    "chips_per_node": 2,
+    "intra_node_interconnect": "NVLink",
+    "memory_per_chip_gb": 79.25,
+    "total_memory_gb": 158.5
+  },
+  "model": {
+    "name": "unknown",
+    "parameters": "unknown",
+    "precision": "FP32",
+    "quantization": "None"
+  },
+  "workload": {
+    "input_length": 128,
+    "output_length": 128,
+    "batch_size": 1,
+    "concurrent_requests": 1,
+    "dataset": "default"
+  },
+  "metrics": {
+    "ttft_ms": 1855.9438387552898,
+    "tbt_ms": 0.14112774370495318,
+    "tpot_ms": 0.14112774370495318,
+    "throughput_tps": 54.03933637528804,
+    "peak_mem_mb": 1155,
+    "error_rate": 0.0,
+    "prefix_hit_rate": 0.0,
+    "kv_used_tokens": 600,
+    "kv_used_bytes": 153600,
+    "evict_count": 0,
+    "evict_ms": 0.0,
+    "spec_accept_rate": null
+  },
+  "cluster": null,
+  "versions": {
+    "protocol": "0.1.1.0",
+    "backend": "0.3.0.6",
+    "core": "0.3.0.5",
+    "control_plane": "0.1.1.5",
+    "gateway": "0.1.1.5",
+    "kv_cache": "0.1.1.6",
+    "comm": "0.1.1.7",
+    "compression": "0.1.1.7",
+    "benchmark": "0.3.0.3"
+  },
+  "environment": {
+    "os": "Linux 6.2.0-26-generic",
+    "python_version": "3.11.14",
+    "pytorch_version": "2.10.0+cu128",
+    "cuda_version": "12.8",
+    "cann_version": null,
+    "driver_version": "570.124.06"
+  },
+  "kv_cache_config": {
+    "enabled": true,
+    "eviction_policy": "LRU",
+    "budget_tokens": 8192,
+    "prefix_cache_enabled": true
+  },
+  "metadata": {
+    "submitted_at": "2026-01-28T10:29:13.348619+00:00",
+    "submitter": "sagellm-benchmark automated run",
+    "data_source": "automated-benchmark",
+    "reproducible_cmd": "sagellm-benchmark run --workload None --backend None --model None",
+    "git_commit": null,
+    "release_date": "2026-01-28",
+    "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+    "notes": "Benchmark run: long_input",
+    "verified": false
+  }
+}
