@@ -190,6 +190,20 @@
     color: white;
 }
 
+/* Config Column */
+.config-cell {
+    color: #2d3748;
+    font-size: 0.9em;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.config-cell small {
+    color: #718096;
+    font-size: 0.85em;
+    font-weight: 400;
+}
+
 /* Date Column */
 .date-cell {
     color: #718096;
@@ -217,12 +231,14 @@
 }
 
 .trend-up {
-    color: #e53e3e; /* 红色 - 表示提升/进步 */
+    color: #e53e3e;
+    /* 红色 - 表示提升/进步 */
     font-weight: 600;
 }
 
 .trend-down {
-    color: #38a169; /* 绿色 - 表示下降/减少 */
+    color: #38a169;
+    /* 绿色 - 表示下降/减少 */
     font-weight: 600;
 }
 

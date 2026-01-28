@@ -16,12 +16,14 @@
 
     // State management
     let state = {
-        currentTab: 'single',
-        singleData: [],
-        multiData: [],
+        currentTab: 'single-chip', // single-chip, multi-chip, multi-node
+        singleChipData: [],
+        multiChipData: [],
+        multiNodeData: [],
         filters: {
-            single: { hardware: 'all', model: 'all', workload: 'all', precision: 'all' },
-            multi: { hardware: 'all', model: 'all', workload: 'all', precision: 'all' }
+            'single-chip': { hardware: '', model: '', workload: '', precision: '' },
+            'multi-chip': { hardware: '', model: '', workload: '', precision: '' },
+            'multi-node': { hardware: '', model: '', workload: '', precision: '' }
         },
         expandedRows: new Set()
     };
@@ -43,6 +45,7 @@
         const contentEl = document.getElementById('leaderboard-content');
 
         try {
+            // 加载单机单卡和多机多卡数据
             const [singleRes, multiRes] = await Promise.all([
                 fetch('./data/leaderboard_single.json'),
                 fetch('./data/leaderboard_multi.json')
@@ -52,12 +55,29 @@
                 throw new Error('Failed to load data');
             }
 
-            state.singleData = await singleRes.json();
-            state.multiData = await multiRes.json();
+            const singleData = await singleRes.json();
+            const multiData = await multiRes.json();
 
-            // Sort by version (newest first)
-            state.singleData.sort((a, b) => compareVersions(b.sagellm_version, a.sagellm_version));
-            state.multiData.sort((a, b) => compareVersions(b.sagellm_version, a.sagellm_version));
+            // 按芯片数和节点数分类
+            state.singleChipData = singleData.filter(entry =>
+                entry.hardware.chip_count === 1 && (!entry.cluster || entry.cluster.node_count === 1)
+            );
+
+            state.multiChipData = singleData.filter(entry =>
+                entry.hardware.chip_count > 1 && (!entry.cluster || entry.cluster.node_count === 1)
+            );
+
+            state.multiNodeData = multiData.filter(entry =>
+                entry.cluster && entry.cluster.node_count > 1
+            );
+
+            // 排序
+            [state.singleChipData, state.multiChipData, state.multiNodeData].forEach(data => {
+                data.sort((a, b) => compareVersions(b.sagellm_version, a.sagellm_version));
+            });
+
+            // 初始化筛选器默认值
+            initializeFilters();
 
             loadingEl.style.display = 'none';
             contentEl.style.display = 'block';
@@ -66,6 +86,22 @@
             loadingEl.style.display = 'none';
             errorEl.style.display = 'block';
         }
+    }
+
+    // 初始化筛选器默认值（选择第一个可用配置）
+    function initializeFilters() {
+        ['single-chip', 'multi-chip', 'multi-node'].forEach(tab => {
+            const data = getDataByTab(tab);
+            if (data.length > 0) {
+                const first = data[0];
+                state.filters[tab] = {
+                    hardware: first.hardware.chip_model,
+                    model: first.model.name,
+                    workload: first.workload.type,
+                    precision: first.model.precision
+                };
+            }
+        });
     }
 
     // Setup event listeners
@@ -90,7 +126,17 @@
         });
     }
 
-    // Switch between single/multi tabs
+    // Get data by tab
+    function getDataByTab(tab) {
+        switch (tab) {
+            case 'single-chip': return state.singleChipData;
+            case 'multi-chip': return state.multiChipData;
+            case 'multi-node': return state.multiNodeData;
+            default: return [];
+        }
+    }
+
+    // Switch between single-chip/multi-chip/multi-node tabs
     function switchTab(tab) {
         state.currentTab = tab;
         state.expandedRows.clear();
@@ -105,14 +151,15 @@
     }
 
     // Render filter dropdowns
+    // Render filter dropdowns (删除 ALL 选项)
     function renderFilters() {
-        const data = state.currentTab === 'single' ? state.singleData : state.multiData;
+        const data = getDataByTab(state.currentTab);
         const filters = state.filters[state.currentTab];
 
-        // Extract unique values
+        // Extract unique values (不包含 'all')
         const hardwareOptions = getUniqueValues(data, d => d.hardware.chip_model);
         const modelOptions = getUniqueValues(data, d => d.model.name);
-        const workloadOptions = getUniqueValues(data, d => d.workload.workload_type);
+        const workloadOptions = getUniqueValues(data, d => d.workload.type);
         const precisionOptions = getUniqueValues(data, d => d.model.precision);
 
         // Update dropdowns
@@ -123,17 +170,17 @@
     }
 
     function getUniqueValues(data, accessor) {
-        return ['all', ...new Set(data.map(accessor).filter(Boolean))];
+        // 删除 'all'，只返回唯一值
+        return [...new Set(data.map(accessor).filter(Boolean))];
     }
 
     function updateSelect(id, options, selectedValue) {
         const select = document.getElementById(id);
         if (!select) return;
 
+        // 删除 'All' 选项
         select.innerHTML = options.map(opt =>
-            `<option value="${opt}" ${opt === selectedValue ? 'selected' : ''}>
-                ${opt === 'all' ? 'All' : opt}
-            </option>`
+            `<option value="${opt}" ${opt === selectedValue ? 'selected' : ''}>${opt}</option>`
         ).join('');
     }
 
@@ -144,15 +191,15 @@
 
         if (!tbody) return;
 
-        const data = state.currentTab === 'single' ? state.singleData : state.multiData;
+        const data = getDataByTab(state.currentTab);
         const filters = state.filters[state.currentTab];
 
-        // Apply filters
+        // Apply filters (删除 'all' 判断)
         const filtered = data.filter(entry => {
-            return (filters.hardware === 'all' || entry.hardware.chip_model === filters.hardware) &&
-                (filters.model === 'all' || entry.model.name === filters.model) &&
-                (filters.workload === 'all' || entry.workload.workload_type === filters.workload) &&
-                (filters.precision === 'all' || entry.model.precision === filters.precision);
+            return entry.hardware.chip_model === filters.hardware &&
+                entry.model.name === filters.model &&
+                entry.workload.type === filters.workload &&
+                entry.model.precision === filters.precision;
         });
 
         // Show empty state if no data
@@ -166,7 +213,7 @@
 
         // Calculate trends (compare with previous version AND baseline)
         const baseline = filtered[filtered.length - 1]; // 最早的版本是 baseline
-        
+
         const withTrends = filtered.map((entry, index) => {
             const prevEntry = filtered[index + 1]; // Next in array is previous version
             const trends = prevEntry ? calculateTrends(entry, prevEntry) : {};
@@ -196,6 +243,9 @@
         const t = entry.trends || {};
         const bt = entry.baselineTrends || {};
 
+        // 生成配置描述（芯片数/节点数）
+        const configText = getConfigText(entry);
+
         return `
             <tr data-entry-id="${entry.entry_id}">
                 <td>
@@ -205,6 +255,7 @@
                         ${entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
                     </div>
                 </td>
+                <td class="config-cell">${configText}</td>
                 <td class="date-cell">${entry.metadata.release_date}</td>
                 <td>${renderMetricCell(m.ttft_ms, t.ttft_ms, bt.ttft_ms, false, false, entry.isBaseline)}</td>
                 <td>${renderMetricCell(m.throughput_tps, t.throughput_tps, bt.throughput_tps, true, false, entry.isBaseline)}</td>
@@ -218,6 +269,20 @@
                 </td>
             </tr>
         `;
+    }
+
+    // 生成配置描述文本
+    function getConfigText(entry) {
+        const chipCount = entry.hardware.chip_count;
+        const nodeCount = entry.cluster ? entry.cluster.node_count : 1;
+
+        if (nodeCount === 1 && chipCount === 1) {
+            return `1 × ${entry.hardware.chip_model}`;
+        } else if (nodeCount === 1 && chipCount > 1) {
+            return `${chipCount} × ${entry.hardware.chip_model}`;
+        } else {
+            return `${nodeCount} nodes × ${chipCount} chips<br><small>(${entry.cluster.interconnect})</small>`;
+        }
     }
 
     // Render metric cell with trend (双重对比：vs baseline 和 vs 上一版)
