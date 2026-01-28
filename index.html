@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap"
         rel="stylesheet">
 
+    <!-- Leaderboard Styles -->
+    <link rel="stylesheet" href="./assets/leaderboard.css">
+
     <style>
         * {
             margin: 0;
@@ -387,6 +390,93 @@
             </div>
         </div>
 
+        <!-- Leaderboard Section -->
+        <div class="leaderboard-section" id="leaderboard">
+            <h2>📊 Performance Leaderboard</h2>
+            <p>Track sageLLM's version evolution with real-world performance metrics. Compare different hardware
+                configurations, models, and workloads.</p>
+
+            <!-- Tab Navigation -->
+            <div class="tab-nav">
+                <button class="tab-button active" data-tab="single-chip">单机单卡</button>
+                <button class="tab-button" data-tab="multi-chip">单机多卡</button>
+                <button class="tab-button" data-tab="multi-node">多机多卡</button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="leaderboard-loading" class="loading-state">
+                <div class="spinner"></div>
+                <p>Loading leaderboard data...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="leaderboard-error" class="empty-state" style="display: none;">
+                <div class="empty-state-icon">⚠️</div>
+                <h3>Failed to Load Data</h3>
+                <p>Please refresh the page or check your internet connection.</p>
+            </div>
+
+            <!-- Main Content -->
+            <div id="leaderboard-content" style="display: none;">
+                <!-- Filters -->
+                <div class="filters">
+                    <div class="filter-group">
+                        <label for="filter-hardware">Hardware</label>
+                        <select id="filter-hardware">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-model">Model</label>
+                        <select id="filter-model">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-workload">Workload</label>
+                        <select id="filter-workload">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="filter-precision">Precision</label>
+                        <select id="filter-precision">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-container">
+                    <table class="leaderboard-table">
+                        <thead>
+                            <tr>
+                                <th>Version</th>
+                                <th>Config</th>
+                                <th>Release Date</th>
+                                <th>TTFT (ms) ↓</th>
+                                <th>Tokens/s ↑</th>
+                                <th>Peak Mem (MB) ↓</th>
+                                <th>Error Rate ↓</th>
+                                <th>Hit Rate ↑</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="leaderboard-tbody">
+                            <!-- Populated by JS -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Empty State -->
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <div class="empty-state-icon">🔍</div>
+                    <h3>No Results Found</h3>
+                    <p>Try adjusting your filters to see more data.</p>
+                </div>
+            </div>
+        </div>
+
         <div class="section" id="architecture">
             <h2 data-i18n="arch_title">🏗️ System Architecture</h2>
             <p data-i18n="arch_desc">Layered design with protocol-first approach, CPU-first development, and PD
@@ -682,6 +772,9 @@
     <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"
         onload="initAsciinemaPlayer()"
         onerror="document.getElementById('demo-player').innerHTML=\'Error loading player script from CDN\'"></script>
+
+    <!-- Leaderboard Script -->
+    <script src="./assets/leaderboard.js"></script>
 </body>
 
 </html>

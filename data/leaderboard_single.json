@@ -1,0 +1,4722 @@
+[
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 45.8,
+            "throughput_tps": 70.5,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 141.8,
+            "tpot_ms": 141.8,
+            "error_rate": 0.012,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.1,
+            "spec_accept_rate": 0.72
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c7x3",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 41.7,
+            "throughput_tps": 90.0,
+            "peak_mem_mb": 16128,
+            "tbt_ms": 111.1,
+            "tpot_ms": 111.1,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 3.4,
+            "spec_accept_rate": 0.82
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "b7z4",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 修复问题，性能略有下降"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 49.7,
+            "throughput_tps": 71.8,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 139.3,
+            "tpot_ms": 139.3,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 3.4,
+            "spec_accept_rate": 0.7
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d9y9",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen27b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 55.4,
+            "throughput_tps": 73.0,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 137.0,
+            "tpot_ms": 137.0,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.4,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c8x1",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 718.3,
+            "throughput_tps": 88.7,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 112.7,
+            "tpot_ms": 112.7,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.3,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f3z3",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 760.7,
+            "throughput_tps": 66.6,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 150.2,
+            "tpot_ms": 150.2,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.4,
+            "spec_accept_rate": 0.73
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f2x9",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 803.9,
+            "throughput_tps": 64.6,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 154.8,
+            "tpot_ms": 154.8,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.2,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d6x0",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen27b_long_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 843.4,
+            "throughput_tps": 62.1,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 161.0,
+            "tpot_ms": 161.0,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 3.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a1y7",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen27b_short_input_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 29.1,
+            "throughput_tps": 135.0,
+            "peak_mem_mb": 7526,
+            "tbt_ms": 74.1,
+            "tpot_ms": 74.1,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 0.9,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c6z1",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen27b_short_input_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 31.1,
+            "throughput_tps": 140.0,
+            "peak_mem_mb": 7526,
+            "tbt_ms": 71.4,
+            "tpot_ms": 71.4,
+            "error_rate": 0.011,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c6y5",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen27b_short_input_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 33.0,
+            "throughput_tps": 135.5,
+            "peak_mem_mb": 7526,
+            "tbt_ms": 73.8,
+            "tpot_ms": 73.8,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.2,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d8y3",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen27b_short_input_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 24.4,
+            "throughput_tps": 129.5,
+            "peak_mem_mb": 7526,
+            "tbt_ms": 77.2,
+            "tpot_ms": 77.2,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.5,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a7y8",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen27b_pressure_test_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 183.3,
+            "throughput_tps": 81.7,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 122.4,
+            "tpot_ms": 122.4,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.4,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f5z7",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen27b_pressure_test_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 192.6,
+            "throughput_tps": 71.2,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 140.4,
+            "tpot_ms": 140.4,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.3,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "e5z9",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen27b_pressure_test_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 194.7,
+            "throughput_tps": 71.5,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 139.9,
+            "tpot_ms": 139.9,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.1,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f9y0",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen27b_pressure_test_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 217.1,
+            "throughput_tps": 69.5,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 143.9,
+            "tpot_ms": 143.9,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.6,
+            "spec_accept_rate": 0.76
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f9z0",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_huawei_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 43.5,
+            "throughput_tps": 85.6,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 116.8,
+            "tpot_ms": 116.8,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.0,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f7z2",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_huawei_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 42.3,
+            "throughput_tps": 77.1,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 129.7,
+            "tpot_ms": 129.7,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.2,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a5y0",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_huawei_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 50.4,
+            "throughput_tps": 75.1,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 133.2,
+            "tpot_ms": 133.2,
+            "error_rate": 0.011,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d8z8",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_huawei_qwen27b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 57.4,
+            "throughput_tps": 67.2,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 148.8,
+            "tpot_ms": 148.8,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.0,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c5x8",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_huawei_qwen27b_long_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 689.3,
+            "throughput_tps": 87.0,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 114.9,
+            "tpot_ms": 114.9,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.5,
+            "spec_accept_rate": 0.76
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a9z8",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_huawei_qwen27b_long_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 718.0,
+            "throughput_tps": 81.4,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 122.9,
+            "tpot_ms": 122.9,
+            "error_rate": 0.005,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.3,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c2z3",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_huawei_qwen27b_long_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 758.3,
+            "throughput_tps": 73.9,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 135.3,
+            "tpot_ms": 135.3,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 0.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c6y0",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_huawei_qwen27b_long_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 803.5,
+            "throughput_tps": 67.3,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 148.6,
+            "tpot_ms": 148.6,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c3x6",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_kunlun_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Kunlun XPU R200",
+            "chip_count": 1,
+            "total_memory_gb": 32,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 41.1,
+            "throughput_tps": 82.9,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 120.6,
+            "tpot_ms": 120.6,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.6,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c3x2",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_kunlun_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Kunlun XPU R200",
+            "chip_count": 1,
+            "total_memory_gb": 32,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 45.7,
+            "throughput_tps": 74.2,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 134.8,
+            "tpot_ms": 134.8,
+            "error_rate": 0.011,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.7,
+            "spec_accept_rate": 0.76
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a8x1",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_kunlun_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Kunlun XPU R200",
+            "chip_count": 1,
+            "total_memory_gb": 32,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 55.1,
+            "throughput_tps": 66.5,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 150.4,
+            "tpot_ms": 150.4,
+            "error_rate": 0.009,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.0,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c8z8",
+            "release_date": "2026-01-24",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_kunlun_qwen27b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Kunlun XPU R200",
+            "chip_count": 1,
+            "total_memory_gb": 32,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 57.1,
+            "throughput_tps": 71.0,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 140.8,
+            "tpot_ms": 140.8,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.2,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d9x7",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_llama38b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 49.0,
+            "throughput_tps": 66.1,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 151.3,
+            "tpot_ms": 151.3,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.4,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "f4x0",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_llama38b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 42.8,
+            "throughput_tps": 69.0,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 144.9,
+            "tpot_ms": 144.9,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e7x8",
+            "release_date": "2026-01-26",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_llama38b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 53.4,
+            "throughput_tps": 71.7,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 139.5,
+            "tpot_ms": 139.5,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.7,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "c9z1",
+            "release_date": "2026-01-26",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_llama38b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 52.4,
+            "throughput_tps": 58.6,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 170.6,
+            "tpot_ms": 170.6,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.7,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e7y6",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_llama38b_long_input_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 396.4,
+            "throughput_tps": 122.5,
+            "peak_mem_mb": 8601,
+            "tbt_ms": 81.6,
+            "tpot_ms": 81.6,
+            "error_rate": 0.012,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e8z4",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_llama38b_long_input_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 418.9,
+            "throughput_tps": 119.4,
+            "peak_mem_mb": 8601,
+            "tbt_ms": 83.8,
+            "tpot_ms": 83.8,
+            "error_rate": 0.02,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.7,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "d7y7",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_llama38b_long_input_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 444.2,
+            "throughput_tps": 110.6,
+            "peak_mem_mb": 8601,
+            "tbt_ms": 90.4,
+            "tpot_ms": 90.4,
+            "error_rate": 0.012,
+            "prefix_hit_rate": 0.93,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 1.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "b5z5",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_llama38b_long_input_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 474.9,
+            "throughput_tps": 115.4,
+            "peak_mem_mb": 8601,
+            "tbt_ms": 86.7,
+            "tpot_ms": 86.7,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 0.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "b3x9",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_huawei_llama38b_short_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 41.3,
+            "throughput_tps": 63.8,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 156.7,
+            "tpot_ms": 156.7,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 0.9,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e8x8",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_huawei_llama38b_short_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 41.7,
+            "throughput_tps": 60.7,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 164.7,
+            "tpot_ms": 164.7,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.6,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a5z5",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_huawei_llama38b_short_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 51.7,
+            "throughput_tps": 64.5,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 155.0,
+            "tpot_ms": 155.0,
+            "error_rate": 0.011,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e5y7",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_huawei_llama38b_short_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 1,
+            "total_memory_gb": 64,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 46.4,
+            "throughput_tps": 57.5,
+            "peak_mem_mb": 17202,
+            "tbt_ms": 173.9,
+            "tpot_ms": 173.9,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.0,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "f4y2",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 46.4,
+            "throughput_tps": 44.1,
+            "peak_mem_mb": 30105,
+            "tbt_ms": 226.8,
+            "tpot_ms": 226.8,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.8,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "d6x0",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 43.8,
+            "throughput_tps": 43.5,
+            "peak_mem_mb": 30105,
+            "tbt_ms": 229.9,
+            "tpot_ms": 229.9,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.9,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c7y9",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 49.3,
+            "throughput_tps": 37.4,
+            "peak_mem_mb": 30105,
+            "tbt_ms": 267.4,
+            "tpot_ms": 267.4,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.1,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "f5z0",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen214b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 54.9,
+            "throughput_tps": 31.4,
+            "peak_mem_mb": 30105,
+            "tbt_ms": 318.5,
+            "tpot_ms": 318.5,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.6,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "d3z4",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_2_nvidia_qwen214b_short_input_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 26.7,
+            "throughput_tps": 77.0,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 129.9,
+            "tpot_ms": 129.9,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 3.2,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c6x0",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_1_nvidia_qwen214b_short_input_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 30.1,
+            "throughput_tps": 71.0,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 140.8,
+            "tpot_ms": 140.8,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.6,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "a2y0",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_3_0_nvidia_qwen214b_short_input_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 32.1,
+            "throughput_tps": 69.7,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 143.5,
+            "tpot_ms": 143.5,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.7,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "a2y1",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "single_0_2_5_nvidia_qwen214b_short_input_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 1,
+            "total_memory_gb": 80,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 33.4,
+            "throughput_tps": 52.8,
+            "peak_mem_mb": 15052,
+            "tbt_ms": 189.4,
+            "tpot_ms": 189.4,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.4,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c4y9",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 17.3,
+            "throughput_tps": 326.6,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 30.6,
+            "tpot_ms": 30.6,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.8,
+            "spec_accept_rate": 0.82
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "e6y0",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 17.9,
+            "throughput_tps": 296.9,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 33.7,
+            "tpot_ms": 33.7,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 3.0,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a5y0",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 22.4,
+            "throughput_tps": 284.7,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 35.1,
+            "tpot_ms": 35.1,
+            "error_rate": 0.02,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.7,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "c7y2",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 19.9,
+            "throughput_tps": 273.3,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 36.6,
+            "tpot_ms": 36.6,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.4,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f2y9",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 269.1,
+            "throughput_tps": 325.0,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 30.8,
+            "tpot_ms": 30.8,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.2,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f6y8",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 290.1,
+            "throughput_tps": 299.9,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 33.3,
+            "tpot_ms": 33.3,
+            "error_rate": 0.013,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.6,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f9z8",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_qwen27b_long_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 305.2,
+            "throughput_tps": 288.4,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 34.7,
+            "tpot_ms": 34.7,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.7,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "f4y9",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_qwen27b_long_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 325.1,
+            "throughput_tps": 279.6,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 35.8,
+            "tpot_ms": 35.8,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 3.3,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "b8y8",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 21.8,
+            "throughput_tps": 152.1,
+            "peak_mem_mb": 120422,
+            "tbt_ms": 65.7,
+            "tpot_ms": 65.7,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.93,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.2,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "e2y9",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 15.3,
+            "throughput_tps": 149.5,
+            "peak_mem_mb": 120422,
+            "tbt_ms": 66.9,
+            "tpot_ms": 66.9,
+            "error_rate": 0.005,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.3,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "f5x9",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_qwen214b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 17.9,
+            "throughput_tps": 151.8,
+            "peak_mem_mb": 120422,
+            "tbt_ms": 65.9,
+            "tpot_ms": 65.9,
+            "error_rate": 0.012,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c2x7",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_qwen214b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 18.1,
+            "throughput_tps": 137.1,
+            "peak_mem_mb": 120422,
+            "tbt_ms": 72.9,
+            "tpot_ms": 72.9,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.1,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "b1x7",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_llama38b_short_input_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 13.3,
+            "throughput_tps": 510.5,
+            "peak_mem_mb": 34405,
+            "tbt_ms": 19.6,
+            "tpot_ms": 19.6,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.2,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a1z6",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_llama38b_short_input_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 14.8,
+            "throughput_tps": 470.4,
+            "peak_mem_mb": 34405,
+            "tbt_ms": 21.3,
+            "tpot_ms": 21.3,
+            "error_rate": 0.012,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.2,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e5z1",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_llama38b_short_input_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 6.2,
+            "throughput_tps": 459.9,
+            "peak_mem_mb": 34405,
+            "tbt_ms": 21.7,
+            "tpot_ms": 21.7,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.93,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.1,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e3z0",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_llama38b_short_input_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 6.8,
+            "throughput_tps": 424.3,
+            "peak_mem_mb": 34405,
+            "tbt_ms": 23.6,
+            "tpot_ms": 23.6,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.8,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e4x6",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_huawei_8x_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 12.2,
+            "throughput_tps": 344.8,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 29.0,
+            "tpot_ms": 29.0,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.5,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "e8x7",
+            "release_date": "2026-01-16",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_huawei_8x_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 12.6,
+            "throughput_tps": 315.8,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 31.7,
+            "tpot_ms": 31.7,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 3.5,
+            "spec_accept_rate": 0.73
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c7z6",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_huawei_8x_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 9.7,
+            "throughput_tps": 301.7,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 33.1,
+            "tpot_ms": 33.1,
+            "error_rate": 0.005,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.0,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c9z3",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_huawei_8x_qwen214b_short_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 9.3,
+            "throughput_tps": 283.5,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 35.3,
+            "tpot_ms": 35.3,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.82,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.0,
+            "spec_accept_rate": 0.72
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "b3x8",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_huawei_8x_llama38b_long_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 162.0,
+            "throughput_tps": 592.5,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 16.9,
+            "tpot_ms": 16.9,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.0,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e6x4",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_huawei_8x_llama38b_long_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 173.2,
+            "throughput_tps": 553.4,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 18.1,
+            "tpot_ms": 18.1,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.9,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "b9y3",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_huawei_8x_llama38b_long_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 179.3,
+            "throughput_tps": 530.7,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 18.8,
+            "tpot_ms": 18.8,
+            "error_rate": 0.005,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 3.4,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a4x6",
+            "release_date": "2026-01-26",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_huawei_8x_llama38b_long_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 188.9,
+            "throughput_tps": 494.1,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 20.2,
+            "tpot_ms": 20.2,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.6,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a5x2",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 16.1,
+            "throughput_tps": 319.7,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 31.3,
+            "tpot_ms": 31.3,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 3.1,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "d3y1",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 19.7,
+            "throughput_tps": 310.2,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 32.2,
+            "tpot_ms": 32.2,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.2,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "b4z7",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 24.2,
+            "throughput_tps": 284.9,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 35.1,
+            "tpot_ms": 35.1,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.4,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "b5x1",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_qwen27b_short_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-7B",
+            "size_billions": 7,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 25.1,
+            "throughput_tps": 271.4,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 36.8,
+            "tpot_ms": 36.8,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.5,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-7B",
+            "git_commit": "a5x4",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_2_nvidia_4x_qwen214b_pressure_test_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 41.5,
+            "throughput_tps": 294.8,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 33.9,
+            "tpot_ms": 33.9,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.1,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "b7y1",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_1_nvidia_4x_qwen214b_pressure_test_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 37.6,
+            "throughput_tps": 278.3,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 35.9,
+            "tpot_ms": 35.9,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 3.0,
+            "spec_accept_rate": 0.7
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c4z1",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_3_0_nvidia_4x_qwen214b_pressure_test_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 46.1,
+            "throughput_tps": 252.6,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 39.6,
+            "tpot_ms": 39.6,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.5,
+            "spec_accept_rate": null
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c9x6",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multichip_0_2_5_nvidia_4x_qwen214b_pressure_test_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA H100-80GB",
+            "chip_count": 4,
+            "total_memory_gb": 320,
+            "cuda_version": "12.3",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 49.5,
+            "throughput_tps": 249.2,
+            "peak_mem_mb": 60211,
+            "tbt_ms": 40.1,
+            "tpot_ms": 40.1,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.82,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.7,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": null,
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "b5x4",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    }
+]

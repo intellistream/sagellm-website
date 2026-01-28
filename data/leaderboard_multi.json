@@ -1,0 +1,1850 @@
+[
+    {
+        "entry_id": "multinode_0_3_2_huawei_2n8c_llama370b_long_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 164.2,
+            "throughput_tps": 75.6,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 132.3,
+            "tpot_ms": 132.3,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.1,
+            "spec_accept_rate": 0.7
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "c4z1",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_huawei_2n8c_llama370b_long_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 164.2,
+            "throughput_tps": 62.3,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 160.5,
+            "tpot_ms": 160.5,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.1,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "b3y2",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_huawei_2n8c_llama370b_long_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 180.6,
+            "throughput_tps": 61.3,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 163.1,
+            "tpot_ms": 163.1,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.5,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "e3x8",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_huawei_2n8c_llama370b_long_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 185.6,
+            "throughput_tps": 54.4,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 183.8,
+            "tpot_ms": 183.8,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.0,
+            "spec_accept_rate": 0.73
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "f7y0",
+            "release_date": "2026-01-17",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_huawei_2n8c_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 6.0,
+            "throughput_tps": 339.0,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 29.5,
+            "tpot_ms": 29.5,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.9,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "e6x1",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_huawei_2n8c_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 10.0,
+            "throughput_tps": 319.3,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 31.3,
+            "tpot_ms": 31.3,
+            "error_rate": 0.008,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 1.4,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "b3x3",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_huawei_2n8c_qwen214b_short_input_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 10.7,
+            "throughput_tps": 301.8,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 33.1,
+            "tpot_ms": 33.1,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 0.9,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "a1y9",
+            "release_date": "2026-01-24",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_huawei_2n8c_qwen214b_short_input_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 10.8,
+            "throughput_tps": 277.5,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 36.0,
+            "tpot_ms": 36.0,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 2.0,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "f9y1",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_huawei_2n8c_llama370b_pressure_test_bf16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 35.4,
+            "throughput_tps": 57.4,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 174.2,
+            "tpot_ms": 174.2,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.3,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "c7x1",
+            "release_date": "2026-01-15",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_huawei_2n8c_llama370b_pressure_test_bf16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 44.5,
+            "throughput_tps": 70.1,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 142.7,
+            "tpot_ms": 142.7,
+            "error_rate": 0.007,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 1.7,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "f6z8",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_huawei_2n8c_llama370b_pressure_test_bf16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 40.6,
+            "throughput_tps": 55.6,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 179.9,
+            "tpot_ms": 179.9,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 3.5,
+            "spec_accept_rate": 0.79
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "f1x9",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_huawei_2n8c_llama370b_pressure_test_bf16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Huawei Ascend 910B",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "cann_version": "8.0.RC3",
+            "driver_version": "24.1.rc3"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "BF16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 44.8,
+            "throughput_tps": 58.8,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 170.1,
+            "tpot_ms": 170.1,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.87,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.5,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "HCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "d7y7",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_nvidia_4n8c_llama370b_long_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 170.8,
+            "throughput_tps": 59.0,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 169.5,
+            "tpot_ms": 169.5,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 2.2,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "c5x0",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_nvidia_4n8c_llama370b_long_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 181.2,
+            "throughput_tps": 57.0,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 175.4,
+            "tpot_ms": 175.4,
+            "error_rate": 0.011,
+            "prefix_hit_rate": 0.92,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.9,
+            "spec_accept_rate": 0.82
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "a6x2",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_nvidia_4n8c_llama370b_long_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 182.2,
+            "throughput_tps": 60.3,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 165.8,
+            "tpot_ms": 165.8,
+            "error_rate": 0.015,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.0,
+            "spec_accept_rate": 0.74
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "e2z4",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_nvidia_4n8c_llama370b_long_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 196.9,
+            "throughput_tps": 52.5,
+            "peak_mem_mb": 1204224,
+            "tbt_ms": 190.5,
+            "tpot_ms": 190.5,
+            "error_rate": 0.014,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.5,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "d9y5",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_nvidia_4n8c_llama370b_short_input_int8",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 4.2,
+            "throughput_tps": 117.7,
+            "peak_mem_mb": 602112,
+            "tbt_ms": 85.0,
+            "tpot_ms": 85.0,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.86,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 2.9,
+            "spec_accept_rate": 0.78
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "d8x1",
+            "release_date": "2026-01-28",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_nvidia_4n8c_llama370b_short_input_int8",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 3.4,
+            "throughput_tps": 112.1,
+            "peak_mem_mb": 602112,
+            "tbt_ms": 89.2,
+            "tpot_ms": 89.2,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.4,
+            "spec_accept_rate": 0.76
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "e5x9",
+            "release_date": "2026-01-19",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_nvidia_4n8c_llama370b_short_input_int8",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 8.8,
+            "throughput_tps": 105.8,
+            "peak_mem_mb": 602112,
+            "tbt_ms": 94.5,
+            "tpot_ms": 94.5,
+            "error_rate": 0.017,
+            "prefix_hit_rate": 0.89,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.2,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "f8y9",
+            "release_date": "2026-01-21",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_nvidia_4n8c_llama370b_short_input_int8",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "NVIDIA A100-80GB",
+            "chip_count": 8,
+            "memory_per_chip_gb": 80,
+            "total_memory_gb": 640,
+            "cuda_version": "12.1",
+            "driver_version": "535.104.05"
+        },
+        "model": {
+            "name": "Llama-3-70B",
+            "size_billions": 70,
+            "precision": "INT8"
+        },
+        "workload": {
+            "workload_type": "short_input",
+            "prompt_tokens": 128,
+            "output_tokens": 128
+        },
+        "metrics": {
+            "ttft_ms": 3.1,
+            "throughput_tps": 103.0,
+            "peak_mem_mb": 602112,
+            "tbt_ms": 97.1,
+            "tpot_ms": 97.1,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.88,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 1.9,
+            "spec_accept_rate": 0.77
+        },
+        "cluster": {
+            "node_count": 4,
+            "chip_per_node": 2,
+            "interconnect": "NCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-70B",
+            "git_commit": "e1y6",
+            "release_date": "2026-01-27",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_kunlun_2n8c_qwen214b_long_input_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 164.8,
+            "throughput_tps": 323.6,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 30.9,
+            "tpot_ms": 30.9,
+            "error_rate": 0.018,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 2,
+            "evict_ms": 3.1,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "f4z5",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_kunlun_2n8c_qwen214b_long_input_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 181.4,
+            "throughput_tps": 302.5,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 33.1,
+            "tpot_ms": 33.1,
+            "error_rate": 0.019,
+            "prefix_hit_rate": 0.9,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.5,
+            "spec_accept_rate": 0.71
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "d7z0",
+            "release_date": "2026-01-20",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_kunlun_2n8c_qwen214b_long_input_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 184.6,
+            "throughput_tps": 283.5,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 35.3,
+            "tpot_ms": 35.3,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.85,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.9,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "c1z3",
+            "release_date": "2026-01-22",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_kunlun_2n8c_qwen214b_long_input_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Qwen2-14B",
+            "size_billions": 14,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "long_input",
+            "prompt_tokens": 2048,
+            "output_tokens": 512
+        },
+        "metrics": {
+            "ttft_ms": 203.3,
+            "throughput_tps": 265.5,
+            "peak_mem_mb": 240844,
+            "tbt_ms": 37.7,
+            "tpot_ms": 37.7,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.83,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 5,
+            "evict_ms": 2.7,
+            "spec_accept_rate": 0.81
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Qwen2-14B",
+            "git_commit": "e7y9",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_2_kunlun_2n8c_llama38b_pressure_test_fp16",
+        "sagellm_version": "0.3.2",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 39.3,
+            "throughput_tps": 564.1,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 17.7,
+            "tpot_ms": 17.7,
+            "error_rate": 0.01,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 2.8,
+            "spec_accept_rate": 0.75
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.2",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.2",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.3",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "e2x0",
+            "release_date": "2026-01-25",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.2",
+            "notes": "Version 0.3.2 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_1_kunlun_2n8c_llama38b_pressure_test_fp16",
+        "sagellm_version": "0.3.1",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 46.9,
+            "throughput_tps": 536.1,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 18.7,
+            "tpot_ms": 18.7,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.84,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 3,
+            "evict_ms": 1.3,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.5",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a6x3",
+            "release_date": "2026-01-24",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.1",
+            "notes": "Version 0.3.1 优化"
+        }
+    },
+    {
+        "entry_id": "multinode_0_3_0_kunlun_2n8c_llama38b_pressure_test_fp16",
+        "sagellm_version": "0.3.0",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 45.3,
+            "throughput_tps": 500.4,
+            "peak_mem_mb": 147455,
+            "tbt_ms": 20.0,
+            "tpot_ms": 20.0,
+            "error_rate": 0.016,
+            "prefix_hit_rate": 0.93,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 1,
+            "evict_ms": 1.3,
+            "spec_accept_rate": 0.8
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "c5y9",
+            "release_date": "2026-01-18",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.3.0",
+            "notes": "Version 0.3.0 修复问题，性能略有下降"
+        }
+    },
+    {
+        "entry_id": "multinode_0_2_5_kunlun_2n8c_llama38b_pressure_test_fp16",
+        "sagellm_version": "0.2.5",
+        "hardware": {
+            "chip_model": "Kunlun XPU R300",
+            "chip_count": 8,
+            "memory_per_chip_gb": 64,
+            "total_memory_gb": 512,
+            "xre_version": "3.2.0",
+            "driver_version": "3.2.1"
+        },
+        "model": {
+            "name": "Llama-3-8B",
+            "size_billions": 8,
+            "precision": "FP16"
+        },
+        "workload": {
+            "workload_type": "pressure_test",
+            "prompt_tokens": 512,
+            "output_tokens": 256
+        },
+        "metrics": {
+            "ttft_ms": 52.0,
+            "throughput_tps": 481.3,
+            "peak_mem_mb": 137625,
+            "tbt_ms": 20.8,
+            "tpot_ms": 20.8,
+            "error_rate": 0.006,
+            "prefix_hit_rate": 0.91,
+            "kv_used_tokens": 2048,
+            "kv_used_bytes": 67108864,
+            "evict_count": 4,
+            "evict_ms": 1.6,
+            "spec_accept_rate": null
+        },
+        "cluster": {
+            "node_count": 2,
+            "chip_per_node": 4,
+            "interconnect": "XCCL",
+            "topology": "ring",
+            "network_bandwidth_gbps": 400
+        },
+        "versions": {
+            "protocol": "0.1.0",
+            "backend": "0.1.1.1",
+            "core": "0.1.0.4",
+            "control_plane": "0.1.0.1",
+            "gateway": "0.1.0.1",
+            "kv_cache": "0.1.0.2",
+            "comm": "0.1.0.1",
+            "compression": null,
+            "benchmark": "0.1.0.1"
+        },
+        "environment": {
+            "pytorch_version": "2.1.0",
+            "python_version": "3.10.12",
+            "os": "Ubuntu 22.04 LTS"
+        },
+        "metadata": {
+            "reproducible_cmd": "sage-llm run --model Llama-3-8B",
+            "git_commit": "a3x9",
+            "release_date": "2026-01-23",
+            "changelog_url": "https://github.com/intellistream/sagellm/releases/tag/v0.2.5",
+            "notes": "Version 0.2.5 优化"
+        }
+    }
+]
