@@ -38,25 +38,36 @@
         renderTable();
     }
 
-    // Load JSON data
+    // Load JSON data (支持 HF 和本地两种模式)
     async function loadData() {
         const loadingEl = document.getElementById('leaderboard-loading');
         const errorEl = document.getElementById('leaderboard-error');
         const contentEl = document.getElementById('leaderboard-content');
 
         try {
-            // 加载单机单卡和多机多卡数据
-            const [singleRes, multiRes] = await Promise.all([
-                fetch('./data/leaderboard_single.json'),
-                fetch('./data/leaderboard_multi.json')
-            ]);
+            let singleData, multiData;
 
-            if (!singleRes.ok || !multiRes.ok) {
-                throw new Error('Failed to load data');
+            // 优先使用 HF Data Loader（如果可用）
+            if (window.HFDataLoader) {
+                console.log('[Leaderboard] Using HF Data Loader...');
+                const data = await window.HFDataLoader.loadLeaderboardData();
+                singleData = data.single;
+                multiData = data.multi;
+            } else {
+                // 备用：直接从本地加载
+                console.log('[Leaderboard] HF Loader not available, using local data...');
+                const [singleRes, multiRes] = await Promise.all([
+                    fetch('./data/leaderboard_single.json'),
+                    fetch('./data/leaderboard_multi.json')
+                ]);
+
+                if (!singleRes.ok || !multiRes.ok) {
+                    throw new Error('Failed to load data');
+                }
+
+                singleData = await singleRes.json();
+                multiData = await multiRes.json();
             }
-
-            const singleData = await singleRes.json();
-            const multiData = await multiRes.json();
 
             // 按芯片数和节点数分类
             state.singleChipData = singleData.filter(entry =>
@@ -88,6 +99,12 @@
         }
     }
 
+    // 生成 workload 类型描述（基于 input/output length）
+    function getWorkloadType(entry) {
+        const w = entry.workload;
+        return `${w.input_length}→${w.output_length}`;
+    }
+
     // 初始化筛选器默认值（选择第一个可用配置）
     function initializeFilters() {
         ['single-chip', 'multi-chip', 'multi-node'].forEach(tab => {
@@ -97,7 +114,7 @@
                 state.filters[tab] = {
                     hardware: first.hardware.chip_model,
                     model: first.model.name,
-                    workload: first.workload.type,
+                    workload: getWorkloadType(first),
                     precision: first.model.precision
                 };
             }
@@ -159,7 +176,7 @@
         // Extract unique values (不包含 'all')
         const hardwareOptions = getUniqueValues(data, d => d.hardware.chip_model);
         const modelOptions = getUniqueValues(data, d => d.model.name);
-        const workloadOptions = getUniqueValues(data, d => d.workload.type);
+        const workloadOptions = getUniqueValues(data, d => getWorkloadType(d));
         const precisionOptions = getUniqueValues(data, d => d.model.precision);
 
         // Update dropdowns
@@ -198,7 +215,7 @@
         const filtered = data.filter(entry => {
             return entry.hardware.chip_model === filters.hardware &&
                 entry.model.name === filters.model &&
-                entry.workload.type === filters.workload &&
+                getWorkloadType(entry) === filters.workload &&
                 entry.model.precision === filters.precision;
         });
 
@@ -339,14 +356,15 @@
     function renderHardwareSection(entry) {
         const hw = entry.hardware;
         const cluster = entry.cluster;
+        const env = entry.environment;
 
         return `
             <div class="detail-section">
                 <h4>🔧 Hardware Configuration</h4>
                 <p><strong>Chip:</strong> ${hw.chip_model} × ${hw.chip_count}</p>
                 <p><strong>Total Memory:</strong> ${hw.total_memory_gb} GB</p>
-                ${hw.cuda_version ? `<p><strong>CUDA:</strong> ${hw.cuda_version}</p>` : ''}
-                ${hw.cann_version ? `<p><strong>CANN:</strong> ${hw.cann_version}</p>` : ''}
+                ${env && env.cuda_version ? `<p><strong>CUDA:</strong> ${env.cuda_version}</p>` : ''}
+                ${env && env.cann_version ? `<p><strong>CANN:</strong> ${env.cann_version}</p>` : ''}
                 ${cluster ? `
                     <p><strong>Cluster:</strong> ${cluster.node_count} nodes, ${cluster.interconnect} (${cluster.topology})</p>
                 ` : ''}

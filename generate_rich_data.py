@@ -108,51 +108,71 @@ def generate_entry(entry_id, category, hardware, model, workload, precision, ver
     entry = {
         "entry_id": entry_id,
         "sagellm_version": version,
+        "config_type": "multi_gpu" if category == "multi_chip" else ("multi_node" if category == "multi_node" else "single_gpu"),
         "hardware": {},
         "model": {
             "name": model["name"],
-            "size_billions": model["size"],
-            "precision": precision
+            "parameters": f"{model['size']}B",
+            "precision": precision,
+            "quantization": "None" if precision in ["FP16", "BF16"] else precision
         },
         "workload": {
-            "workload_type": workload["type"],
-            "prompt_tokens": workload["prompt"],
-            "output_tokens": workload["output"]
+            "input_length": workload["prompt"],
+            "output_length": workload["output"],
+            "batch_size": 1,
+            "concurrent_requests": 1,
+            "dataset": workload["type"]
         },
         "metrics": metrics,
         "cluster": None,
         "versions": {
-            "protocol": "0.1.0",
-            "backend": "0.1.1.2" if version == "0.3.2" else "0.1.1.1",
-            "core": "0.1.0.5" if version in ["0.3.2", "0.3.1"] else "0.1.0.4",
-            "control_plane": "0.1.0.2" if version == "0.3.2" else "0.1.0.1",
-            "gateway": "0.1.0.1",
-            "kv_cache": "0.1.0.3" if version == "0.3.2" else "0.1.0.2",
-            "comm": "0.1.0.1",
-            "compression": None,
-            "benchmark": "0.1.0.1"
+            "protocol": "0.1.1.0",
+            "backend": "0.3.0.6" if version == "0.3.2" else "0.3.0.5",
+            "core": "0.3.0.5" if version in ["0.3.2", "0.3.1"] else "0.3.0.4",
+            "control_plane": "0.1.1.5",
+            "gateway": "0.1.1.5",
+            "kv_cache": "0.1.1.6",
+            "comm": "0.1.1.7",
+            "compression": "0.1.1.7",
+            "benchmark": "0.3.0.3"
         },
         "environment": {
-            "pytorch_version": "2.1.0",
+            "os": "Ubuntu 22.04",
             "python_version": "3.10.12",
-            "os": "Ubuntu 22.04 LTS"
+            "pytorch_version": "2.1.0",
+            "cuda_version": None,
+            "cann_version": None,
+            "driver_version": None
+        },
+        "kv_cache_config": {
+            "enabled": True,
+            "eviction_policy": "LRU",
+            "budget_tokens": 8192,
+            "prefix_cache_enabled": True
         },
         "metadata": {
-            "reproducible_cmd": f"sage-llm run --model {model['name']}",
-            "git_commit": f"{'abcdef'[random.randint(0,5)]}{random.randint(1,9)}{'xyz'[random.randint(0,2)]}{random.randint(0,9)}",
+            "submitted_at": f"2026-01-{random.randint(15, 28):02d}T10:30:00Z",
+            "submitter": "IntelliStream Team",
+            "data_source": "automated-benchmark",
+            "reproducible_cmd": f"sage-llm benchmark --model {model['name']} --backend {'cuda' if 'NVIDIA' in hardware['chip_model'] else 'ascend'} --precision {precision}",
+            "git_commit": f"{'abcdef'[random.randint(0,5)]}{random.randint(1,9)}{'xyz'[random.randint(0,2)]}{random.randint(0,9)}abcd1234",
             "release_date": f"2026-01-{random.randint(15, 28):02d}",
-            "changelog_url": f"https://github.com/intellistream/sagellm/releases/tag/v{version}",
-            "notes": f"Version {version} {'优化' if not is_regression else '修复问题，性能略有下降'}"
+            "changelog_url": f"https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md#v{version}",
+            "notes": f"Version {version} {'优化' if not is_regression else '修复问题，性能略有下降'}",
+            "verified": True
         }
     }
     
     # 填充硬件信息
     if category == "multi_node":
         entry["hardware"] = {
+            "vendor": "NVIDIA" if "NVIDIA" in hardware["chip_model"] else ("Huawei" if "Ascend" in hardware["chip_model"] else "Kunlun"),
             "chip_model": hardware["chip_model"],
             "chip_count": hardware["chip_count"],
-            "memory_per_chip_gb": hardware["memory"] // hardware["chip_count"],
-            "total_memory_gb": hardware["memory"],
+            "chips_per_node": hardware["chip_count"] // hardware["node_count"],
+            "intra_node_interconnect": "NVLink" if "NVIDIA" in hardware["chip_model"] else "HCCL",
+            "memory_per_chip_gb": hardware["memory"] / hardware["chip_count"],
+            "total_memory_gb": hardware["memory"]
         }
         entry["cluster"] = {
             "node_count": hardware["node_count"],
@@ -163,21 +183,24 @@ def generate_entry(entry_id, category, hardware, model, workload, precision, ver
         }
     else:
         entry["hardware"] = {
+            "vendor": "NVIDIA" if "NVIDIA" in hardware["chip_model"] else ("Huawei" if "Ascend" in hardware["chip_model"] else "Kunlun"),
             "chip_model": hardware["chip_model"],
             "chip_count": hardware["chip_count"],
-            "total_memory_gb": hardware["memory"],
+            "chips_per_node": hardware["chip_count"],
+            "intra_node_interconnect": "NVLink" if hardware["chip_count"] > 1 and "NVIDIA" in hardware["chip_model"] else "None",
+            "memory_per_chip_gb": hardware["memory"] / hardware["chip_count"],
+            "total_memory_gb": hardware["memory"]
         }
     
-    # 添加驱动版本
+    # 添加驱动版本到 environment
     if "NVIDIA" in hardware["chip_model"]:
-        entry["hardware"]["cuda_version"] = hardware.get("cuda_version", "12.1")
-        entry["hardware"]["driver_version"] = "535.104.05"
+        entry["environment"]["cuda_version"] = hardware.get("cuda_version", "12.1")
+        entry["environment"]["driver_version"] = "535.104.05"
     elif "Ascend" in hardware["chip_model"]:
-        entry["hardware"]["cann_version"] = hardware.get("cann_version", "8.0.RC3")
-        entry["hardware"]["driver_version"] = "24.1.rc3"
+        entry["environment"]["cann_version"] = hardware.get("cann_version", "8.0.RC3")
+        entry["environment"]["driver_version"] = "24.1.rc3"
     elif "Kunlun" in hardware["chip_model"]:
-        entry["hardware"]["xre_version"] = hardware.get("xre_version", "3.2.0")
-        entry["hardware"]["driver_version"] = "3.2.1"
+        entry["environment"]["driver_version"] = "3.2.1"
     
     return entry
 
