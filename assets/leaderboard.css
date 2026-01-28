@@ -145,6 +145,14 @@
 .leaderboard-table td {
     padding: 16px 12px;
     border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+}
+
+.leaderboard-table td small {
+    display: block;
+    font-size: 0.75rem;
+    margin-top: 4px;
+    line-height: 1.4;
 }
 
 /* Zebra Stripes */
@@ -177,6 +185,11 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.version-badge.baseline {
+    background: linear-gradient(135deg, #718096 0%, #4a5568 100%);
+    color: white;
+}
+
 /* Date Column */
 .date-cell {
     color: #718096;
@@ -204,11 +217,13 @@
 }
 
 .trend-up {
-    color: #48bb78;
+    color: #e53e3e; /* 红色 - 表示提升/进步 */
+    font-weight: 600;
 }
 
 .trend-down {
-    color: #f56565;
+    color: #38a169; /* 绿色 - 表示下降/减少 */
+    font-weight: 600;
 }
 
 .trend-neutral {

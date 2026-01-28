@@ -164,11 +164,15 @@
 
         emptyState.style.display = 'none';
 
-        // Calculate trends (compare with previous version)
+        // Calculate trends (compare with previous version AND baseline)
+        const baseline = filtered[filtered.length - 1]; // 最早的版本是 baseline
+        
         const withTrends = filtered.map((entry, index) => {
             const prevEntry = filtered[index + 1]; // Next in array is previous version
             const trends = prevEntry ? calculateTrends(entry, prevEntry) : {};
-            return { ...entry, trends };
+            const baselineTrends = (index < filtered.length - 1) ? calculateTrends(entry, baseline) : {};
+            const isBaseline = (index === filtered.length - 1);
+            return { ...entry, trends, baselineTrends, isBaseline };
         });
 
         // Render rows
@@ -189,7 +193,8 @@
     // Render data row
     function renderDataRow(entry, isLatest, isExpanded) {
         const m = entry.metrics;
-        const t = entry.trends;
+        const t = entry.trends || {};
+        const bt = entry.baselineTrends || {};
 
         return `
             <tr data-entry-id="${entry.entry_id}">
@@ -197,14 +202,15 @@
                     <div class="version-cell">
                         <span>v${entry.sagellm_version}</span>
                         ${isLatest ? '<span class="version-badge">Latest</span>' : ''}
+                        ${entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
                     </div>
                 </td>
                 <td class="date-cell">${entry.metadata.release_date}</td>
-                <td>${renderMetricCell(m.ttft_ms, t.ttft_ms, false)}</td>
-                <td>${renderMetricCell(m.throughput_tps, t.throughput_tps, true)}</td>
-                <td>${renderMetricCell(m.peak_mem_mb, t.peak_mem_mb, false)}</td>
-                <td>${renderMetricCell(m.error_rate, t.error_rate, false, true)}</td>
-                <td>${renderMetricCell(m.prefix_hit_rate, t.prefix_hit_rate, true, true)}</td>
+                <td>${renderMetricCell(m.ttft_ms, t.ttft_ms, bt.ttft_ms, false, false, entry.isBaseline)}</td>
+                <td>${renderMetricCell(m.throughput_tps, t.throughput_tps, bt.throughput_tps, true, false, entry.isBaseline)}</td>
+                <td>${renderMetricCell(m.peak_mem_mb, t.peak_mem_mb, bt.peak_mem_mb, false, false, entry.isBaseline)}</td>
+                <td>${renderMetricCell(m.error_rate, t.error_rate, bt.error_rate, false, true, entry.isBaseline)}</td>
+                <td>${renderMetricCell(m.prefix_hit_rate, t.prefix_hit_rate, bt.prefix_hit_rate, true, true, entry.isBaseline)}</td>
                 <td class="action-cell">
                     <button class="btn-details" data-entry-id="${entry.entry_id}">
                         ${isExpanded ? 'Hide' : 'Details'}
@@ -214,28 +220,33 @@
         `;
     }
 
-    // Render metric cell with trend
-    function renderMetricCell(value, trend, higherIsBetter, isPercentage = false) {
+    // Render metric cell with trend (双重对比：vs baseline 和 vs 上一版)
+    function renderMetricCell(value, prevTrend, baselineTrend, higherIsBetter, isPercentage = false, isBaseline = false) {
         const formattedValue = isPercentage ?
             (value * 100).toFixed(1) + '%' :
             typeof value === 'number' ? value.toFixed(1) : value;
 
-        if (!trend) {
+        if (isBaseline) {
             return `<div class="metric-cell"><span class="metric-value">${formattedValue}</span></div>`;
         }
 
-        const trendClass = getTrendClass(trend, higherIsBetter);
-        const trendIcon = trend > 0 ? '↑' : trend < 0 ? '↓' : '→';
-        const trendText = Math.abs(trend).toFixed(1) + '%';
+        const prevTrendHtml = prevTrend !== undefined && prevTrend !== null ? formatTrendIndicator(prevTrend, higherIsBetter, 'vs Prev') : '';
+        const baseTrendHtml = baselineTrend !== undefined && baselineTrend !== null ? formatTrendIndicator(baselineTrend, higherIsBetter, 'vs Base') : '';
 
         return `
             <div class="metric-cell">
                 <span class="metric-value">${formattedValue}</span>
-                <span class="metric-trend ${trendClass}">
-                    ${trendIcon} ${trendText}
-                </span>
+                ${prevTrendHtml}
+                ${baseTrendHtml}
             </div>
         `;
+    }
+
+    function formatTrendIndicator(trend, higherIsBetter, label) {
+        const trendClass = getTrendClass(trend, higherIsBetter);
+        const trendIcon = trend > 0 ? '↑' : trend < 0 ? '↓' : '→';
+        const trendText = Math.abs(trend).toFixed(1) + '%';
+        return `<small style="color: #718096;">${label}: <span class="metric-trend ${trendClass}">${trendIcon} ${trendText}</span></small>`;
     }
 
     function getTrendClass(trend, higherIsBetter) {
