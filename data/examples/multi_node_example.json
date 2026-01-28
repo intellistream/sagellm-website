@@ -1,0 +1,85 @@
+{
+    "entry_id": "f9e8d7c6-b5a4-3210-fedc-ba9876543210",
+    "sagellm_version": "0.2.3.3",
+    "hardware": {
+        "vendor": "Huawei",
+        "chip_model": "Ascend 910B",
+        "chip_count": 8,
+        "interconnect": "HCCS",
+        "memory_per_chip_gb": 64,
+        "total_memory_gb": 512
+    },
+    "model": {
+        "name": "Llama-3-70B",
+        "parameters": "70B",
+        "precision": "BF16",
+        "quantization": "None"
+    },
+    "workload": {
+        "input_length": 2048,
+        "output_length": 512,
+        "batch_size": 4,
+        "concurrent_requests": 8,
+        "dataset": "AlpacaEval"
+    },
+    "metrics": {
+        "ttft_ms": 120.5,
+        "tbt_ms": 15.2,
+        "tpot_ms": 15.2,
+        "throughput_tps": 512.8,
+        "peak_mem_mb": 458752,
+        "error_rate": 0.01,
+        "prefix_hit_rate": 0.72,
+        "kv_used_tokens": 16384,
+        "kv_used_bytes": 536870912,
+        "evict_count": 12,
+        "evict_ms": 8.5,
+        "spec_accept_rate": 0.68
+    },
+    "cluster": {
+        "node_count": 2,
+        "comm_backend": "HCCL",
+        "topology_type": "Multi-Node-InfiniBand",
+        "parallelism": {
+            "tensor_parallel": 4,
+            "pipeline_parallel": 2,
+            "data_parallel": 1
+        }
+    },
+    "versions": {
+        "protocol": "0.1.1.0",
+        "backend": "0.2.1.6",
+        "core": "0.2.2.8",
+        "control_plane": "0.1.1.5",
+        "gateway": "0.1.1.5",
+        "kv_cache": "0.1.1.6",
+        "comm": "0.1.1.7",
+        "compression": "0.1.1.7",
+        "benchmark": "0.1.0.0"
+    },
+    "environment": {
+        "os": "openEuler 22.03 LTS",
+        "python_version": "3.10.12",
+        "pytorch_version": "2.1.0+ascend",
+        "cuda_version": null,
+        "cann_version": "8.0.RC1",
+        "driver_version": "24.1.rc1"
+    },
+    "kv_cache_config": {
+        "enabled": true,
+        "eviction_policy": "Lifetime-Aware",
+        "budget_tokens": 32768,
+        "prefix_cache_enabled": true
+    },
+    "metadata": {
+        "submitted_at": "2026-01-28T11:00:00Z",
+        "submitter": "IntelliStream Team",
+        "data_source": "automated-benchmark",
+        "reproducible_cmd": "sage-llm benchmark --model Llama-3-70B --backend ascend --multi-node --nodes 2 --tp 4 --pp 2 --input-len 2048 --output-len 512 --batch-size 4 --concurrent 8",
+        "git_commit": "a1b2c3d4e5f6789012345678901234567890abcd",
+        "release_date": "2026-01-27",
+        "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md#0233---2026-01-27",
+        "notes": "Multi-node performance on Huawei Ascend 910B with HCCL",
+        "verified": true
+    }
+}
