@@ -57,70 +57,56 @@ def create_cast_file(filename):
             current_time += token_speed
 
     # 1. Type the command
-    type_command("sage-llm run --model deepseek-coder-33b --backend ascend")
+    type_command("sage-llm run -p \"Explain quantum physics\" --backend ascend")
     
-    # 2. Output engine info
-    print_output("\u001b[1m[SageLLM]\u001b[0m Initializing engine...", 0)
+    # 2. Output header (Match real v0.4 output exactly)
+    print_output("\r\n\u001b[1m🚀 sageLLM Inference\u001b[0m\r\n", 0)
+    print_output("  Model: \u001b[36mdeepseek-coder-33b\u001b[0m", 0)
+    print_output("  Backend: ascend", 0)
+    print_output("  Prompt: Explain quantum physics", 0)
+    print_output("", 0)
+
+    # 3. Logs (Simulate real logs - match actual output format)
+    def log(source, msg):
+        timestamp = time.strftime("%Y-%m-%d %H:%M:%S,") + "200"
+        print_output(f"{timestamp} - {source} - INFO - {msg}", 0)
+
+    log("sagellm_core.llm_engine", "LLMEngine created: model=deepseek-coder-33b, backend=ascend, comm=auto")
+    print_output("Loading model...", 0)
     current_time += 0.5
-    print_output("\u001b[1m[SageLLM]\u001b[0m Engine: \u001b[32mascend\u001b[0m (NPU-910B)", 0)
-    print_output("\u001b[1m[SageLLM]\u001b[0m Model: \u001b[36mdeepseek-coder-33b\u001b[0m", 0)
-    print_output("\u001b[1m[SageLLM]\u001b[0m Backend: \u001b[33mHuawei Ascend 910B\u001b[0m", 0)
+    log("sagellm_core.llm_engine", "Starting LLMEngine with model: deepseek-coder-33b")
+    log("sagellm_backend.providers.ascend", "AscendBackendProvider initialized on npu:0")
+    log("sagellm_backend.registry", "Created provider: ascend -> Huawei Ascend 910B")
+    log("sagellm_core.llm_engine", "Backend initialized: ascend (Huawei Ascend 910B)")
+    current_time += 0.3
+    log("sagellm_core.llm_engine", "Loading tokenizer...")
+    current_time += 0.2
+    log("sagellm_core.llm_engine", "Model loaded: deepseek-coder-33b")
+    log("sagellm_core.llm_engine", "LLMEngine started successfully")
+    
+    # 4. Output label (match real format: label on one line, content on next)
+    print_output("📝 Output:", 0)
     current_time += 0.2
     
-    # 3. Interactive Chat
-    events.append([current_time, "o", "\r\nType 'exit' or press Ctrl-D to quit.\r\n"])
+    # 5. Streaming Output
+    response_text = "Quantum physics studies matter and energy at the most fundamental, atomic levels. It describes phenomena like superposition, entanglement, and wave-particle duality that govern subatomic particles."
+    stream_tokens(response_text, 0.06)
+    
+    events.append([current_time, "o", "\r\n\r\n"])
     current_time += 0.2
+
+    # 6. Metrics (match real format)
+    print_output("📊 Metrics:", 0)
+    print_output("   TTFT: 45.2 ms", 0)
+    print_output("   Throughput: 80.0 tokens/s", 0)
     
-    # Prompt string
-    prompt_str = "\u001b[1;36m>>> \u001b[0m"
-    events.append([current_time, "o", prompt_str])
-    current_time += 1.0
-    
-    # User types prompt
-    user_prompt = "Write a Python function to calculate Fibonacci numbers recursively"
-    for char in user_prompt:
-        events.append([current_time, "o", char])
-        current_time += 0.08 # Typing speed
-    
-    events.append([current_time, "o", "\r\n"])
     current_time += 0.5
-    
-    # 4. Streaming Output
-    response_code = """Here is a Python function to calculate Fibonacci numbers recursively:
-
-```python
-def fibonacci(n):
-    \"\"\"
-    Calculate the nth Fibonacci number recursively.
-    \"\"\"
-    if n <= 0:
-        return 0
-    elif n == 1:
-        return 1
-    else:
-        return fibonacci(n-1) + fibonacci(n-2)
-
-# Example usage:
-n = 10
-result = fibonacci(n)
-print(f"The {n}th Fibonacci number is {result}")
-```
-
-This function takes an integer `n` as input and returns the `n`th Fibonacci number. Note that recursive implementation can be slow for large `n` due to repeated calculations.
-"""
-    
-    stream_tokens(response_code, 0.05) # Fast streaming
+    log("sagellm_core.llm_engine", "Stopping LLMEngine")
+    log("sagellm_core.llm_engine", "LLMEngine stopped")
     
     # Done
     events.append([current_time, "o", "\r\n"])
-    current_time += 0.2
-    events.append([current_time, "o", prompt_str])
     current_time += 2.0
-    
-    # Exit
-    events.append([current_time, "o", "exit\r\n"])
-    current_time += 0.2
-    events.append([current_time, "o", "Bye!\r\n"])
     
     
     # Write file

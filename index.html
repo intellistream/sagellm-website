@@ -274,14 +274,14 @@
                 <span id="langToggleText">中文</span>
             </button>
 
-            <!-- 0.3 Release Banner -->
+            <!-- 0.4 Release Banner -->
             <div
                 style="background: rgba(255, 215, 0, 0.15); border: 2px solid rgba(255, 215, 0, 0.4); border-radius: 12px; padding: 16px 24px; margin-bottom: 20px; backdrop-filter: blur(10px);">
                 <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px;">
-                    🎉 sageLLM 0.3 正式发布 - Ascend NPU 引擎已实现
+                    🎉 sageLLM 0.4 正式发布 - 智能后端管理与 DeepSeek 支持
                 </div>
                 <div style="font-size: 1em; opacity: 0.95; font-weight: 500;">
-                    一行安装，一行推理，完整支持 CPU/CUDA/Ascend NPU 三大后端
+                    新增 <code>sage-llm install</code> 智能环境配置，全面优化 Ascend/CUDA/CPU 推理体验
                 </div>
             </div>
 
@@ -306,7 +306,7 @@
             <div class="demo-container"
                 style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
                 <div class="demo-title-bar">
-                    📺 sagellm run --backend ascend
+                    📺 sage-llm run --backend ascend
                 </div>
 
                 <div id="demo-player"
@@ -319,7 +319,7 @@
                 <div style="color: #666; margin-bottom: 5px;" data-i18n="start_api"># Start API server</div>
                 <div
                     style="background: #f4f6f8; padding: 12px; border-radius: 4px; font-family: monospace; border: 1px solid #eee;">
-                    <span style="color: #667eea">$</span> sagellm serve --port 8000 --backend ascend
+                    <span style="color: #667eea">$</span> sage-llm serve --port 8000 --backend ascend
                 </div>
             </div>
 
@@ -335,58 +335,44 @@
 
         <!-- Quickstart Section -->
         <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);">
-            <h2 style="color: #667eea;">🚀 Quick Start (v0.3)</h2>
-            <p style="color: #4a5568; margin-bottom: 25px;">Get started with sageLLM in seconds. Copy and paste these
-                commands:</p>
+            <h2 style="color: #667eea;">🚀 Quick Start (v0.4)</h2>
+            <p style="color: #4a5568; margin-bottom: 25px;">Get started with sageLLM in seconds. Key upgrade: new CLI installer.</p>
 
             <div style="display: grid; gap: 20px;">
-                <!-- Install -->
+                <!-- Install Package -->
                 <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">📦 Install</div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">📦 1. Pip Install</div>
                     <div
                         style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
                         <span style="color: #48bb78;">$</span> pip install isagellm
                     </div>
                 </div>
 
-                <!-- Hello World -->
+                <!-- Setup Backend -->
                 <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">👋 Hello World</div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">🔧 2. Setup Backend (New in 0.4)</div>
                     <div
                         style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #48bb78;">$</span> sagellm hello
+                        <span style="color: #718096;"># Install CUDA, Ascend, or CPU backend automatically</span><br>
+                        <span style="color: #48bb78;">$</span> sage-llm install cuda <span style="color: #718096;"># or ascend / cpu</span>
                     </div>
                 </div>
 
                 <!-- Run Inference -->
                 <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">⚡ Run Inference</div>
+                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">⚡ 3. Run Inference</div>
                     <div
                         style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #48bb78;">$</span> sagellm run -p <span style="color: #fbbf24;">"Hello,
-                            world!"</span> --max-tokens 32
-                    </div>
-                </div>
-
-                <!-- Start Server -->
-                <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">🌐 Start OpenAI-Compatible Server
-                    </div>
-                    <div
-                        style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #48bb78;">$</span> sagellm serve --port 8000
+                        <span style="color: #48bb78;">$</span> sage-llm run -p <span style="color: #fbbf24;">"Hello AI"</span> --backend cuda
                     </div>
                 </div>
             </div>
 
             <div
                 style="margin-top: 25px; padding: 16px; background: #edf2f7; border-left: 4px solid #667eea; border-radius: 6px;">
-                <strong style="color: #2d3748;">💡 Note:</strong>
-                <span style="color: #4a5568;">All commands work on CPU by default. Add <code
-                        style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--backend cuda</code>
-                    for NVIDIA GPU or <code
-                        style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">--backend ascend</code>
-                    for Huawei Ascend NPU acceleration.</span>
+                <strong style="color: #2d3748;">💡 Smart Detection:</strong>
+                <span style="color: #4a5568;">v0.4 automatically detects if you're missing dependencies for your hardware and suggests the correct <code
+                        style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">sage-llm install</code> command.</span>
             </div>
         </div>
 
