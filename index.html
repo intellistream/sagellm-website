@@ -1,769 +1,1137 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sageLLM - Modular LLM Inference for Domestic Computing Power</title>
 
     <!-- Dependencies -->
-    <link rel="stylesheet" type="text/css"
-        href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap"
-        rel="stylesheet">
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code&display=swap"
+      rel="stylesheet"
+    />
 
     <!-- Leaderboard Styles -->
-    <link rel="stylesheet" href="./assets/leaderboard.css">
+    <link rel="stylesheet" href="./assets/leaderboard.css" />
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-        }
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
 
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-            color: white;
-            position: relative;
-        }
+      header {
+        text-align: center;
+        padding: 60px 20px 40px;
+        color: white;
+        position: relative;
+      }
 
-        .lang-toggle {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 999px;
-            cursor: pointer;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
+      .lang-toggle {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        font-weight: 600;
+        backdrop-filter: blur(10px);
+      }
 
-        .lang-toggle:focus {
-            outline: 2px solid rgba(255, 255, 255, 0.35);
-            outline-offset: 2px;
-        }
+      .lang-toggle:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.35);
+        outline-offset: 2px;
+      }
 
-        h1 {
-            font-size: 3.5em;
-            margin-bottom: 10px;
-            font-weight: 800;
-            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            letter-spacing: -1px;
-        }
+      h1 {
+        font-size: 3.5em;
+        margin-bottom: 10px;
+        font-weight: 800;
+        text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        letter-spacing: -1px;
+      }
 
-        .subtitle {
-            font-size: 1.4em;
-            opacity: 0.95;
-            margin-bottom: 30px;
-            font-weight: 500;
-        }
+      .subtitle {
+        font-size: 1.4em;
+        opacity: 0.95;
+        margin-bottom: 30px;
+        font-weight: 500;
+      }
 
-        .badges {
-            margin-bottom: 20px;
-        }
+      .badges {
+        margin-bottom: 20px;
+      }
 
-        .badge {
-            display: inline-block;
-            padding: 8px 16px;
-            margin: 5px;
-            background: rgba(255, 255, 255, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            font-size: 0.9em;
-            backdrop-filter: blur(10px);
-            font-weight: 500;
-        }
+      .badge {
+        display: inline-block;
+        padding: 8px 16px;
+        margin: 5px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        font-size: 0.9em;
+        backdrop-filter: blur(10px);
+        font-weight: 500;
+      }
 
-        .demo-section {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
-        }
+      .demo-section {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        margin: 40px 0;
+        box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+      }
 
-        .section {
-            background: white;
-            border-radius: 16px;
-            padding: 40px;
-            margin: 40px 0;
-            box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
-        }
+      .section {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        margin: 40px 0;
+        box-shadow: 0 20px 40px -5px rgba(0, 0, 0, 0.2);
+      }
 
-        .section h2 {
-            margin-bottom: 10px;
-            color: #5a67d8;
-        }
+      .section h2 {
+        margin-bottom: 10px;
+        color: #5a67d8;
+      }
 
-        .section p {
-            color: #4a5568;
-            margin-bottom: 18px;
-        }
+      .section p {
+        color: #4a5568;
+        margin-bottom: 18px;
+      }
 
+      .arch-flow {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 900px) {
         .arch-flow {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin-top: 16px;
+          grid-template-columns: 1fr;
         }
+      }
 
-        @media (max-width: 900px) {
-            .arch-flow {
-                grid-template-columns: 1fr;
-            }
-        }
+      .arch-box {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 14px 14px;
+        background: #f8fafc;
+      }
 
-        .arch-box {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 14px 14px;
-            background: #f8fafc;
-        }
+      .arch-box h4 {
+        margin: 0 0 6px;
+        color: #2d3748;
+        font-size: 1.02em;
+      }
 
-        .arch-box h4 {
-            margin: 0 0 6px;
-            color: #2d3748;
-            font-size: 1.02em;
-        }
+      .arch-box p {
+        margin: 0;
+        color: #718096;
+        font-size: 0.92em;
+      }
 
-        .arch-box p {
-            margin: 0;
-            color: #718096;
-            font-size: 0.92em;
-        }
+      .arch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 14px;
+        margin-top: 16px;
+      }
 
-        .arch-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 14px;
-            margin-top: 16px;
-        }
+      .arch-card {
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 14px;
+        background: white;
+      }
 
-        .arch-card {
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 14px;
-            background: white;
-        }
+      .arch-card strong {
+        color: #2d3748;
+      }
 
-        .arch-card strong {
-            color: #2d3748;
-        }
+      .arch-meta {
+        color: #718096;
+        font-size: 0.92em;
+        margin-top: 6px;
+      }
 
-        .arch-meta {
-            color: #718096;
-            font-size: 0.92em;
-            margin-top: 6px;
-        }
+      .bullets {
+        margin: 10px 0 0;
+        padding-left: 18px;
+        color: #4a5568;
+      }
 
-        .bullets {
-            margin: 10px 0 0;
-            padding-left: 18px;
-            color: #4a5568;
-        }
+      .bullets li {
+        margin: 6px 0;
+      }
 
-        .bullets li {
-            margin: 6px 0;
-        }
+      .demo-section h2 {
+        margin-bottom: 10px;
+        color: #5a67d8;
+        /* Indigo-500 */
+      }
 
-        .demo-section h2 {
-            margin-bottom: 10px;
-            color: #5a67d8;
-            /* Indigo-500 */
-        }
+      .demo-section p {
+        color: #4a5568;
+        margin-bottom: 20px;
+      }
 
-        .demo-section p {
-            color: #4a5568;
-            margin-bottom: 20px;
-        }
+      .demo-title-bar {
+        padding: 12px 16px;
+        border-bottom: 1px solid #333;
+        background: #1a202c;
+        /* Gray-900 */
+        color: #e2e8f0;
+        font-family: "Fira Code", monospace;
+        font-size: 0.9em;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
 
-        .demo-title-bar {
-            padding: 12px 16px;
-            border-bottom: 1px solid #333;
-            background: #1a202c;
-            /* Gray-900 */
-            color: #e2e8f0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9em;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+      .features {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin-top: 40px;
+      }
 
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
+      .feature-card {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
 
-        .feature-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      }
 
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        }
+      .feature-card h3 {
+        color: #2d3748;
+        font-size: 1.25em;
+        margin-bottom: 15px;
+      }
 
-        .feature-card h3 {
-            color: #2d3748;
-            font-size: 1.25em;
-            margin-bottom: 15px;
-        }
+      .feature-card p {
+        color: #718096;
+        font-size: 0.95em;
+      }
 
-        .feature-card p {
-            color: #718096;
-            font-size: 0.95em;
-        }
+      footer {
+        text-align: center;
+        padding: 40px 20px;
+        color: rgba(255, 255, 255, 0.8);
+      }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: rgba(255, 255, 255, 0.8);
-        }
+      code {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-family: "Fira Code", monospace;
+      }
 
-        code {
-            background: rgba(0, 0, 0, 0.2);
-            padding: 5px 10px;
-            border-radius: 6px;
-            font-family: 'Fira Code', monospace;
-        }
+      .cta-button {
+        display: inline-block;
+        transition: opacity 0.2s;
+      }
 
-        .cta-button {
-            display: inline-block;
-            transition: opacity 0.2s;
-        }
-
-        .cta-button:hover {
-            opacity: 0.9;
-        }
+      .cta-button:hover {
+        opacity: 0.9;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <div class="container">
-        <header>
-            <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">
-                <span id="langToggleText">中文</span>
-            </button>
+      <header>
+        <button id="langToggle" class="lang-toggle" type="button" aria-label="Toggle language">
+          <span id="langToggleText">中文</span>
+        </button>
 
-            <!-- 0.4 Release Banner -->
+        <!-- 0.4 Release Banner -->
+        <div
+          style="
+            background: rgba(255, 215, 0, 0.15);
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+          "
+        >
+          <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px">
+            🎉 sageLLM 0.4 正式发布 - 智能后端管理
+          </div>
+          <div style="font-size: 1em; opacity: 0.95; font-weight: 500">
+            新增 <code>sage-llm install</code> 智能环境配置，全面优化 Ascend/CUDA/CPU 推理体验
+          </div>
+        </div>
+
+        <div class="badges">
+          <span class="badge" data-i18n="badge_perf">🚀 High Throughput</span>
+          <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend NPU Native</span>
+          <span class="badge" data-i18n="badge_private">🔒 Data Sovereignty</span>
+        </div>
+        <h1>sageLLM</h1>
+        <p class="subtitle" data-i18n="subtitle">
+          Modular Inference Engine for Domestic Computing Ecosystems
+        </p>
+
+        <div style="margin-top: 30px">
+          <code>pip install isagellm</code>
+        </div>
+      </header>
+
+      <div class="demo-section">
+        <h2 data-i18n="demo_title">⚡ Live Inference Demo</h2>
+        <p data-i18n="demo_desc">
+          Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends
+          available).
+        </p>
+
+        <div
+          class="demo-container"
+          style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000"
+        >
+          <div class="demo-title-bar">📺 sage-llm run --backend ascend</div>
+
+          <div
+            id="demo-player"
+            style="
+              width: 100%;
+              min-height: 400px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              background-color: #000;
+            "
+          >
+            <span style="color: #888; font-family: monospace">Loading terminal demo...</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 20px; display: grid; gap: 10px">
+          <div style="color: #666; margin-bottom: 5px" data-i18n="start_api">
+            # Start API server
+          </div>
+          <div
+            style="
+              background: #f4f6f8;
+              padding: 12px;
+              border-radius: 4px;
+              font-family: monospace;
+              border: 1px solid #eee;
+            "
+          >
+            <span style="color: #667eea">$</span> sage-llm serve --port 8000 --backend ascend
+          </div>
+        </div>
+
+        <div style="margin-top: 40px; text-align: center">
+          <a
+            href="https://github.com/intellistream"
+            class="cta-button"
+            style="
+              text-decoration: none;
+              background: #667eea;
+              color: white;
+              padding: 10px 20px;
+              border-radius: 6px;
+              margin: 0 10px;
+              font-weight: 500;
+            "
+            data-i18n="cta_docs"
+            >📚 Documentation</a
+          >
+          <a
+            href="https://github.com/intellistream"
+            class="cta-button"
+            style="
+              text-decoration: none;
+              background: #333;
+              color: white;
+              padding: 10px 20px;
+              border-radius: 6px;
+              margin: 0 10px;
+              font-weight: 500;
+            "
+            data-i18n="cta_github"
+            >💻 GitHub</a
+          >
+        </div>
+      </div>
+
+      <!-- Quickstart Section -->
+      <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%)">
+        <h2 style="color: #667eea">🚀 Quick Start (v0.4)</h2>
+        <p style="color: #4a5568; margin-bottom: 25px">
+          Get started with sageLLM in seconds. Key upgrade: new CLI installer.
+        </p>
+
+        <div style="display: grid; gap: 20px">
+          <!-- Install Package -->
+          <div>
+            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+              📦 1. Pip Install
+            </div>
             <div
-                style="background: rgba(255, 215, 0, 0.15); border: 2px solid rgba(255, 215, 0, 0.4); border-radius: 12px; padding: 16px 24px; margin-bottom: 20px; backdrop-filter: blur(10px);">
-                <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px;">
-                    🎉 sageLLM 0.4 正式发布 - 智能后端管理与 DeepSeek 支持
-                </div>
-                <div style="font-size: 1em; opacity: 0.95; font-weight: 500;">
-                    新增 <code>sage-llm install</code> 智能环境配置，全面优化 Ascend/CUDA/CPU 推理体验
-                </div>
+              style="
+                background: #1a202c;
+                color: #e2e8f0;
+                padding: 16px 20px;
+                border-radius: 8px;
+                font-family: &quot;Fira Code&quot;, monospace;
+                font-size: 0.95em;
+                overflow-x: auto;
+              "
+            >
+              <span style="color: #48bb78">$</span> pip install isagellm
             </div>
+          </div>
 
-            <div class="badges">
-                <span class="badge" data-i18n="badge_perf">🚀 High Throughput</span>
-                <span class="badge" data-i18n="badge_ascend">🇨🇳 Ascend NPU Native</span>
-                <span class="badge" data-i18n="badge_private">🔒 Data Sovereignty</span>
+          <!-- Setup Backend -->
+          <div>
+            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+              🔧 2. Setup Backend (New in 0.4)
             </div>
-            <h1>sageLLM</h1>
-            <p class="subtitle" data-i18n="subtitle">Modular Inference Engine for Domestic Computing Ecosystems</p>
-
-            <div style="margin-top: 30px;">
-                <code>pip install isagellm</code>
-            </div>
-        </header>
-
-        <div class="demo-section">
-            <h2 data-i18n="demo_title">⚡ Live Inference Demo</h2>
-            <p data-i18n="demo_desc">Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends
-                available).</p>
-
-            <div class="demo-container"
-                style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000;">
-                <div class="demo-title-bar">
-                    📺 sage-llm run --backend ascend
-                </div>
-
-                <div id="demo-player"
-                    style="width: 100%; min-height: 400px; display: flex; align-items: center; justify-content: center; background-color: #000;">
-                    <span style="color: #888; font-family: monospace;">Loading terminal demo...</span>
-                </div>
-            </div>
-
-            <div style="margin-top: 20px; display: grid; gap: 10px;">
-                <div style="color: #666; margin-bottom: 5px;" data-i18n="start_api"># Start API server</div>
-                <div
-                    style="background: #f4f6f8; padding: 12px; border-radius: 4px; font-family: monospace; border: 1px solid #eee;">
-                    <span style="color: #667eea">$</span> sage-llm serve --port 8000 --backend ascend
-                </div>
-            </div>
-
-            <div style="margin-top: 40px; text-align: center;">
-                <a href="https://github.com/intellistream" class="cta-button"
-                    style="text-decoration: none; background: #667eea; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;"
-                    data-i18n="cta_docs">📚 Documentation</a>
-                <a href="https://github.com/intellistream" class="cta-button"
-                    style="text-decoration: none; background: #333; color: white; padding: 10px 20px; border-radius: 6px; margin: 0 10px; font-weight: 500;"
-                    data-i18n="cta_github">💻 GitHub</a>
-            </div>
-        </div>
-
-        <!-- Quickstart Section -->
-        <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%);">
-            <h2 style="color: #667eea;">🚀 Quick Start (v0.4)</h2>
-            <p style="color: #4a5568; margin-bottom: 25px;">Get started with sageLLM in seconds. Key upgrade: new CLI installer.</p>
-
-            <div style="display: grid; gap: 20px;">
-                <!-- Install Package -->
-                <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">📦 1. Pip Install</div>
-                    <div
-                        style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #48bb78;">$</span> pip install isagellm
-                    </div>
-                </div>
-
-                <!-- Setup Backend -->
-                <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">🔧 2. Setup Backend (New in 0.4)</div>
-                    <div
-                        style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #718096;"># Install CUDA, Ascend, or CPU backend automatically</span><br>
-                        <span style="color: #48bb78;">$</span> sage-llm install cuda <span style="color: #718096;"># or ascend / cpu</span>
-                    </div>
-                </div>
-
-                <!-- Run Inference -->
-                <div>
-                    <div style="color: #718096; margin-bottom: 8px; font-weight: 600;">⚡ 3. Run Inference</div>
-                    <div
-                        style="background: #1a202c; color: #e2e8f0; padding: 16px 20px; border-radius: 8px; font-family: 'Fira Code', monospace; font-size: 0.95em; overflow-x: auto;">
-                        <span style="color: #48bb78;">$</span> sage-llm run -p <span style="color: #fbbf24;">"Hello AI"</span> --backend cuda
-                    </div>
-                </div>
-            </div>
-
             <div
-                style="margin-top: 25px; padding: 16px; background: #edf2f7; border-left: 4px solid #667eea; border-radius: 6px;">
-                <strong style="color: #2d3748;">💡 Smart Detection:</strong>
-                <span style="color: #4a5568;">v0.4 automatically detects if you're missing dependencies for your hardware and suggests the correct <code
-                        style="background: #cbd5e0; padding: 2px 6px; border-radius: 3px; font-family: 'Fira Code', monospace;">sage-llm install</code> command.</span>
+              style="
+                background: #1a202c;
+                color: #e2e8f0;
+                padding: 16px 20px;
+                border-radius: 8px;
+                font-family: &quot;Fira Code&quot;, monospace;
+                font-size: 0.95em;
+                overflow-x: auto;
+              "
+            >
+              <span style="color: #718096"
+                ># Install CUDA, Ascend, or CPU backend automatically</span
+              ><br />
+              <span style="color: #48bb78">$</span> sage-llm install cuda
+              <span style="color: #718096"># or ascend / cpu</span>
             </div>
-        </div>
+          </div>
 
-        <!-- Leaderboard Section -->
-        <div class="leaderboard-section" id="leaderboard">
-            <h2>📊 Performance Leaderboard</h2>
-            <p>Track sageLLM's version evolution with real-world performance metrics. Compare different hardware
-                configurations, models, and workloads.</p>
-
-            <!-- Tab Navigation -->
-            <div class="tab-nav">
-                <button class="tab-button active" data-tab="single-chip">单机单卡</button>
-                <button class="tab-button" data-tab="multi-chip">单机多卡</button>
-                <button class="tab-button" data-tab="multi-node">多机多卡</button>
+          <!-- Run Inference -->
+          <div>
+            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+              ⚡ 3. Run Inference
             </div>
-
-            <!-- Loading State -->
-            <div id="leaderboard-loading" class="loading-state">
-                <div class="spinner"></div>
-                <p>Loading leaderboard data...</p>
-            </div>
-
-            <!-- Error State -->
-            <div id="leaderboard-error" class="empty-state" style="display: none;">
-                <div class="empty-state-icon">⚠️</div>
-                <h3>Failed to Load Data</h3>
-                <p>Please refresh the page or check your internet connection.</p>
-            </div>
-
-            <!-- Main Content -->
-            <div id="leaderboard-content" style="display: none;">
-                <!-- Filters -->
-                <div class="filters">
-                    <div class="filter-group">
-                        <label for="filter-hardware">Hardware</label>
-                        <select id="filter-hardware">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-model">Model</label>
-                        <select id="filter-model">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-workload">Workload</label>
-                        <select id="filter-workload">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                    <div class="filter-group">
-                        <label for="filter-precision">Precision</label>
-                        <select id="filter-precision">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Table -->
-                <div class="table-container">
-                    <table class="leaderboard-table">
-                        <thead>
-                            <tr>
-                                <th>Version</th>
-                                <th>Config</th>
-                                <th>Release Date</th>
-                                <th>TTFT (ms) ↓</th>
-                                <th>Tokens/s ↑</th>
-                                <th>Peak Mem (MB) ↓</th>
-                                <th>Error Rate ↓</th>
-                                <th>Hit Rate ↑</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody id="leaderboard-tbody">
-                            <!-- Populated by JS -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Empty State -->
-                <div id="empty-state" class="empty-state" style="display: none;">
-                    <div class="empty-state-icon">🔍</div>
-                    <h3>No Results Found</h3>
-                    <p>Try adjusting your filters to see more data.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="section" id="architecture">
-            <h2 data-i18n="arch_title">🏗️ System Architecture</h2>
-            <p data-i18n="arch_desc">Layered design with protocol-first approach, CPU-first development, and PD
-                separation for optimal performance.</p>
-
-            <div style="margin: 30px 0; text-align: center;">
-                <svg viewBox="0 0 800 600"
-                    style="max-width: 100%; height: auto; background: #f8fafc; border-radius: 12px; padding: 20px;">
-                    <!-- Client -->
-                    <rect x="320" y="20" width="160" height="60" rx="8" fill="#667eea" stroke="#5a67d8"
-                        stroke-width="2" />
-                    <text x="400" y="50" text-anchor="middle" fill="white" font-size="16" font-weight="600">Client /
-                        Benchmark</text>
-
-                    <!-- Arrow -->
-                    <path d="M 400 80 L 400 120" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-
-                    <!-- Gateway -->
-                    <rect x="320" y="120" width="160" height="60" rx="8" fill="#48bb78" stroke="#38a169"
-                        stroke-width="2" />
-                    <text x="400" y="145" text-anchor="middle" fill="white" font-size="14" font-weight="600">Gateway
-                        (L4)</text>
-                    <text x="400" y="165" text-anchor="middle" fill="white" font-size="11">OpenAI API + SSE</text>
-
-                    <!-- Arrow -->
-                    <path d="M 400 180 L 400 220" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-
-                    <!-- Control Plane -->
-                    <rect x="320" y="220" width="160" height="60" rx="8" fill="#ed8936" stroke="#dd6b20"
-                        stroke-width="2" />
-                    <text x="400" y="245" text-anchor="middle" fill="white" font-size="14" font-weight="600">Control
-                        Plane (L3)</text>
-                    <text x="400" y="265" text-anchor="middle" fill="white" font-size="11">Routing + Scheduling</text>
-
-                    <!-- Arrow -->
-                    <path d="M 400 280 L 400 320" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-
-                    <!-- Core -->
-                    <rect x="320" y="320" width="160" height="60" rx="8" fill="#4299e1" stroke="#3182ce"
-                        stroke-width="2" />
-                    <text x="400" y="345" text-anchor="middle" fill="white" font-size="14" font-weight="600">Core Engine
-                        (L2)</text>
-                    <text x="400" y="365" text-anchor="middle" fill="white" font-size="11">PD Separation +
-                        Metrics</text>
-
-                    <!-- Branch to 3 components -->
-                    <path d="M 400 380 L 400 400 M 200 400 L 600 400" stroke="#333" stroke-width="2" />
-                    <path d="M 200 400 L 200 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-                    <path d="M 400 400 L 400 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-                    <path d="M 600 400 L 600 420" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)" />
-
-                    <!-- Bottom 3 boxes -->
-                    <rect x="80" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5"
-                        stroke-width="2" />
-                    <text x="150" y="440" text-anchor="middle" fill="white" font-size="13" font-weight="600">Backend
-                        (L1)</text>
-                    <text x="150" y="457" text-anchor="middle" fill="white" font-size="10">CPU/CUDA/Ascend</text>
-                    <text x="150" y="472" text-anchor="middle" fill="white" font-size="10">Device + Stream</text>
-
-                    <rect x="330" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5"
-                        stroke-width="2" />
-                    <text x="400" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">Comm
-                        (L1)</text>
-                    <text x="400" y="462" text-anchor="middle" fill="white" font-size="10">Topology</text>
-                    <text x="400" y="477" text-anchor="middle" fill="white" font-size="10">Collective Ops</text>
-
-                    <rect x="580" y="420" width="140" height="70" rx="8" fill="#9f7aea" stroke="#805ad5"
-                        stroke-width="2" />
-                    <text x="650" y="445" text-anchor="middle" fill="white" font-size="13" font-weight="600">KV Cache
-                        (L1)</text>
-                    <text x="650" y="462" text-anchor="middle" fill="white" font-size="10">Pool + Transfer</text>
-                    <text x="650" y="477" text-anchor="middle" fill="white" font-size="10">Prefix-Aware</text>
-
-                    <!-- Protocol Foundation -->
-                    <rect x="200" y="520" width="400" height="50" rx="8" fill="#2d3748" stroke="#1a202c"
-                        stroke-width="2" />
-                    <text x="400" y="545" text-anchor="middle" fill="white" font-size="14" font-weight="600">Protocol
-                        (L0) - Types, Errors, Metrics</text>
-                    <text x="400" y="560" text-anchor="middle" fill="white" font-size="10">trace_id, request_id,
-                        engine_id</text>
-
-                    <!-- Arrow marker definition -->
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#333" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-
             <div
-                style="margin-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px;">
-                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #667eea;">
-                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_pd_title">✅ PD Separation</h4>
-                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_pd_desc">Prefill and Decode
-                        phases run independently for optimal resource utilization</p>
-                </div>
-                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #48bb78;">
-                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_cpu_title">✅ CPU-First</h4>
-                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_cpu_desc">All components
-                        work on CPU by default, GPU/NPU are optional accelerators</p>
-                </div>
-                <div style="background: #f7fafc; padding: 20px; border-radius: 10px; border-left: 4px solid #ed8936;">
-                    <h4 style="margin: 0 0 10px; color: #2d3748;" data-i18n="arch_obs_title">✅ Observable</h4>
-                    <p style="margin: 0; color: #4a5568; font-size: 0.9em;" data-i18n="arch_obs_desc">Full metrics
-                        tracing with trace_id, request_id, timestamps at every layer</p>
-                </div>
+              style="
+                background: #1a202c;
+                color: #e2e8f0;
+                padding: 16px 20px;
+                border-radius: 8px;
+                font-family: &quot;Fira Code&quot;, monospace;
+                font-size: 0.95em;
+                overflow-x: auto;
+              "
+            >
+              <span style="color: #48bb78">$</span> sage-llm run -p
+              <span style="color: #fbbf24">"Hello AI"</span> --backend cuda
             </div>
+          </div>
         </div>
 
-        <div class="features">
-            <div class="feature-card">
-                <h3 data-i18n="feat_perf_title">🚀 Extreme Performance</h3>
-                <p data-i18n="feat_perf_desc">Custom kernels for Huawei Ascend & NVIDIA GPU. Focused on stable,
-                    high-throughput inference on domestic hardware.</p>
-            </div>
-            <div class="feature-card">
-                <h3 data-i18n="feat_openai_title">🔌 OpenAI Compatible</h3>
-                <p>
-                    <span data-i18n="feat_openai_desc_prefix">Drop-in replacement for OpenAI API. Fully supports</span>
-                    <code>/v1/chat/completions</code>
-                    <span data-i18n="feat_openai_desc_suffix">and SSE streaming responses for seamless
-                        integration.</span>
-                </p>
-            </div>
-            <div class="feature-card">
-                <h3 data-i18n="feat_enterprise_title">🛡️ Enterprise Ready</h3>
-                <p data-i18n="feat_enterprise_desc">Designed for on-premise deployment. Full data sovereignty with no
-                    external dependencies. Multi-card pipeline parallelism support.</p>
-            </div>
+        <div
+          style="
+            margin-top: 25px;
+            padding: 16px;
+            background: #edf2f7;
+            border-left: 4px solid #667eea;
+            border-radius: 6px;
+          "
+        >
+          <strong style="color: #2d3748">💡 Smart Detection:</strong>
+          <span style="color: #4a5568"
+            >v0.4 automatically detects if you're missing dependencies for your hardware and
+            suggests the correct
+            <code
+              style="
+                background: #cbd5e0;
+                padding: 2px 6px;
+                border-radius: 3px;
+                font-family: &quot;Fira Code&quot;, monospace;
+              "
+              >sage-llm install</code
+            >
+            command.</span
+          >
+        </div>
+      </div>
+
+      <!-- Leaderboard Section -->
+      <div class="leaderboard-section" id="leaderboard">
+        <h2>📊 Performance Leaderboard</h2>
+        <p>
+          Track sageLLM's version evolution with real-world performance metrics. Compare different
+          hardware configurations, models, and workloads.
+        </p>
+
+        <!-- Tab Navigation -->
+        <div class="tab-nav">
+          <button class="tab-button active" data-tab="single-chip">单机单卡</button>
+          <button class="tab-button" data-tab="multi-chip">单机多卡</button>
+          <button class="tab-button" data-tab="multi-node">多机多卡</button>
         </div>
 
-        <footer>
-            <p><strong>sageLLM</strong> <span data-i18n="footer_line1">- Built by IntelliStream Team</span></p>
-            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;" data-i18n="footer_line2">Optimized for domestic
-                computing ecosystems 🇨🇳</p>
-        </footer>
+        <!-- Loading State -->
+        <div id="leaderboard-loading" class="loading-state">
+          <div class="spinner"></div>
+          <p>Loading leaderboard data...</p>
+        </div>
+
+        <!-- Error State -->
+        <div id="leaderboard-error" class="empty-state" style="display: none">
+          <div class="empty-state-icon">⚠️</div>
+          <h3>Failed to Load Data</h3>
+          <p>Please refresh the page or check your internet connection.</p>
+        </div>
+
+        <!-- Main Content -->
+        <div id="leaderboard-content" style="display: none">
+          <!-- Filters -->
+          <div class="filters">
+            <div class="filter-group">
+              <label for="filter-hardware">Hardware</label>
+              <select id="filter-hardware">
+                <option value="all">All</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-model">Model</label>
+              <select id="filter-model">
+                <option value="all">All</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-workload">Workload</label>
+              <select id="filter-workload">
+                <option value="all">All</option>
+              </select>
+            </div>
+            <div class="filter-group">
+              <label for="filter-precision">Precision</label>
+              <select id="filter-precision">
+                <option value="all">All</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Table -->
+          <div class="table-container">
+            <table class="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Version</th>
+                  <th>Config</th>
+                  <th>Release Date</th>
+                  <th>TTFT (ms) ↓</th>
+                  <th>Tokens/s ↑</th>
+                  <th>Peak Mem (MB) ↓</th>
+                  <th>Error Rate ↓</th>
+                  <th>Hit Rate ↑</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-tbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State -->
+          <div id="empty-state" class="empty-state" style="display: none">
+            <div class="empty-state-icon">🔍</div>
+            <h3>No Results Found</h3>
+            <p>Try adjusting your filters to see more data.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="architecture">
+        <h2 data-i18n="arch_title">🏗️ System Architecture</h2>
+        <p data-i18n="arch_desc">
+          Layered design with protocol-first approach, CPU-first development, and PD separation for
+          optimal performance.
+        </p>
+
+        <div style="margin: 30px 0; text-align: center">
+          <svg
+            viewBox="0 0 800 600"
+            style="
+              max-width: 100%;
+              height: auto;
+              background: #f8fafc;
+              border-radius: 12px;
+              padding: 20px;
+            "
+          >
+            <!-- Client -->
+            <rect
+              x="320"
+              y="20"
+              width="160"
+              height="60"
+              rx="8"
+              fill="#667eea"
+              stroke="#5a67d8"
+              stroke-width="2"
+            />
+            <text x="400" y="50" text-anchor="middle" fill="white" font-size="16" font-weight="600">
+              Client / Benchmark
+            </text>
+
+            <!-- Arrow -->
+            <path
+              d="M 400 80 L 400 120"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+
+            <!-- Gateway -->
+            <rect
+              x="320"
+              y="120"
+              width="160"
+              height="60"
+              rx="8"
+              fill="#48bb78"
+              stroke="#38a169"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="145"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="600"
+            >
+              Gateway (L4)
+            </text>
+            <text x="400" y="165" text-anchor="middle" fill="white" font-size="11">
+              OpenAI API + SSE
+            </text>
+
+            <!-- Arrow -->
+            <path
+              d="M 400 180 L 400 220"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+
+            <!-- Control Plane -->
+            <rect
+              x="320"
+              y="220"
+              width="160"
+              height="60"
+              rx="8"
+              fill="#ed8936"
+              stroke="#dd6b20"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="245"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="600"
+            >
+              Control Plane (L3)
+            </text>
+            <text x="400" y="265" text-anchor="middle" fill="white" font-size="11">
+              Routing + Scheduling
+            </text>
+
+            <!-- Arrow -->
+            <path
+              d="M 400 280 L 400 320"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+
+            <!-- Core -->
+            <rect
+              x="320"
+              y="320"
+              width="160"
+              height="60"
+              rx="8"
+              fill="#4299e1"
+              stroke="#3182ce"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="345"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="600"
+            >
+              Core Engine (L2)
+            </text>
+            <text x="400" y="365" text-anchor="middle" fill="white" font-size="11">
+              PD Separation + Metrics
+            </text>
+
+            <!-- Branch to 3 components -->
+            <path d="M 400 380 L 400 400 M 200 400 L 600 400" stroke="#333" stroke-width="2" />
+            <path
+              d="M 200 400 L 200 420"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+            <path
+              d="M 400 400 L 400 420"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+            <path
+              d="M 600 400 L 600 420"
+              stroke="#333"
+              stroke-width="2"
+              marker-end="url(#arrowhead)"
+            />
+
+            <!-- Bottom 3 boxes -->
+            <rect
+              x="80"
+              y="420"
+              width="140"
+              height="70"
+              rx="8"
+              fill="#9f7aea"
+              stroke="#805ad5"
+              stroke-width="2"
+            />
+            <text
+              x="150"
+              y="440"
+              text-anchor="middle"
+              fill="white"
+              font-size="13"
+              font-weight="600"
+            >
+              Backend (L1)
+            </text>
+            <text x="150" y="457" text-anchor="middle" fill="white" font-size="10">
+              CPU/CUDA/Ascend
+            </text>
+            <text x="150" y="472" text-anchor="middle" fill="white" font-size="10">
+              Device + Stream
+            </text>
+
+            <rect
+              x="330"
+              y="420"
+              width="140"
+              height="70"
+              rx="8"
+              fill="#9f7aea"
+              stroke="#805ad5"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="445"
+              text-anchor="middle"
+              fill="white"
+              font-size="13"
+              font-weight="600"
+            >
+              Comm (L1)
+            </text>
+            <text x="400" y="462" text-anchor="middle" fill="white" font-size="10">Topology</text>
+            <text x="400" y="477" text-anchor="middle" fill="white" font-size="10">
+              Collective Ops
+            </text>
+
+            <rect
+              x="580"
+              y="420"
+              width="140"
+              height="70"
+              rx="8"
+              fill="#9f7aea"
+              stroke="#805ad5"
+              stroke-width="2"
+            />
+            <text
+              x="650"
+              y="445"
+              text-anchor="middle"
+              fill="white"
+              font-size="13"
+              font-weight="600"
+            >
+              KV Cache (L1)
+            </text>
+            <text x="650" y="462" text-anchor="middle" fill="white" font-size="10">
+              Pool + Transfer
+            </text>
+            <text x="650" y="477" text-anchor="middle" fill="white" font-size="10">
+              Prefix-Aware
+            </text>
+
+            <!-- Protocol Foundation -->
+            <rect
+              x="200"
+              y="520"
+              width="400"
+              height="50"
+              rx="8"
+              fill="#2d3748"
+              stroke="#1a202c"
+              stroke-width="2"
+            />
+            <text
+              x="400"
+              y="545"
+              text-anchor="middle"
+              fill="white"
+              font-size="14"
+              font-weight="600"
+            >
+              Protocol (L0) - Types, Errors, Metrics
+            </text>
+            <text x="400" y="560" text-anchor="middle" fill="white" font-size="10">
+              trace_id, request_id, engine_id
+            </text>
+
+            <!-- Arrow marker definition -->
+            <defs>
+              <marker
+                id="arrowhead"
+                markerWidth="10"
+                markerHeight="10"
+                refX="9"
+                refY="3"
+                orient="auto"
+              >
+                <polygon points="0 0, 10 3, 0 6" fill="#333" />
+              </marker>
+            </defs>
+          </svg>
+        </div>
+
+        <div
+          style="
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+          "
+        >
+          <div
+            style="
+              background: #f7fafc;
+              padding: 20px;
+              border-radius: 10px;
+              border-left: 4px solid #667eea;
+            "
+          >
+            <h4 style="margin: 0 0 10px; color: #2d3748" data-i18n="arch_pd_title">
+              ✅ PD Separation
+            </h4>
+            <p style="margin: 0; color: #4a5568; font-size: 0.9em" data-i18n="arch_pd_desc">
+              Prefill and Decode phases run independently for optimal resource utilization
+            </p>
+          </div>
+          <div
+            style="
+              background: #f7fafc;
+              padding: 20px;
+              border-radius: 10px;
+              border-left: 4px solid #48bb78;
+            "
+          >
+            <h4 style="margin: 0 0 10px; color: #2d3748" data-i18n="arch_cpu_title">
+              ✅ CPU-First
+            </h4>
+            <p style="margin: 0; color: #4a5568; font-size: 0.9em" data-i18n="arch_cpu_desc">
+              All components work on CPU by default, GPU/NPU are optional accelerators
+            </p>
+          </div>
+          <div
+            style="
+              background: #f7fafc;
+              padding: 20px;
+              border-radius: 10px;
+              border-left: 4px solid #ed8936;
+            "
+          >
+            <h4 style="margin: 0 0 10px; color: #2d3748" data-i18n="arch_obs_title">
+              ✅ Observable
+            </h4>
+            <p style="margin: 0; color: #4a5568; font-size: 0.9em" data-i18n="arch_obs_desc">
+              Full metrics tracing with trace_id, request_id, timestamps at every layer
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="features">
+        <div class="feature-card">
+          <h3 data-i18n="feat_perf_title">🚀 Extreme Performance</h3>
+          <p data-i18n="feat_perf_desc">
+            Custom kernels for Huawei Ascend & NVIDIA GPU. Focused on stable, high-throughput
+            inference on domestic hardware.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="feat_openai_title">🔌 OpenAI Compatible</h3>
+          <p>
+            <span data-i18n="feat_openai_desc_prefix"
+              >Drop-in replacement for OpenAI API. Fully supports</span
+            >
+            <code>/v1/chat/completions</code>
+            <span data-i18n="feat_openai_desc_suffix"
+              >and SSE streaming responses for seamless integration.</span
+            >
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3 data-i18n="feat_enterprise_title">🛡️ Enterprise Ready</h3>
+          <p data-i18n="feat_enterprise_desc">
+            Designed for on-premise deployment. Full data sovereignty with no external dependencies.
+            Multi-card pipeline parallelism support.
+          </p>
+        </div>
+      </div>
+
+      <footer>
+        <p>
+          <strong>sageLLM</strong>
+          <span data-i18n="footer_line1">- Built by IntelliStream Team</span>
+        </p>
+        <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8" data-i18n="footer_line2">
+          Optimized for domestic computing ecosystems 🇨🇳
+        </p>
+      </footer>
     </div>
 
     <script>
-        const I18N = {
-            en: {
-                title: "sageLLM - Modular LLM Inference for Domestic Computing Power",
-                badge_perf: "🚀 High Throughput",
-                badge_ascend: "🇨🇳 Ascend NPU Native",
-                badge_private: "🔒 Data Sovereignty",
-                subtitle: "Modular Inference Engine for Domestic Computing Ecosystems",
-                demo_title: "⚡ Live Inference Demo",
-                demo_desc: "Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends available).",
-                start_api: "# Start API server",
-                cta_docs: "📚 Documentation",
-                cta_github: "💻 GitHub",
+      const I18N = {
+        en: {
+          title: "sageLLM - Modular LLM Inference for Domestic Computing Power",
+          badge_perf: "🚀 High Throughput",
+          badge_ascend: "🇨🇳 Ascend NPU Native",
+          badge_private: "🔒 Data Sovereignty",
+          subtitle: "Modular Inference Engine for Domestic Computing Ecosystems",
+          demo_title: "⚡ Live Inference Demo",
+          demo_desc:
+            "Real-time streaming response powered by sageLLM engine (CPU/CUDA/Ascend backends available).",
+          start_api: "# Start API server",
+          cta_docs: "📚 Documentation",
+          cta_github: "💻 GitHub",
 
-                arch_title: "🏗️ System Architecture",
-                arch_desc: "Layered design with protocol-first approach, CPU-first development, and PD separation for optimal performance.",
+          arch_title: "🏗️ System Architecture",
+          arch_desc:
+            "Layered design with protocol-first approach, CPU-first development, and PD separation for optimal performance.",
 
-                arch_pd_title: "✅ PD Separation",
-                arch_pd_desc: "Prefill and Decode phases run independently for optimal resource utilization",
-                arch_cpu_title: "✅ CPU-First",
-                arch_cpu_desc: "All components work on CPU by default, GPU/NPU are optional accelerators",
-                arch_obs_title: "✅ Observable",
-                arch_obs_desc: "Full metrics tracing with trace_id, request_id, timestamps at every layer",
+          arch_pd_title: "✅ PD Separation",
+          arch_pd_desc:
+            "Prefill and Decode phases run independently for optimal resource utilization",
+          arch_cpu_title: "✅ CPU-First",
+          arch_cpu_desc: "All components work on CPU by default, GPU/NPU are optional accelerators",
+          arch_obs_title: "✅ Observable",
+          arch_obs_desc:
+            "Full metrics tracing with trace_id, request_id, timestamps at every layer",
 
-                feat_perf_title: "🚀 Extreme Performance",
-                feat_perf_desc: "Custom kernels for Huawei Ascend & NVIDIA GPU. Focused on stable, high-throughput inference on domestic hardware.",
-                feat_openai_title: "🔌 OpenAI Compatible",
-                feat_openai_desc_prefix: "Drop-in replacement for OpenAI API. Fully supports",
-                feat_openai_desc_suffix: "and SSE streaming responses for seamless integration.",
-                feat_enterprise_title: "🛡️ Enterprise Ready",
-                feat_enterprise_desc: "Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.",
+          feat_perf_title: "🚀 Extreme Performance",
+          feat_perf_desc:
+            "Custom kernels for Huawei Ascend & NVIDIA GPU. Focused on stable, high-throughput inference on domestic hardware.",
+          feat_openai_title: "🔌 OpenAI Compatible",
+          feat_openai_desc_prefix: "Drop-in replacement for OpenAI API. Fully supports",
+          feat_openai_desc_suffix: "and SSE streaming responses for seamless integration.",
+          feat_enterprise_title: "🛡️ Enterprise Ready",
+          feat_enterprise_desc:
+            "Designed for on-premise deployment. Full data sovereignty with no external dependencies. Multi-card pipeline parallelism support.",
 
-                footer_line1: "sageLLM - Built by IntelliStream Team",
-                footer_line2: "Optimized for domestic computing ecosystems 🇨🇳",
-                toggle_text: "中文"
-            },
-            zh: {
-                title: "sageLLM - 面向国产算力生态的模块化推理引擎",
-                badge_perf: "🚀 高吞吐",
-                badge_ascend: "🇨🇳 昇腾优化",
-                badge_private: "🔒 数据主权",
-                subtitle: "面向国产算力生态的模块化 LLM 推理引擎",
-                demo_title: "⚡ 实时推理演示",
-                demo_desc: "基于 sageLLM 引擎的实时流式输出（支持 CPU/CUDA 后端）。",
-                start_api: "# 启动 API 服务",
-                cta_docs: "📚 文档",
-                cta_github: "💻 GitHub",
+          footer_line1: "sageLLM - Built by IntelliStream Team",
+          footer_line2: "Optimized for domestic computing ecosystems 🇨🇳",
+          toggle_text: "中文",
+        },
+        zh: {
+          title: "sageLLM - 面向国产算力生态的模块化推理引擎",
+          badge_perf: "🚀 高吞吐",
+          badge_ascend: "🇨🇳 昇腾优化",
+          badge_private: "🔒 数据主权",
+          subtitle: "面向国产算力生态的模块化 LLM 推理引擎",
+          demo_title: "⚡ 实时推理演示",
+          demo_desc: "基于 sageLLM 引擎的实时流式输出（支持 CPU/CUDA 后端）。",
+          start_api: "# 启动 API 服务",
+          cta_docs: "📚 文档",
+          cta_github: "💻 GitHub",
 
-                arch_title: "🏗️ 系统架构",
-                arch_desc: "分层设计，遵循协议优先、CPU 优先、PD 分离原则，实现最优性能。",
+          arch_title: "🏗️ 系统架构",
+          arch_desc: "分层设计，遵循协议优先、CPU 优先、PD 分离原则，实现最优性能。",
 
-                arch_pd_title: "✅ PD 分离",
-                arch_pd_desc: "Prefill 和 Decode 阶段独立运行，实现资源最优利用",
-                arch_cpu_title: "✅ CPU 优先",
-                arch_cpu_desc: "所有组件默认支持 CPU，GPU/NPU 为可选加速器",
-                arch_obs_title: "✅ 可观测",
-                arch_obs_desc: "每层都有完整的 metrics 追踪（trace_id、request_id、时间戳）",
+          arch_pd_title: "✅ PD 分离",
+          arch_pd_desc: "Prefill 和 Decode 阶段独立运行，实现资源最优利用",
+          arch_cpu_title: "✅ CPU 优先",
+          arch_cpu_desc: "所有组件默认支持 CPU，GPU/NPU 为可选加速器",
+          arch_obs_title: "✅ 可观测",
+          arch_obs_desc: "每层都有完整的 metrics 追踪（trace_id、request_id、时间戳）",
 
-                feat_perf_title: "🚀 极致性能",
-                feat_perf_desc: "面向昇腾与 NVIDIA 的定制优化，聚焦稳定高吞吐的推理表现。",
-                feat_openai_title: "🔌 OpenAI 兼容",
-                feat_openai_desc_prefix: "可作为 OpenAI API 的替代实现，支持",
-                feat_openai_desc_suffix: "与 SSE 流式返回。",
-                feat_enterprise_title: "🛡️ 企业可用",
-                feat_enterprise_desc: "支持本地化部署，强调数据主权；支持多卡并行与可观测性落地。",
+          feat_perf_title: "🚀 极致性能",
+          feat_perf_desc: "面向昇腾与 NVIDIA 的定制优化，聚焦稳定高吞吐的推理表现。",
+          feat_openai_title: "🔌 OpenAI 兼容",
+          feat_openai_desc_prefix: "可作为 OpenAI API 的替代实现，支持",
+          feat_openai_desc_suffix: "与 SSE 流式返回。",
+          feat_enterprise_title: "🛡️ 企业可用",
+          feat_enterprise_desc: "支持本地化部署，强调数据主权；支持多卡并行与可观测性落地。",
 
-                footer_line1: "- IntelliStream 团队",
-                footer_line2: "面向国产算力生态优化 🇨🇳",
-                toggle_text: "English"
-            }
-        };
+          footer_line1: "- IntelliStream 团队",
+          footer_line2: "面向国产算力生态优化 🇨🇳",
+          toggle_text: "English",
+        },
+      };
 
-        function detectDefaultLang() {
-            const stored = localStorage.getItem("sagellm_lang");
-            if (stored === "zh" || stored === "en") return stored;
-            const nav = (navigator.language || "en").toLowerCase();
-            return nav.startsWith("zh") ? "zh" : "en";
+      function detectDefaultLang() {
+        const stored = localStorage.getItem("sagellm_lang");
+        if (stored === "zh" || stored === "en") return stored;
+        const nav = (navigator.language || "en").toLowerCase();
+        return nav.startsWith("zh") ? "zh" : "en";
+      }
+
+      function setLang(lang) {
+        const dict = I18N[lang] || I18N.en;
+        document.documentElement.lang = lang;
+        document.title = dict.title;
+
+        for (const el of document.querySelectorAll("[data-i18n]")) {
+          const key = el.getAttribute("data-i18n");
+          const text = dict[key];
+          if (typeof text === "string") {
+            el.textContent = text;
+          }
         }
 
-        function setLang(lang) {
-            const dict = I18N[lang] || I18N.en;
-            document.documentElement.lang = lang;
-            document.title = dict.title;
+        const toggle = document.getElementById("langToggleText");
+        if (toggle) toggle.textContent = dict.toggle_text;
+        localStorage.setItem("sagellm_lang", lang);
+      }
 
-            for (const el of document.querySelectorAll("[data-i18n]")) {
-                const key = el.getAttribute("data-i18n");
-                const text = dict[key];
-                if (typeof text === "string") {
-                    el.textContent = text;
-                }
-            }
+      document.addEventListener("DOMContentLoaded", () => {
+        const initial = detectDefaultLang();
+        setLang(initial);
 
-            const toggle = document.getElementById("langToggleText");
-            if (toggle) toggle.textContent = dict.toggle_text;
-            localStorage.setItem("sagellm_lang", lang);
+        const btn = document.getElementById("langToggle");
+        if (btn) {
+          btn.addEventListener("click", () => {
+            const current = localStorage.getItem("sagellm_lang") || initial;
+            setLang(current === "zh" ? "en" : "zh");
+          });
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const initial = detectDefaultLang();
-            setLang(initial);
-
-            const btn = document.getElementById("langToggle");
-            if (btn) {
-                btn.addEventListener("click", () => {
-                    const current = localStorage.getItem("sagellm_lang") || initial;
-                    setLang(current === "zh" ? "en" : "zh");
-                });
-            }
-        });
+      });
     </script>
 
     <!-- Asciinema Player Script Integration -->
     <script>
-        function initAsciinemaPlayer() {
-            const playerElement = document.getElementById('demo-player');
-            if (!playerElement) return;
+      function initAsciinemaPlayer() {
+        const playerElement = document.getElementById("demo-player");
+        if (!playerElement) return;
 
-            if (typeof AsciinemaPlayer === 'undefined') {
-                playerElement.innerHTML = '<span style="color: #ff6b6b; font-family: monospace;">Error: AsciinemaPlayer library not loaded.</span>';
-                return;
-            }
-
-            try {
-                // Clear loading placeholder
-                playerElement.innerHTML = '';
-
-                // Create Player
-                AsciinemaPlayer.create('./demos/sagellm-inference.cast', playerElement, {
-                    // Formatting
-                    cols: 100,          // Match recording width
-                    rows: 24,           // Match recording height
-                    fit: "none",        // Prevent scaling artifacts
-                    terminalLineHeight: 1.4,
-
-                    // Behavior
-                    autoPlay: true,
-                    loop: true,
-                    speed: 1.0,
-                    idleTimeLimit: 2,   // Skip pauses longer than 2s
-                    preload: true,
-
-                    // Visuals
-                    theme: "dracula",
-                    poster: "npt:0:01"  // Show frame at 1s as preview
-                });
-            } catch (err) {
-                console.error("Asciinema Error:", err);
-                playerElement.innerHTML = '<span style="color: #ff6b6b; font-family: monospace;">Error: ' + err.message + '</span>';
-            }
+        if (typeof AsciinemaPlayer === "undefined") {
+          playerElement.innerHTML =
+            '<span style="color: #ff6b6b; font-family: monospace;">Error: AsciinemaPlayer library not loaded.</span>';
+          return;
         }
+
+        try {
+          // Clear loading placeholder
+          playerElement.innerHTML = "";
+
+          // Create Player
+          AsciinemaPlayer.create("./demos/sagellm-inference.cast", playerElement, {
+            // Formatting
+            cols: 100, // Match recording width
+            rows: 24, // Match recording height
+            fit: "none", // Prevent scaling artifacts
+            terminalLineHeight: 1.4,
+
+            // Behavior
+            autoPlay: true,
+            loop: true,
+            speed: 1.0,
+            idleTimeLimit: 2, // Skip pauses longer than 2s
+            preload: true,
+
+            // Visuals
+            theme: "dracula",
+            poster: "npt:0:01", // Show frame at 1s as preview
+          });
+        } catch (err) {
+          console.error("Asciinema Error:", err);
+          playerElement.innerHTML =
+            '<span style="color: #ff6b6b; font-family: monospace;">Error: ' +
+            err.message +
+            "</span>";
+        }
+      }
     </script>
 
     <!-- Load Library from CDN with onload handler -->
-    <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"
-        onload="initAsciinemaPlayer()"
-        onerror="document.getElementById('demo-player').innerHTML=\'Error loading player script from CDN\'"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/asciinema-player@3.8.0/dist/bundle/asciinema-player.min.js"
+      onload="initAsciinemaPlayer()"
+      onerror="document.getElementById('demo-player').innerHTML=\'Error loading player script from CDN\'"
+    ></script>
 
     <!-- Hugging Face Data Loader (must load before leaderboard.js) -->
     <script src="./assets/hf-data-loader.js"></script>
 
     <!-- Leaderboard Script -->
     <script src="./assets/leaderboard.js"></script>
-</body>
-
+  </body>
 </html>
