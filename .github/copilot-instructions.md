@@ -206,3 +206,35 @@ npx serve .
 ---
 
 **维护者**: IntelliStream Team **许可证**: MIT License (仅限演示材料)
+
+## 🛠️ GitHub Issue 管理（sage-dev gh）
+
+**从 v0.2.0 开始，所有 GitHub CLI 命令已集成到 `sage-dev` 工具。**
+
+使用 `sage-dev gh` 子命令来管理 GitHub issues，无需直接使用 gh 命令。
+
+### 常用命令
+
+```bash
+# 查看仓库的所有开放 issues
+sage-dev gh list sagellm-{repo_name}
+
+# 为单个 issue 分配给用户
+sage-dev gh assign sagellm-{repo_name} <issue_number> <username>
+
+# 批量分配 issues 给同一用户
+sage-dev gh assign-batch sagellm-{repo_name} <username> <issues...>
+
+# 查看单个 issue 的详细信息
+sage-dev gh view sagellm-{repo_name} <issue_number>
+```
+
+### 详细说明
+
+详见 `sagellm` 仓库的 copilot-instructions 中的 "GitHub Issue 管理（sage-dev gh）" 部分。
+
+### ⚠️ 注意事项
+
+- 需要安装 `isagellm-dev-tools` 包
+- 需要安装 GitHub CLI（`gh`）并通过认证
+
