@@ -216,6 +216,20 @@ npx serve .
 ### 常用命令
 
 ```bash
+# ⚠️ 创建新 issue（当前有 bug，建议暂时使用 gh CLI）
+# Bug: sage-dev gh create 会报错但实际创建成功，导致重复 issue
+# 临时方案：使用 gh issue create
+gh issue create \
+  --title "[Category] 描述" \
+  --label "label1,label2" \
+  --body "详细描述"
+
+# 未来修复后的用法：
+# sage-dev gh create sagellm-core \
+#   --title "[Feature] 新功能" \
+#   --label enhancement \
+#   --assignee username
+
 # 查看仓库的所有开放 issues
 sage-dev gh list sagellm-{repo_name}
 
