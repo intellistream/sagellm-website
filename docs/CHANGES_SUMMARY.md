@@ -315,4 +315,4 @@ http://localhost:8000
 ---
 
 **最后更新**: 2026-01-28  
-**负责人**: Agent 3
+**负责人**: IntelliStream Team

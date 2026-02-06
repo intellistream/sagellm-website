@@ -26,7 +26,7 @@ jobs:
         run: |
           mkdir -p data
           
-          HF_REPO="wangyao36/sagellm-benchmark-results"
+          HF_REPO="intellistream/sagellm-benchmark-results"
           
           echo "📥 Downloading leaderboard_single.json..."
           curl -L "https://huggingface.co/datasets/${HF_REPO}/resolve/main/leaderboard_single.json" \

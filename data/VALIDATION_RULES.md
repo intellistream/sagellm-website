@@ -1,6 +1,6 @@
 # Data Validation Rules - sageLLM Leaderboard v1.0
 
-> 本文档定义了 leaderboard 数据的验证规则，供数据导入脚本（Agent 2）和前端展示（Agent 3）使用。
+> 本文档定义了 leaderboard 数据的验证规则，供数据导入脚本和前端展示使用。
 
 ---
 
@@ -276,7 +276,7 @@ except ValidationError as e:
 
 ---
 
-## 📤 给 Agent 2 的建议
+## 📤 数据导入建议
 
 ### 数据导入流程
 1. 从 `sagellm-benchmark` 输出中提取 metrics

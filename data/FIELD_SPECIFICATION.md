@@ -325,8 +325,8 @@ sagellm-website/data/
 ├── examples/
 │   ├── single_node_example.json      # 单机样例数据
 │   └── multi_node_example.json       # 多机样例数据
-├── leaderboard_single.json           # 真实单机数据（Agent 2 产出）
-└── leaderboard_multi.json            # 真实多机数据（Agent 2 产出）
+├── leaderboard_single.json           # 真实单机数据
+└── leaderboard_multi.json            # 真实多机数据
 ```
 
 ---

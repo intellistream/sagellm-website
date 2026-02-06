@@ -309,7 +309,7 @@ def main():
             multi_data.append(entry)
     
     # 保存数据
-    output_dir = Path(__file__).parent / "data"
+    output_dir = Path(__file__).parent.parent / "data"
     output_dir.mkdir(exist_ok=True)
     
     with open(output_dir / "leaderboard_single.json", "w", encoding="utf-8") as f:
