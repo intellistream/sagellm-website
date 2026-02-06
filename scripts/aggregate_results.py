@@ -45,7 +45,7 @@ def categorize_results(results: List[Dict]) -> tuple:
 
 def main():
     # 路径设置
-    base_dir = Path(__file__).parent
+    base_dir = Path(__file__).parent.parent
     results_dir = base_dir / "data" / "results"
     output_dir = base_dir / "data"
     
