@@ -1,7 +1,7 @@
-# sageLLM Leaderboard Data Model - Agent 1 产出
+# sageLLM Leaderboard Data Model
 
 > **完成日期:** 2026-01-28  
-> **负责人:** Agent 1 (数据模型设计)  
+> **负责人:** IntelliStream Team (数据模型设计)  
 > **状态:** ✅ 已完成
 
 ---
@@ -10,12 +10,12 @@
 
 ### 1. JSON Schema 验证文件
 - **文件**: [`schemas/leaderboard_v1.schema.json`](schemas/leaderboard_v1.schema.json)
-- **用途**: 数据验证（供 Agent 2 使用）
+- **用途**: 数据验证（供数据导入脚本使用）
 - **格式**: JSON Schema Draft-07
 
 ### 2. 字段规范文档
 - **文件**: [`FIELD_SPECIFICATION.md`](FIELD_SPECIFICATION.md)
-- **用途**: 开发参考（供 Agent 2 和 Agent 3 使用）
+- **用途**: 开发参考（供后端和前端开发使用）
 - **内容**:
   - 所有字段的详细说明
   - 单机/多机差异对照表
@@ -119,24 +119,24 @@ $ python validate_schema.py examples/multi_node_example.json
 
 ---
 
-## 📤 传递给下游 Agent
+## 📤 集成指南
 
-### 给 Agent 2（数据导入流程）
+### 数据导入流程
 ✅ **已提供**:
 1. `schemas/leaderboard_v1.schema.json` - 用于数据验证
 2. `FIELD_SPECIFICATION.md` - 了解需要从 benchmark 输出中提取哪些字段
 3. `examples/single_node_example.json` - 参考格式
 4. `examples/multi_node_example.json` - 参考格式
 
-**Agent 2 可开始工作**: ✅
+**状态**: ✅ 已就绪
 
-### 给 Agent 3（前端页面开发）
+### 前端页面开发
 ✅ **已提供**:
 1. `FIELD_SPECIFICATION.md` - 了解如何展示数据
 2. `examples/single_node_example.json` - 前端开发时的测试数据
 3. `examples/multi_node_example.json` - 前端开发时的测试数据
 
-**Agent 3 可开始工作**: ⚠️ 等待 Agent 2 提供真实数据文件后，可使用真实数据测试
+**状态**: ⚠️ 等待真实数据文件后，可使用真实数据测试
 
 ---
 
@@ -163,8 +163,8 @@ sagellm-website/data/
 ├── examples/
 │   ├── single_node_example.json       # 单机样例数据
 │   └── multi_node_example.json        # 多机样例数据
-├── leaderboard_single.json            # 真实单机数据（Agent 2 产出）
-└── leaderboard_multi.json             # 真实多机数据（Agent 2 产出）
+├── leaderboard_single.json            # 真实单机数据
+└── leaderboard_multi.json             # 真实多机数据
 ```
 
 ---
@@ -181,19 +181,19 @@ pip install jsonschema
 
 ---
 
-## 🚀 后续工作
+## 🚀 后续工作计划
 
-### Agent 2 的任务
+### 数据导入任务
 1. 开发数据转换脚本（`scripts/import_benchmark.py`）
 2. 将 `sagellm-benchmark` 输出转换为 leaderboard 格式
 3. 自动补充元数据（版本号、时间戳、复现命令）
 4. 产出真实数据文件（5-7 条单机 + 2-3 条多机）
 
-### Agent 3 的任务
+### 前端开发任务
 1. 在 `index.html` 中新增 Leaderboard 版块
 2. 支持单机/多机 Tab 切换
 3. 实现排序/筛选/详情展开功能
-4. 使用 Agent 2 产出的真实数据文件进行测试
+4. 使用真实数据文件进行测试
 
 ---
 
@@ -237,9 +237,5 @@ git push
 ## �📞 联系方式
 
 如有疑问，请联系：
-- **Agent 1 负责人**: IntelliStream Team
+- **负责人**: IntelliStream Team
 - **项目文档**: sagellm-docs
-
----
-
-**Agent 1 工作状态**: ✅ 已完成，可传递给下游 Agent
