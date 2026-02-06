@@ -7,7 +7,7 @@
 
 const HF_CONFIG = {
     // Hugging Face 仓库配置
-    repo: 'wangyao36/sagellm-benchmark-results',
+    repo: 'intellistream/sagellm-benchmark-results',
     branch: 'main',
 
     // 数据文件路径（在 HF repo 中的路径）
