@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
+- 修复 agent 指令中的命令错误（sage-dev gh → sagellm-dev gh）
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
