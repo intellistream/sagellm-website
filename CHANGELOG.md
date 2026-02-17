@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
 - 清理 README 中的 demo 录制/嵌入说明。
 - 调整架构图层级：Core/Control/Gateway 分别为 L2/L3/L4。
+- Leaderboard 颜色语义优化：按指标语义统一趋势色（含高优/低优指标方向一致性）
 
 ### Added
 - Ascend NPU engine implementation announcement (0.3.x release).
@@ -27,9 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated Quick Start examples with Ascend backend support.
 - Updated architecture diagram: Backend box now shows "CPU/CUDA/Ascend".
 - Updated demo description: "CPU/CUDA/Ascend backends available".
+- Leaderboard 增强：新增 Baseline 徽章、`vs Prev`/`vs Base` 双对比指标展示与多行指标排版
 
-### Fixed
-- (N/A)
+### Removed
+- 删除阶段性说明文档：`docs/CHANGES_SUMMARY.md`
 
 ## [0.2.0.0] - 2025-01-15
 
