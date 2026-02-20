@@ -35,6 +35,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
+- 首页发布 banner 从 v0.4 宣传语更新为 v0.5 工程可用性说明文案
 - 清理 README 中的 demo 录制/嵌入说明。
 - 调整架构图层级：Core/Control/Gateway 分别为 L2/L3/L4。
 
