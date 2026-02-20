@@ -32,6 +32,7 @@
         singleChipData: [],
         multiChipData: [],
         multiNodeData: [],
+        totalLoadedEntries: 0,
         filters: {
             'single-chip': { hardware: '', model: '', workload: '', precision: '' },
             'multi-chip': { hardware: '', model: '', workload: '', precision: '' },
@@ -94,6 +95,11 @@
             state.multiNodeData = multiData.filter(entry =>
                 entry.cluster && entry.cluster.node_count > 1
             );
+
+            state.totalLoadedEntries =
+                state.singleChipData.length +
+                state.multiChipData.length +
+                state.multiNodeData.length;
 
             // 排序
             [state.singleChipData, state.multiChipData, state.multiNodeData].forEach(data => {
@@ -265,10 +271,12 @@
         if (filtered.length === 0) {
             tbody.innerHTML = '';
             emptyState.style.display = 'block';
+            renderDataStats(data.length, 0);
             return;
         }
 
         emptyState.style.display = 'none';
+        renderDataStats(data.length, filtered.length);
 
         // Calculate trends (compare with previous version AND baseline)
         const baseline = filtered[filtered.length - 1]; // 最早的版本是 baseline
@@ -294,6 +302,15 @@
 
         // Attach event listeners for buttons
         attachRowEventListeners();
+    }
+
+    function renderDataStats(tabTotal, shownTotal) {
+        const statsEl = document.getElementById('leaderboard-data-stats');
+        if (!statsEl) {
+            return;
+        }
+
+        statsEl.textContent = `Loaded ${state.totalLoadedEntries} entries • ${state.currentTab}: ${tabTotal} • Showing ${shownTotal} entries`;
     }
 
     async function renderLastUpdated() {
