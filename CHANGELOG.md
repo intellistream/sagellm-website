@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Workload 筛选改为 benchmark query 风格（`Q1`~`Q8`）并支持动态补充 legacy workload
 - Leaderboard 筛选恢复 `All` 选项，支持按 `hardware/model/workload/precision` 任意组合过滤
 - `sync-hf-data.yml` 的 `repository_dispatch` 事件类型改为 `benchmark-data-updated`（与 benchmark 发布流程一致）
+- 修复 `sync-hf-data.yml` 被误回滚到 `self-hosted` runner 的问题，恢复为 `ubuntu-latest` 并启用 `contents: write`
 - 修复 agent 指令中的命令错误（sage-dev gh → sagellm-dev gh）
 - 修复页面中重复渲染两个 Performance Leaderboard 的问题（冲突残留导致重复 DOM）
 - HF Data Loader 增加前端缓存（sessionStorage, TTL=5min），减少刷新时全量递归拉取导致的慢加载
