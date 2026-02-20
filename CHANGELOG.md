@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 趋势对比仅在单 workload 视图下启用；`all workloads` 视图禁用跨 workload 的趋势计算，避免误导
 - `Component Versions` 面板改为显示 `sageLLM + benchmark + 各组件` 完整版本，并标注来源为 `entry.versions`
 - `Component Versions` 面板重构为双源展示：`benchmark metadata` 与 `PyPI latest` 对比，并对不一致版本显式告警
+- HF Data Loader 增加幂等键去重（`version+workload+model+hardware+precision+config`）并保留最新 `submitted_at` 记录，降低重复上传导致的重复行和趋势噪音
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。

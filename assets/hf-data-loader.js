@@ -112,18 +112,114 @@ function splitSingleAndMulti(entries) {
     return { single, multi };
 }
 
+function normalizeKeyPart(value) {
+    const raw = String(value ?? 'unknown').trim().toLowerCase();
+    return raw.replace(/[^a-z0-9._-]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'unknown';
+}
+
+function extractWorkloadForKey(entry) {
+    const direct = entry?.workload?.name || entry?.workload_name || entry?.metadata?.workload;
+    if (direct && typeof direct === 'string') {
+        return direct.toUpperCase();
+    }
+
+    const notes = entry?.metadata?.notes || '';
+    const qMatch = String(notes).match(/\bQ([1-8])\b/i);
+    if (qMatch) {
+        return `Q${qMatch[1]}`;
+    }
+
+    return 'LEGACY';
+}
+
+function buildIdempotencyKey(entry) {
+    if (entry?.metadata?.idempotency_key) {
+        return String(entry.metadata.idempotency_key);
+    }
+
+    return [
+        normalizeKeyPart(entry?.sagellm_version),
+        normalizeKeyPart(extractWorkloadForKey(entry)),
+        normalizeKeyPart(entry?.model?.name),
+        normalizeKeyPart(entry?.model?.precision),
+        normalizeKeyPart(entry?.hardware?.chip_model),
+        normalizeKeyPart(entry?.hardware?.chip_count),
+        normalizeKeyPart(entry?.cluster?.node_count ?? 1),
+        normalizeKeyPart(entry?.config_type),
+    ].join('|');
+}
+
+function parseEntryTimestamp(entry) {
+    const submittedAt = entry?.metadata?.submitted_at;
+    if (submittedAt) {
+        const ts = Date.parse(submittedAt);
+        if (!Number.isNaN(ts)) {
+            return ts;
+        }
+    }
+
+    const releaseDate = entry?.metadata?.release_date;
+    if (releaseDate) {
+        const ts = Date.parse(releaseDate);
+        if (!Number.isNaN(ts)) {
+            return ts;
+        }
+    }
+
+    return 0;
+}
+
+function preferNewerEntry(current, candidate) {
+    const currentTs = parseEntryTimestamp(current);
+    const candidateTs = parseEntryTimestamp(candidate);
+
+    if (candidateTs !== currentTs) {
+        return candidateTs > currentTs ? candidate : current;
+    }
+
+    const currentTps = Number(current?.metrics?.throughput_tps ?? 0);
+    const candidateTps = Number(candidate?.metrics?.throughput_tps ?? 0);
+    if (candidateTps !== currentTps) {
+        return candidateTps > currentTps ? candidate : current;
+    }
+
+    return current;
+}
+
 function mergeByEntryId(entries) {
-    const byId = new Map();
+    const byEntryId = new Map();
+    const byIdentityKey = new Map();
+
     entries.forEach((entry) => {
-        const fallback = [
-            entry?.sagellm_version || 'unknown',
-            entry?.hardware?.chip_model || 'unknown',
-            entry?.model?.name || 'unknown',
-            entry?.metadata?.notes || 'unknown'
-        ].join('|');
-        byId.set(entry?.entry_id || fallback, entry);
+        if (!entry || typeof entry !== 'object') {
+            return;
+        }
+
+        const entryId = entry?.entry_id;
+        if (entryId) {
+            const existingById = byEntryId.get(entryId);
+            byEntryId.set(entryId, existingById ? preferNewerEntry(existingById, entry) : entry);
+            return;
+        }
+
+        const identityKey = buildIdempotencyKey(entry);
+        const existingByKey = byIdentityKey.get(identityKey);
+        byIdentityKey.set(
+            identityKey,
+            existingByKey ? preferNewerEntry(existingByKey, entry) : entry,
+        );
     });
-    return [...byId.values()];
+
+    byEntryId.forEach((entry) => {
+        const identityKey = buildIdempotencyKey(entry);
+        const existingByKey = byIdentityKey.get(identityKey);
+        byIdentityKey.set(
+            identityKey,
+            existingByKey ? preferNewerEntry(existingByKey, entry) : entry,
+        );
+    });
+
+    return [...byIdentityKey.values()];
 }
 
 async function loadFromHuggingFacePath(pathInRepo) {
