@@ -24,6 +24,7 @@
         Q6: 'Q6 – Stress: Long Concurrent',
         Q7: 'Q7 – Chain-of-Thought',
         Q8: 'Q8 – Mixed Batch',
+        Qx: 'Qx – Uncategorized',
     };
 
     const VERSION_COMPONENTS = [
@@ -231,8 +232,9 @@
 
     function getWorkloadId(entry) {
         const direct = entry.workload?.name || entry.workload_name || entry.metadata?.workload;
-        if (direct && /^Q[1-8]$/i.test(direct)) {
-            return direct.toUpperCase();
+        const normalizedDirect = normalizeWorkloadId(direct);
+        if (normalizedDirect) {
+            return normalizedDirect;
         }
 
         const notes = entry.metadata?.notes || '';
@@ -241,11 +243,50 @@
             return `Q${qMatch[1]}`;
         }
 
-        if (notes.includes('short_input')) return 'Legacy-short';
-        if (notes.includes('long_input')) return 'Legacy-long';
-        if (notes.includes('stress_test')) return 'Legacy-stress';
+        if (notes.includes('short_input')) return 'Q1';
+        if (notes.includes('long_input')) return 'Q2';
+        if (notes.includes('stress_test')) return 'Q5';
 
-        return 'Legacy';
+        return 'Qx';
+    }
+
+    function normalizeWorkloadId(value) {
+        if (!value) {
+            return null;
+        }
+
+        const raw = String(value).trim();
+        if (!raw) {
+            return null;
+        }
+
+        if (/^Q[1-8]$/i.test(raw)) {
+            return raw.toUpperCase();
+        }
+
+        const normalized = raw.toLowerCase().replace(/[^a-z0-9]+/g, '_');
+        const aliasMap = {
+            short: 'Q1',
+            short_qa: 'Q1',
+            short_input: 'Q1',
+            long: 'Q2',
+            long_summarization: 'Q2',
+            long_input: 'Q2',
+            code: 'Q3',
+            code_generation: 'Q3',
+            multi_turn: 'Q4',
+            multi_turn_reasoning: 'Q4',
+            stress: 'Q5',
+            stress_short: 'Q5',
+            stress_test: 'Q5',
+            stress_long: 'Q6',
+            cot: 'Q7',
+            chain_of_thought: 'Q7',
+            mixed: 'Q8',
+            mixed_batch: 'Q8',
+        };
+
+        return aliasMap[normalized] || null;
     }
 
     function getWorkloadLabel(workloadId) {
@@ -381,7 +422,7 @@
         const modelOptions = getUniqueValues(data, d => d.model.name);
         const versionOptions = getVersionOptions(data);
         const dynamicWorkloads = getUniqueValues(data, d => getWorkloadId(d));
-        const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
+        const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Qx'];
         dynamicWorkloads.forEach(workload => {
             if (!workloadOptions.includes(workload)) {
                 workloadOptions.push(workload);
