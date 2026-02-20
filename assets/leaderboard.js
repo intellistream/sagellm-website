@@ -24,7 +24,7 @@
         Q6: 'Q6 – Stress: Long Concurrent',
         Q7: 'Q7 – Chain-of-Thought',
         Q8: 'Q8 – Mixed Batch',
-        Qx: 'Qx – Uncategorized',
+        Other: 'Other',
     };
 
     const VERSION_COMPONENTS = [
@@ -248,7 +248,7 @@
         if (notes.includes('long_input')) return 'Q2';
         if (notes.includes('stress_test')) return 'Q5';
 
-        return 'Qx';
+        return 'Other';
     }
 
     function normalizeWorkloadId(value) {
@@ -534,7 +534,7 @@
         const modelOptions = getUniqueValues(data, d => d.model.name);
         const versionOptions = getVersionOptions(data);
         const dynamicWorkloads = getUniqueValues(data, d => getWorkloadId(d));
-        const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8', 'Qx'];
+        const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
         dynamicWorkloads.forEach(workload => {
             if (!workloadOptions.includes(workload)) {
                 workloadOptions.push(workload);
