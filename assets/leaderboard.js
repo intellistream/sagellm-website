@@ -489,6 +489,7 @@
         const m = entry.metrics;
         const t = entry.trends || {};
         const bt = entry.baselineTrends || {};
+        const releaseDate = entry?.metadata?.release_date || '-';
 
         // 生成配置描述（芯片数/节点数）
         const configText = getConfigText(entry);
@@ -498,14 +499,13 @@
             <tr data-entry-id="${entry.entry_id}">
                 <td>
                     <div class="version-cell">
-                        ${showVersion ? `<span>v${entry.sagellm_version}</span>` : ''}
+                        ${showVersion ? `<span>v${entry.sagellm_version} <small style="display:inline; margin:0; color:#718096">(${releaseDate})</small></span>` : ''}
                         ${showVersion && isLatest ? '<span class="version-badge">Latest</span>' : ''}
                         ${showVersion && entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
                     </div>
                 </td>
                 <td class="config-cell">${workloadText}</td>
                 <td class="config-cell">${configText}</td>
-                <td class="date-cell">${entry.metadata.release_date}</td>
                 <td>${renderMetricCell(m.ttft_ms, t.ttft_ms, bt.ttft_ms, false, false, entry.isBaseline)}</td>
                 <td>${renderMetricCell(m.throughput_tps, t.throughput_tps, bt.throughput_tps, true, false, entry.isBaseline)}</td>
                 <td>${renderMetricCell(m.peak_mem_mb, t.peak_mem_mb, bt.peak_mem_mb, false, false, entry.isBaseline)}</td>
@@ -573,7 +573,7 @@
     function renderDetailsRow(entry, isExpanded) {
         return `
             <tr class="details-row ${isExpanded ? 'show' : ''}" data-details-for="${entry.entry_id}">
-                <td colspan="10" class="details-cell">
+                <td colspan="9" class="details-cell">
                     <div class="details-content">
                         ${renderHardwareSection(entry)}
                         ${renderVersionsSection(entry)}
