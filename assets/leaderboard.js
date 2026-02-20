@@ -14,6 +14,18 @@
 (function () {
     'use strict';
 
+    const WORKLOAD_LABELS = {
+        all: 'All',
+        Q1: 'Q1 – Short QA',
+        Q2: 'Q2 – Long Summarization',
+        Q3: 'Q3 – Code Generation',
+        Q4: 'Q4 – Multi-turn Reasoning',
+        Q5: 'Q5 – Stress: Short Concurrent',
+        Q6: 'Q6 – Stress: Long Concurrent',
+        Q7: 'Q7 – Chain-of-Thought',
+        Q8: 'Q8 – Mixed Batch',
+    };
+
     // State management
     let state = {
         currentTab: 'single-chip', // single-chip, multi-chip, multi-node
@@ -36,6 +48,7 @@
         setupEventListeners();
         renderFilters();
         renderTable();
+        await renderLastUpdated();
     }
 
     // Load JSON data (支持 HF 和本地两种模式)
@@ -99,10 +112,27 @@
         }
     }
 
-    // 生成 workload 类型描述（基于 input/output length）
-    function getWorkloadType(entry) {
-        const w = entry.workload;
-        return `${w.input_length}→${w.output_length}`;
+    function getWorkloadId(entry) {
+        const direct = entry.workload?.name || entry.workload_name || entry.metadata?.workload;
+        if (direct && /^Q[1-8]$/i.test(direct)) {
+            return direct.toUpperCase();
+        }
+
+        const notes = entry.metadata?.notes || '';
+        const qMatch = notes.match(/\bQ([1-8])\b/i);
+        if (qMatch) {
+            return `Q${qMatch[1]}`;
+        }
+
+        if (notes.includes('short_input')) return 'Legacy-short';
+        if (notes.includes('long_input')) return 'Legacy-long';
+        if (notes.includes('stress_test')) return 'Legacy-stress';
+
+        return 'Legacy';
+    }
+
+    function getWorkloadLabel(workloadId) {
+        return WORKLOAD_LABELS[workloadId] || workloadId;
     }
 
     // 初始化筛选器默认值（选择第一个可用配置）
@@ -114,7 +144,7 @@
                 state.filters[tab] = {
                     hardware: first.hardware.chip_model,
                     model: first.model.name,
-                    workload: getWorkloadType(first),
+                    workload: 'all',
                     precision: first.model.precision
                 };
             }
@@ -168,22 +198,27 @@
     }
 
     // Render filter dropdowns
-    // Render filter dropdowns (删除 ALL 选项)
     function renderFilters() {
         const data = getDataByTab(state.currentTab);
         const filters = state.filters[state.currentTab];
 
-        // Extract unique values (不包含 'all')
+        // Extract unique values
         const hardwareOptions = getUniqueValues(data, d => d.hardware.chip_model);
         const modelOptions = getUniqueValues(data, d => d.model.name);
-        const workloadOptions = getUniqueValues(data, d => getWorkloadType(d));
+        const dynamicWorkloads = getUniqueValues(data, d => getWorkloadId(d));
+        const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
+        dynamicWorkloads.forEach(workload => {
+            if (!workloadOptions.includes(workload)) {
+                workloadOptions.push(workload);
+            }
+        });
         const precisionOptions = getUniqueValues(data, d => d.model.precision);
 
         // Update dropdowns
-        updateSelect('filter-hardware', hardwareOptions, filters.hardware);
-        updateSelect('filter-model', modelOptions, filters.model);
-        updateSelect('filter-workload', workloadOptions, filters.workload);
-        updateSelect('filter-precision', precisionOptions, filters.precision);
+        updateSelect('filter-hardware', ['all', ...hardwareOptions], filters.hardware);
+        updateSelect('filter-model', ['all', ...modelOptions], filters.model);
+        updateSelect('filter-workload', workloadOptions, filters.workload, getWorkloadLabel);
+        updateSelect('filter-precision', ['all', ...precisionOptions], filters.precision);
     }
 
     function getUniqueValues(data, accessor) {
@@ -191,14 +226,20 @@
         return [...new Set(data.map(accessor).filter(Boolean))];
     }
 
-    function updateSelect(id, options, selectedValue) {
+    function updateSelect(id, options, selectedValue, labelMapper = null) {
         const select = document.getElementById(id);
         if (!select) return;
 
-        // 删除 'All' 选项
         select.innerHTML = options.map(opt =>
-            `<option value="${opt}" ${opt === selectedValue ? 'selected' : ''}>${opt}</option>`
+            `<option value="${opt}" ${opt === selectedValue ? 'selected' : ''}>${labelMapper ? labelMapper(opt) : opt}</option>`
         ).join('');
+
+        if (selectedValue && options.includes(selectedValue)) {
+            select.value = selectedValue;
+        } else if (options.includes('all')) {
+            select.value = 'all';
+            state.filters[state.currentTab][id.replace('filter-', '')] = 'all';
+        }
     }
 
     // Render leaderboard table
@@ -211,12 +252,13 @@
         const data = getDataByTab(state.currentTab);
         const filters = state.filters[state.currentTab];
 
-        // Apply filters (删除 'all' 判断)
+        // Apply filters
         const filtered = data.filter(entry => {
-            return entry.hardware.chip_model === filters.hardware &&
-                entry.model.name === filters.model &&
-                getWorkloadType(entry) === filters.workload &&
-                entry.model.precision === filters.precision;
+            const workload = getWorkloadId(entry);
+            return (filters.hardware === 'all' || entry.hardware.chip_model === filters.hardware) &&
+                (filters.model === 'all' || entry.model.name === filters.model) &&
+                (filters.workload === 'all' || workload === filters.workload) &&
+                (filters.precision === 'all' || entry.model.precision === filters.precision);
         });
 
         // Show empty state if no data
@@ -252,6 +294,32 @@
 
         // Attach event listeners for buttons
         attachRowEventListeners();
+    }
+
+    async function renderLastUpdated() {
+        const el = document.getElementById('leaderboard-last-updated');
+        if (!el) {
+            return;
+        }
+
+        let timestamp = null;
+        if (window.HFDataLoader && window.HFDataLoader.getLastUpdated) {
+            timestamp = await window.HFDataLoader.getLastUpdated();
+        }
+
+        if (!timestamp) {
+            el.textContent = 'Last updated: -';
+            return;
+        }
+
+        const date = new Date(timestamp);
+        if (Number.isNaN(date.getTime())) {
+            el.textContent = `Last updated: ${timestamp}`;
+            return;
+        }
+
+        const formatted = date.toISOString().replace('T', ' ').replace('.000Z', ' UTC');
+        el.textContent = `Last updated: ${formatted}`;
     }
 
     // Render data row

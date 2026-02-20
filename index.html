@@ -508,6 +508,14 @@
             <label for="filter-workload">Workload</label>
             <select id="filter-workload">
               <option value="all">All</option>
+              <option value="Q1">Q1 – Short QA</option>
+              <option value="Q2">Q2 – Long Summarization</option>
+              <option value="Q3">Q3 – Code Generation</option>
+              <option value="Q4">Q4 – Multi-turn Reasoning</option>
+              <option value="Q5">Q5 – Stress: Short Concurrent</option>
+              <option value="Q6">Q6 – Stress: Long Concurrent</option>
+              <option value="Q7">Q7 – Chain-of-Thought</option>
+              <option value="Q8">Q8 – Mixed Batch</option>
             </select>
           </div>
           <div class="filter-group">
@@ -546,6 +554,10 @@
           <h3>No Results Found</h3>
           <p>Try adjusting your filters to see more data.</p>
         </div>
+
+        <p id="leaderboard-last-updated" style="margin-top: 12px; color: #718096; font-size: 13px">
+          Last updated: -
+        </p>
       </div>
     </div>
 

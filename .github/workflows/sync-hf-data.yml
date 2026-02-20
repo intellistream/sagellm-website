@@ -10,7 +10,7 @@ on:
   
   # 也可以通过 repository_dispatch 触发（用于 HF webhook）
   repository_dispatch:
-    types: [hf-data-updated]
+    types: [benchmark-data-updated]
 
 jobs:
   sync-data:
@@ -38,6 +38,12 @@ jobs:
           
           echo "✅ Download complete"
           ls -la data/
+
+      - name: Update last_updated marker
+        run: |
+          TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          echo "{\"last_updated\": \"${TS}\"}" > data/last_updated.json
+          echo "✓ Updated data/last_updated.json: ${TS}"
       
       - name: Check for changes
         id: check

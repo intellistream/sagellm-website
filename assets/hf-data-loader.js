@@ -13,7 +13,8 @@ const HF_CONFIG = {
     // 数据文件路径（在 HF repo 中的路径）
     files: {
         single: 'leaderboard_single.json',
-        multi: 'leaderboard_multi.json'
+        multi: 'leaderboard_multi.json',
+        lastUpdated: 'last_updated.json'
     },
 
     // 备用：本地数据（当 HF 不可用时）
@@ -120,7 +121,26 @@ async function loadLeaderboardData() {
  */
 async function getLastUpdated() {
     try {
-        // HF Datasets API 获取 repo 信息
+        // Prefer explicit marker file synced by website workflow
+        const marker = await loadFromHuggingFace(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    try {
+        const marker = await loadFromLocal(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    try {
+        // Fallback: HF Datasets API repo metadata
         const url = `https://huggingface.co/api/datasets/${HF_CONFIG.repo}`;
         const response = await fetch(url);
 
@@ -128,9 +148,10 @@ async function getLastUpdated() {
             const info = await response.json();
             return info.lastModified || null;
         }
-    } catch (e) {
+    } catch (_e) {
         console.warn('[HF Loader] Could not get last updated time');
     }
+
     return null;
 }
 
