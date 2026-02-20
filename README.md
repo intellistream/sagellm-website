@@ -1,6 +1,8 @@
 # Website Demo Kit (SageLLM Inference)
 
-**🎉 sageLLM 0.5 正式发布！** v0.5 标志着 sageLLM 进入工程可用阶段：链路更完整、安装发布更稳定、版本治理更可靠。
+<!-- BEGIN:VERSION_META -->
+
+**🎉 sageLLM 0.5 正式发布！** v0.5 的发布标志着 sageLLM 从“功能可用”进入“工程可用”阶段：命令入口统一、推理链路更完整、安装与依赖管理更稳定、发布与版本治理更可靠。
 
 ## 0.5 Release Highlights
 
@@ -24,8 +26,20 @@ sagellm hello
 sagellm run -p "Hello, world!" --max-tokens 32
 
 # 运行推理 (Ascend NPU)
-sagellm run -p "Hello, world!" --max-tokens 32 --backend ascend
+sagellm run -p "Hello AI" --backend cuda
 
 # 启动 OpenAI 兼容服务器
 sagellm serve --port 8000
 ```
+
+_该区块由 `data/version_meta.json` 驱动，运行 `python scripts/sync_version_meta.py` 自动更新。_
+
+<!-- END:VERSION_META -->
+
+## Version Metadata Maintenance
+
+- Source of truth: `data/version_meta.json`
+- Sync command: `python scripts/sync_version_meta.py`
+- Auto sync workflow: `.github/workflows/sync-version-meta.yml`
+- Consistency/stale check: `bash scripts/check_stale_versions.sh`
+- 维护说明：`docs/VERSION_METADATA.md`

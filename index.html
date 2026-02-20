@@ -276,6 +276,82 @@
       .cta-button:hover {
         opacity: 0.9;
       }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 14px;
+        }
+
+        header {
+          padding: 48px 12px 28px;
+        }
+
+        h1 {
+          font-size: 2.4em;
+          letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+          font-size: 1.05em;
+          margin-bottom: 20px;
+        }
+
+        .demo-section,
+        .section {
+          padding: 24px 16px;
+          margin: 24px 0;
+          border-radius: 12px;
+        }
+
+        .features {
+          grid-template-columns: 1fr;
+          gap: 16px;
+          margin-top: 24px;
+        }
+
+        .feature-card {
+          padding: 20px;
+        }
+
+        .demo-title-bar {
+          font-size: 0.8em;
+          padding: 10px 12px;
+        }
+
+        #demo-player {
+          min-height: 260px !important;
+        }
+
+        .demo-section .cta-button {
+          display: block;
+          margin: 10px 0 !important;
+          text-align: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .lang-toggle {
+          top: 8px;
+          right: 8px;
+          padding: 6px 10px;
+          gap: 6px;
+        }
+
+        h1 {
+          font-size: 2em;
+        }
+
+        .badge {
+          font-size: 0.8em;
+          padding: 6px 12px;
+          margin: 4px;
+        }
+
+        .demo-section,
+        .section {
+          padding: 20px 14px;
+        }
+      }
     </style>
   </head>
 
@@ -286,7 +362,7 @@
           <span id="langToggleText">中文</span>
         </button>
 
-        <!-- 0.4 Release Banner -->
+        <!-- Release Banner -->
         <div
           style="
             background: rgba(255, 215, 0, 0.15);
@@ -297,10 +373,10 @@
             backdrop-filter: blur(10px);
           "
         >
-          <div style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px">
+          <div id="release-banner-title" style="font-size: 1.3em; font-weight: 700; margin-bottom: 8px">
             🎉 sageLLM 0.5 正式发布
           </div>
-          <div style="font-size: 1em; opacity: 0.95; font-weight: 500">
+          <div id="release-banner-message" style="font-size: 1em; opacity: 0.95; font-weight: 500">
             v0.5 的发布标志着 sageLLM 从“功能可用”进入“工程可用”阶段：命令入口统一、推理链路更完整、安装与依赖管理更稳定、发布与版本治理更可靠。
           </div>
         </div>
@@ -401,15 +477,15 @@
 
       <!-- Quickstart Section -->
       <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%)">
-        <h2 style="color: #667eea">🚀 Quick Start (v0.5)</h2>
-        <p style="color: #4a5568; margin-bottom: 25px">
+        <h2 id="quickstart-title" style="color: #667eea">🚀 Quick Start (v0.5)</h2>
+        <p id="quickstart-description" style="color: #4a5568; margin-bottom: 25px">
           v0.5 标志着 sageLLM 进入工程可用阶段：链路更完整、安装发布更稳定、版本治理更可靠。
         </p>
 
         <div style="display: grid; gap: 20px">
           <!-- Install Package -->
           <div>
-            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+            <div id="quickstart-step-install" style="color: #718096; margin-bottom: 8px; font-weight: 600">
               📦 1. Pip Install
             </div>
             <div
@@ -423,13 +499,13 @@
                 overflow-x: auto;
               "
             >
-              <span style="color: #48bb78">$</span> pip install isagellm
+              <span style="color: #48bb78">$</span> <span id="quickstart-install-command">pip install isagellm</span>
             </div>
           </div>
 
           <!-- Setup Backend -->
           <div>
-            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+            <div id="quickstart-step-setup" style="color: #718096; margin-bottom: 8px; font-weight: 600">
               🔧 2. Setup Backend
             </div>
             <div
@@ -446,14 +522,14 @@
               <span style="color: #718096"
                 ># Install CUDA, Ascend, or CPU backend automatically</span
               ><br />
-              <span style="color: #48bb78">$</span> sagellm install cuda
-              <span style="color: #718096"># or ascend / cpu</span>
+              <span style="color: #48bb78">$</span> <span id="quickstart-setup-command">sagellm install cuda</span>
+              <span style="color: #718096" id="quickstart-setup-hint"># or ascend / cpu</span>
             </div>
           </div>
 
           <!-- Run Inference -->
           <div>
-            <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
+            <div id="quickstart-step-run" style="color: #718096; margin-bottom: 8px; font-weight: 600">
               ⚡ 3. Run Inference
             </div>
             <div
@@ -467,8 +543,7 @@
                 overflow-x: auto;
               "
             >
-              <span style="color: #48bb78">$</span> sagellm run -p
-              <span style="color: #fbbf24">"Hello AI"</span> --backend cuda
+              <span style="color: #48bb78">$</span> <span id="quickstart-run-command">sagellm run -p "Hello AI" --backend cuda</span>
             </div>
           </div>
         </div>
@@ -483,7 +558,7 @@
           "
         >
           <strong style="color: #2d3748">💡 Smart Detection:</strong>
-          <span style="color: #4a5568"
+          <span id="quickstart-smart-detection" style="color: #4a5568"
             >v0.5 automatically detects if you're missing dependencies for your hardware and
             suggests the correct
             <code
@@ -494,7 +569,7 @@
                 font-family: &quot;Fira Code&quot;, monospace;
               "
               "
-              >sagellm install</code
+              ><span id="quickstart-smart-command">sagellm install</span></code
             >
             command.</span
           >
@@ -1153,6 +1228,9 @@
 
     <!-- Hugging Face Data Loader (must load before leaderboard.js) -->
     <script src="./assets/hf-data-loader.js"></script>
+
+    <!-- Version Metadata Loader -->
+    <script src="./assets/version-meta-loader.js"></script>
 
     <!-- Leaderboard Script -->
     <script src="./assets/leaderboard.js"></script>

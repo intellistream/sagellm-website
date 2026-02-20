@@ -13,8 +13,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 新增 workflow 守护校验：`validate-sync-workflow.yml`，防止 `sync-hf-data.yml` 回退到 `self-hosted` 或错误 dispatch type
 - Leaderboard 筛选新增 `Version` 下拉，自动拉取 `isagellm` 在 PyPI 上 `>=0.5.0.0` 的全部版本号用于过滤
 - 首页与 README 新增 v0.5 发布意义说明文案（工程可用性）
+- 新增统一版本元数据源 `data/version_meta.json`，集中维护首页发布文案、Quick Start 文案与包版本清单
+- 新增首页元数据加载器 `assets/version-meta-loader.js` 与版本页渲染器 `assets/versions-page.js`
+- 新增自动同步 workflow `sync-version-meta.yml`，定时/手动拉取 PyPI 最新版本并仅在变更时提交
+- 新增 stale 版本检查脚本 `scripts/check_stale_versions.sh` 与 CI workflow `check-stale-versions.yml`
+- 新增版本元数据维护文档 `docs/VERSION_METADATA.md`，明确单一来源、自动同步与回归检查流程
+- 新增可维护的 stale 检查 allowlist 文件 `scripts/stale_version_allowlist.txt`
+- 新增一致性检查脚本 `scripts/check_stale_versions.py`，校验 `version_meta` 与 `index/README/versions` 的绑定关系
 
 ### Fixed
+- Leaderboard `Component Versions` 的版本对比逻辑调整：历史 benchmark 版本（低于 PyPI latest）显示为 `historical`，仅当 benchmark 版本高于 PyPI latest 时标记 `⚠ mismatch`，避免所有历史结果都被误报不一致
 - Workload 筛选改为 benchmark query 风格（`Q1`~`Q8`）并支持动态补充 legacy workload
 - Leaderboard 筛选恢复 `All` 选项，支持按 `hardware/model/workload/precision` 任意组合过滤
 - `sync-hf-data.yml` 的 `repository_dispatch` 事件类型改为 `benchmark-data-updated`（与 benchmark 发布流程一致）
@@ -39,6 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 首页发布 banner 从 v0.4 宣传语更新为 v0.5 工程可用性说明文案
 - Quick Start 区块从 v0.4 口径升级为 v0.5 口径，并统一示例命令为 `sagellm`
 - `versions.html` 全量包版本与 PyPI 链接更新到最新 0.5.x 发布版本
+- `versions.html` 从硬编码版本卡片改为动态读取 `version_meta.json` 渲染
+- `README.md` 顶部发布文案与 Quick Start 区块改为由 `sync_version_meta.py` 按 `version_meta.json` 自动同步（单一来源）
+- `sync-version-meta.yml` 改为在 `version_meta.json` 或 `README.md` 变化时才提交，避免手工漂移
 - 清理 README 中的 demo 录制/嵌入说明。
 - 调整架构图层级：Core/Control/Gateway 分别为 L2/L3/L4。
 
@@ -48,6 +59,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated demo recording instructions with Ascend NPU examples.
 
 ### Changed
+- Leaderboard 版本展示策略更新：首页默认按聚合版本号（`X.Y.Z.x`）显示（`x` 表示第四位合集），并在同组三位版本下自动选择表现最佳的四位版本结果；新增可展开入口查看该三位版本对应的完整四位版本明细结果。
+- Leaderboard 表格版本列样式优化：`Latest`/`Baseline` 标识移动到版本号下方展示，减少横向占用，提升首页首屏完整可见性。
+- 首页移动端适配增强：优化标题/容器/卡片/CTA 按钮在 `<=768px` 与 `<=480px` 的布局与间距，改善首屏可读性与触控可用性。
 - Updated all PyPI package references to 0.3.x.x version.
 - Enhanced 0.3 release banner: "Ascend NPU 引擎已实现".
 - Updated badge: "Ascend NPU Native" (was "Ascend Optimized").
