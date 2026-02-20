@@ -436,9 +436,11 @@
         tbody.innerHTML = withTrends.map((entry, index) => {
             const isLatest = index === 0;
             const isExpanded = state.expandedRows.has(entry.entry_id);
+            const prevVersion = index > 0 ? withTrends[index - 1].sagellm_version : null;
+            const showVersion = index === 0 || entry.sagellm_version !== prevVersion;
 
             return `
-                ${renderDataRow(entry, isLatest, isExpanded)}
+                ${renderDataRow(entry, isLatest, isExpanded, showVersion)}
                 ${renderDetailsRow(entry, isExpanded)}
             `;
         }).join('');
@@ -483,7 +485,7 @@
     }
 
     // Render data row
-    function renderDataRow(entry, isLatest, isExpanded) {
+    function renderDataRow(entry, isLatest, isExpanded, showVersion) {
         const m = entry.metrics;
         const t = entry.trends || {};
         const bt = entry.baselineTrends || {};
@@ -496,9 +498,9 @@
             <tr data-entry-id="${entry.entry_id}">
                 <td>
                     <div class="version-cell">
-                        <span>v${entry.sagellm_version}</span>
-                        ${isLatest ? '<span class="version-badge">Latest</span>' : ''}
-                        ${entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
+                        ${showVersion ? `<span>v${entry.sagellm_version}</span>` : ''}
+                        ${showVersion && isLatest ? '<span class="version-badge">Latest</span>' : ''}
+                        ${showVersion && entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
                     </div>
                 </td>
                 <td class="config-cell">${workloadText}</td>
