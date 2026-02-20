@@ -42,6 +42,7 @@
 
     const PYPI_CACHE_KEY = 'sagellm_pypi_versions_v1';
     const PYPI_CACHE_TTL_MS = 10 * 60 * 1000;
+    const FULL_VERSION_REGEX = /^\d+(\.\d+){3}$/;
 
     // State management
     let state = {
@@ -299,6 +300,117 @@
         return bDate - aDate;
     }
 
+    function normalizeDisplayVersion(version) {
+        const parts = String(version || '').split('.');
+        if (parts.length < 3) {
+            return String(version || '');
+        }
+        return `${parts[0]}.${parts[1]}.${parts[2]}.x`;
+    }
+
+    function getDisplayVersion(entry) {
+        return entry.displayVersion || normalizeDisplayVersion(entry.sagellm_version);
+    }
+
+    function createAggregationKey(entry) {
+        const workload = getWorkloadId(entry);
+        const hardware = entry?.hardware?.chip_model || '';
+        const chipCount = entry?.hardware?.chip_count || 0;
+        const nodeCount = entry?.cluster?.node_count || 1;
+        const interconnect = entry?.cluster?.interconnect || 'single-node';
+        const topology = entry?.cluster?.topology || '';
+        const model = entry?.model?.name || '';
+        const precision = entry?.model?.precision || '';
+        const baseVersion = normalizeDisplayVersion(entry.sagellm_version);
+
+        return [
+            workload,
+            hardware,
+            chipCount,
+            nodeCount,
+            interconnect,
+            topology,
+            model,
+            precision,
+            baseVersion,
+        ].join('|');
+    }
+
+    function compareEntryQuality(candidate, incumbent) {
+        const c = candidate.metrics || {};
+        const i = incumbent.metrics || {};
+
+        const cThroughput = Number(c.throughput_tps) || 0;
+        const iThroughput = Number(i.throughput_tps) || 0;
+        if (cThroughput !== iThroughput) {
+            return cThroughput - iThroughput;
+        }
+
+        const cTtft = Number(c.ttft_ms) || Number.POSITIVE_INFINITY;
+        const iTtft = Number(i.ttft_ms) || Number.POSITIVE_INFINITY;
+        if (cTtft !== iTtft) {
+            return iTtft - cTtft;
+        }
+
+        const cError = Number(c.error_rate) || 0;
+        const iError = Number(i.error_rate) || 0;
+        if (cError !== iError) {
+            return iError - cError;
+        }
+
+        const cHit = Number(c.prefix_hit_rate) || 0;
+        const iHit = Number(i.prefix_hit_rate) || 0;
+        if (cHit !== iHit) {
+            return cHit - iHit;
+        }
+
+        const cMem = Number(c.peak_mem_mb) || Number.POSITIVE_INFINITY;
+        const iMem = Number(i.peak_mem_mb) || Number.POSITIVE_INFINITY;
+        if (cMem !== iMem) {
+            return iMem - cMem;
+        }
+
+        return compareByReleaseDateDesc(candidate, incumbent);
+    }
+
+    function aggregateVersionBuilds(entries) {
+        const groups = new Map();
+
+        entries.forEach((entry) => {
+            const key = createAggregationKey(entry);
+            const existing = groups.get(key);
+
+            if (!existing) {
+                groups.set(key, {
+                    best: entry,
+                    variants: [entry],
+                });
+                return;
+            }
+
+            existing.variants.push(entry);
+            if (compareEntryQuality(entry, existing.best) > 0) {
+                existing.best = entry;
+            }
+        });
+
+        return Array.from(groups.values()).map((group) => {
+            const sortedVariants = [...group.variants].sort((a, b) => {
+                const qualityCompare = compareEntryQuality(b, a);
+                if (qualityCompare !== 0) {
+                    return qualityCompare;
+                }
+                return compareVersions(b.sagellm_version, a.sagellm_version);
+            });
+
+            return {
+                ...group.best,
+                displayVersion: normalizeDisplayVersion(group.best.sagellm_version),
+                versionVariants: sortedVariants,
+            };
+        });
+    }
+
     function sortForDisplay(entries, selectedWorkload) {
         const sorted = [...entries];
 
@@ -309,7 +421,7 @@
                     return workloadCompare;
                 }
 
-                const versionCompare = compareVersions(b.sagellm_version, a.sagellm_version);
+                const versionCompare = compareVersions(getDisplayVersion(b), getDisplayVersion(a));
                 if (versionCompare !== 0) {
                     return versionCompare;
                 }
@@ -320,7 +432,7 @@
         }
 
         sorted.sort((a, b) => {
-            const versionCompare = compareVersions(b.sagellm_version, a.sagellm_version);
+            const versionCompare = compareVersions(getDisplayVersion(b), getDisplayVersion(a));
             if (versionCompare !== 0) {
                 return versionCompare;
             }
@@ -439,9 +551,12 @@
     }
 
     function getVersionOptions(data) {
-        const dataVersions = getUniqueValues(data, d => d.sagellm_version);
-        const merged = [...new Set([...(state.sagellmVersionOptions || []), ...dataVersions])]
-            .filter((version) => /^\d+(\.\d+){3}$/.test(version))
+        const dataVersions = getUniqueValues(data, d => normalizeDisplayVersion(d.sagellm_version));
+        const releaseVersions = (state.sagellmVersionOptions || []).map((version) =>
+            normalizeDisplayVersion(version)
+        );
+        const merged = [...new Set([...releaseVersions, ...dataVersions])]
+            .filter((version) => /^\d+(\.\d+){2}\.x$/.test(version))
             .sort((a, b) => compareVersions(b, a));
         return merged;
     }
@@ -482,23 +597,24 @@
             const workload = getWorkloadId(entry);
             return (filters.hardware === 'all' || entry.hardware.chip_model === filters.hardware) &&
                 (filters.model === 'all' || entry.model.name === filters.model) &&
-                (filters.version === 'all' || entry.sagellm_version === filters.version) &&
+                (filters.version === 'all' || normalizeDisplayVersion(entry.sagellm_version) === filters.version) &&
                 (filters.workload === 'all' || workload === filters.workload) &&
                 (filters.precision === 'all' || entry.model.precision === filters.precision);
         });
 
-        const sortedFiltered = sortForDisplay(filtered, filters.workload);
+        const mergedEntries = aggregateVersionBuilds(filtered);
+        const sortedFiltered = sortForDisplay(mergedEntries, filters.workload);
 
         // Show empty state if no data
-        if (filtered.length === 0) {
+        if (mergedEntries.length === 0) {
             tbody.innerHTML = '';
             emptyState.style.display = 'block';
-            renderDataStats(data.length, 0);
+            renderDataStats(data.length, 0, 0);
             return;
         }
 
         emptyState.style.display = 'none';
-        renderDataStats(data.length, filtered.length);
+        renderDataStats(data.length, filtered.length, mergedEntries.length);
 
         const withTrends = buildTrendRows(sortedFiltered, filters.workload);
 
@@ -506,8 +622,9 @@
         tbody.innerHTML = withTrends.map((entry, index) => {
             const isLatest = index === 0;
             const isExpanded = state.expandedRows.has(entry.entry_id);
-            const prevVersion = index > 0 ? withTrends[index - 1].sagellm_version : null;
-            const showVersion = index === 0 || entry.sagellm_version !== prevVersion;
+            const currentVersion = getDisplayVersion(entry);
+            const prevVersion = index > 0 ? getDisplayVersion(withTrends[index - 1]) : null;
+            const showVersion = index === 0 || currentVersion !== prevVersion;
 
             return `
                 ${renderDataRow(entry, isLatest, isExpanded, showVersion)}
@@ -519,13 +636,13 @@
         attachRowEventListeners();
     }
 
-    function renderDataStats(tabTotal, shownTotal) {
+    function renderDataStats(tabTotal, rawFilteredTotal, mergedTotal) {
         const statsEl = document.getElementById('leaderboard-data-stats');
         if (!statsEl) {
             return;
         }
 
-        statsEl.textContent = `Loaded ${state.totalLoadedEntries} entries • ${state.currentTab}: ${tabTotal} • Showing ${shownTotal} entries`;
+        statsEl.textContent = `Loaded ${state.totalLoadedEntries} entries • ${state.currentTab}: ${tabTotal} • Matched ${rawFilteredTotal} build entries • Showing ${mergedTotal} merged entries`;
     }
 
     async function renderLastUpdated() {
@@ -560,6 +677,8 @@
         const t = entry.trends || {};
         const bt = entry.baselineTrends || {};
         const releaseDate = entry?.metadata?.release_date || '-';
+        const displayVersion = getDisplayVersion(entry);
+        const buildCount = entry.versionVariants?.length || 1;
 
         // 生成配置描述（芯片数/节点数）
         const configText = getConfigText(entry);
@@ -569,9 +688,11 @@
             <tr data-entry-id="${entry.entry_id}">
                 <td>
                     <div class="version-cell">
-                        ${showVersion ? `<span>v${entry.sagellm_version} <small style="display:inline; margin:0; color:#718096">(${releaseDate})</small></span>` : ''}
-                        ${showVersion && isLatest ? '<span class="version-badge">Latest</span>' : ''}
-                        ${showVersion && entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
+                        ${showVersion ? `<div class="version-main">v${displayVersion}<small class="version-date">(${releaseDate})</small></div>` : ''}
+                        ${showVersion && buildCount > 1 ? '<small class="version-merge-hint">Best 4th-segment result selected</small>' : ''}
+                        ${(showVersion && (isLatest || entry.isBaseline))
+                            ? `<div class="version-badges">${isLatest ? '<span class="version-badge">Latest</span>' : ''}${entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}</div>`
+                            : ''}
                     </div>
                 </td>
                 <td class="config-cell">${workloadText}</td>
@@ -583,7 +704,7 @@
                 <td>${renderMetricCell(m.prefix_hit_rate, t.prefix_hit_rate, bt.prefix_hit_rate, true, true, entry.isBaseline)}</td>
                 <td class="action-cell">
                     <button class="btn-details" data-entry-id="${entry.entry_id}">
-                        ${isExpanded ? 'Hide' : 'Details'}
+                        ${isExpanded ? 'Hide' : (buildCount > 1 ? '4th Ver.' : 'Details')}
                     </button>
                 </td>
             </tr>
@@ -646,6 +767,7 @@
                 <td colspan="9" class="details-cell">
                     <div class="details-content">
                         ${renderHardwareSection(entry)}
+                        ${renderBuildVariantsSection(entry)}
                         ${renderVersionsSection(entry)}
                         ${renderImprovementsSection(entry)}
                         ${renderReproduceSection(entry)}
@@ -681,31 +803,113 @@
                 ? (entry.sagellm_version || versions.sagellm || 'N/A')
                 : (versions[component.metadataKey] || 'N/A');
             const pypiVersion = state.pypiVersions[component.pypiPackage] || (state.pypiLoaded ? 'N/A' : 'Loading...');
-            const mismatched = benchmarkVersion !== 'N/A' && pypiVersion !== 'N/A' && pypiVersion !== 'Loading...'
-                && compareVersions(benchmarkVersion, pypiVersion) !== 0;
+            const status = getVersionComparisonStatus(benchmarkVersion, pypiVersion);
 
             return {
                 label: component.label,
                 benchmarkVersion,
                 pypiVersion,
-                mismatched,
+                status,
             };
         });
 
-        const mismatchCount = rows.filter((row) => row.mismatched).length;
+        const mismatchCount = rows.filter((row) => row.status === 'ahead').length;
+        const historicalCount = rows.filter((row) => row.status === 'behind').length;
         const sourceHint = state.pypiLoaded
-            ? 'Source: benchmark metadata + PyPI latest'
+            ? 'Source: benchmark metadata + PyPI latest reference'
             : 'Source: benchmark metadata (PyPI versions loading...)';
 
         return `
             <div class="detail-section">
                 <h4>📦 Component Versions</h4>
-                ${rows.map((row) => `<p><strong>${row.label}:</strong> ${row.benchmarkVersion} <span style="color:#718096">| PyPI: ${row.pypiVersion}</span>${row.mismatched ? ' <span style="color:#e53e3e;font-weight:600">⚠ mismatch</span>' : ''}</p>`).join('')}
+                ${rows.map((row) => `<p><strong>${row.label}:</strong> ${row.benchmarkVersion} <span style="color:#718096">| PyPI: ${row.pypiVersion}</span>${row.status === 'ahead' ? ' <span style="color:#e53e3e;font-weight:600">⚠ mismatch</span>' : row.status === 'behind' ? ' <span style="color:#718096;font-weight:600">ℹ historical</span>' : ''}</p>`).join('')}
                 <p><small style="color:#718096">${sourceHint}</small></p>
-                ${mismatchCount > 0 ? '<p><small style="color:#e53e3e">检测到版本不一致：benchmark 结果中的版本与 PyPI 最新发布不同。</small></p>' : ''}
+                ${mismatchCount > 0 ? '<p><small style="color:#e53e3e">检测到版本异常：benchmark 结果中的部分组件版本高于 PyPI 最新发布。</small></p>' : ''}
+                ${mismatchCount === 0 && historicalCount > 0 ? '<p><small style="color:#718096">检测到历史结果：部分组件版本低于 PyPI 最新发布。</small></p>' : ''}
                 ${state.pypiLoadError ? '<p><small style="color:#dd6b20">PyPI 版本拉取失败，仅展示 benchmark metadata。</small></p>' : ''}
             </div>
         `;
+    }
+
+    function renderBuildVariantsSection(entry) {
+        const variants = entry.versionVariants || [entry];
+
+        return `
+            <div class="detail-section">
+                <h4>🧩 Full Build Results</h4>
+                <p><strong>Displayed version:</strong> v${getDisplayVersion(entry)}（首页展示该三位版本下的最佳四位版本）</p>
+                <div class="build-variants-table-wrap">
+                    <table class="build-variants-table">
+                        <thead>
+                            <tr>
+                                <th>Full Version</th>
+                                <th>Release Date</th>
+                                <th>TTFT</th>
+                                <th>Tokens/s</th>
+                                <th>Peak Mem</th>
+                                <th>Error</th>
+                                <th>Hit Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${variants.map((variant, index) => {
+            const vm = variant.metrics || {};
+            const selected = variant.entry_id === entry.entry_id ? 'selected' : '';
+            return `
+                                    <tr class="${selected}">
+                                        <td>v${variant.sagellm_version}${index === 0 ? ' ⭐' : ''}</td>
+                                        <td>${variant?.metadata?.release_date || '-'}</td>
+                                        <td>${formatMetric(vm.ttft_ms)}</td>
+                                        <td>${formatMetric(vm.throughput_tps)}</td>
+                                        <td>${formatMetric(vm.peak_mem_mb)}</td>
+                                        <td>${formatMetric(vm.error_rate, true)}</td>
+                                        <td>${formatMetric(vm.prefix_hit_rate, true)}</td>
+                                    </tr>
+                                `;
+        }).join('')}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        `;
+    }
+
+    function formatMetric(value, isPercentage = false) {
+        if (value === null || value === undefined || Number.isNaN(value)) {
+            return '-';
+        }
+
+        if (isPercentage) {
+            return `${(value * 100).toFixed(1)}%`;
+        }
+
+        if (typeof value === 'number') {
+            return value.toFixed(1);
+        }
+
+        return String(value);
+    }
+
+    function getVersionComparisonStatus(benchmarkVersion, pypiVersion) {
+        if (!isComparableVersion(benchmarkVersion) || !isComparableVersion(pypiVersion)) {
+            return 'unknown';
+        }
+
+        const comparison = compareVersions(benchmarkVersion, pypiVersion);
+        if (comparison > 0) {
+            return 'ahead';
+        }
+        if (comparison < 0) {
+            return 'behind';
+        }
+        return 'match';
+    }
+
+    function isComparableVersion(version) {
+        if (!version || version === 'N/A' || version === 'Loading...') {
+            return false;
+        }
+        return FULL_VERSION_REGEX.test(String(version));
     }
 
     function renderImprovementsSection(entry) {
