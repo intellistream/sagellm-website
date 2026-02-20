@@ -23,8 +23,44 @@ const HF_CONFIG = {
 
     // 递归拉取数据集内分文件结果（例如 cpu/.../Q1_leaderboard.json）
     recursiveFetch: true,
-    maxRecursiveFiles: 500
+    maxRecursiveFiles: 500,
+
+    // 前端缓存，避免频繁刷新时重复全量拉取
+    cacheTTLms: 5 * 60 * 1000
 };
+
+const CACHE_KEY = 'sagellm_hf_leaderboard_cache_v1';
+
+function readCache() {
+    try {
+        const raw = sessionStorage.getItem(CACHE_KEY);
+        if (!raw) {
+            return null;
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.savedAt || !parsed.data) {
+            return null;
+        }
+        const age = Date.now() - parsed.savedAt;
+        if (age > HF_CONFIG.cacheTTLms) {
+            return null;
+        }
+        return parsed.data;
+    } catch (_error) {
+        return null;
+    }
+}
+
+function writeCache(data) {
+    try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+            savedAt: Date.now(),
+            data
+        }));
+    } catch (_error) {
+        // ignore cache write failures
+    }
+}
 
 function normalizeEntryArray(payload) {
     if (Array.isArray(payload)) {
@@ -157,6 +193,12 @@ async function loadFromLocal(filename) {
  * @returns {Promise<{single: Array, multi: Array}>}
  */
 async function loadLeaderboardData() {
+    const cached = readCache();
+    if (cached) {
+        console.log('[HF Loader] ✅ Loaded from session cache');
+        return cached;
+    }
+
     const result = { single: [], multi: [] };
 
     // 尝试从 Hugging Face 加载
@@ -182,6 +224,7 @@ async function loadLeaderboardData() {
             }
         }
 
+        writeCache(result);
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
         return result;
 
@@ -201,6 +244,7 @@ async function loadLeaderboardData() {
                 result.single = normalizeEntryArray(singleData);
                 result.multi = normalizeEntryArray(multiData);
 
+                writeCache(result);
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);
                 return result;
 
