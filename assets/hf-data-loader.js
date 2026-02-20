@@ -19,8 +19,96 @@ const HF_CONFIG = {
 
     // 备用：本地数据（当 HF 不可用时）
     fallbackToLocal: true,
-    localPath: './data/'
+    localPath: './data/',
+
+    // 递归拉取数据集内分文件结果（例如 cpu/.../Q1_leaderboard.json）
+    recursiveFetch: true,
+    maxRecursiveFiles: 500
 };
+
+function normalizeEntryArray(payload) {
+    if (Array.isArray(payload)) {
+        return payload;
+    }
+    if (payload && typeof payload === 'object') {
+        return [payload];
+    }
+    return [];
+}
+
+function splitSingleAndMulti(entries) {
+    const single = [];
+    const multi = [];
+    entries.forEach((entry) => {
+        const nodeCount = entry?.cluster?.node_count || 1;
+        if (nodeCount > 1) {
+            multi.push(entry);
+        } else {
+            single.push(entry);
+        }
+    });
+    return { single, multi };
+}
+
+function mergeByEntryId(entries) {
+    const byId = new Map();
+    entries.forEach((entry) => {
+        const fallback = [
+            entry?.sagellm_version || 'unknown',
+            entry?.hardware?.chip_model || 'unknown',
+            entry?.model?.name || 'unknown',
+            entry?.metadata?.notes || 'unknown'
+        ].join('|');
+        byId.set(entry?.entry_id || fallback, entry);
+    });
+    return [...byId.values()];
+}
+
+async function loadFromHuggingFacePath(pathInRepo) {
+    const url = `https://huggingface.co/datasets/${HF_CONFIG.repo}/resolve/${HF_CONFIG.branch}/${pathInRepo}`;
+    const response = await fetch(url, {
+        headers: { Accept: 'application/json' },
+        cache: 'no-cache'
+    });
+    if (!response.ok) {
+        throw new Error(`HF file API error: ${response.status} ${response.statusText}`);
+    }
+    return await response.json();
+}
+
+async function listRecursiveLeaderboardFiles() {
+    const url = `https://huggingface.co/api/datasets/${HF_CONFIG.repo}/tree/${HF_CONFIG.branch}?recursive=true`;
+    const response = await fetch(url, { cache: 'no-cache' });
+    if (!response.ok) {
+        throw new Error(`HF tree API error: ${response.status} ${response.statusText}`);
+    }
+    const tree = await response.json();
+    return tree
+        .filter((item) => item.type === 'file')
+        .map((item) => item.path)
+        .filter((path) => path.endsWith('_leaderboard.json'))
+        .slice(0, HF_CONFIG.maxRecursiveFiles);
+}
+
+async function loadRecursiveEntriesFromHF() {
+    const filePaths = await listRecursiveLeaderboardFiles();
+    if (!filePaths.length) {
+        return { single: [], multi: [] };
+    }
+
+    const payloads = await Promise.allSettled(filePaths.map((path) => loadFromHuggingFacePath(path)));
+    const allEntries = [];
+    payloads.forEach((result, idx) => {
+        if (result.status === 'fulfilled') {
+            allEntries.push(...normalizeEntryArray(result.value));
+        } else {
+            console.warn(`[HF Loader] Skip unreadable file: ${filePaths[idx]}`);
+        }
+    });
+
+    const deduped = mergeByEntryId(allEntries);
+    return splitSingleAndMulti(deduped);
+}
 
 /**
  * 从 Hugging Face Hub 加载 JSON 文件
@@ -80,8 +168,19 @@ async function loadLeaderboardData() {
             loadFromHuggingFace(HF_CONFIG.files.multi)
         ]);
 
-        result.single = singleData;
-        result.multi = multiData;
+        result.single = normalizeEntryArray(singleData);
+        result.multi = normalizeEntryArray(multiData);
+
+        if (HF_CONFIG.recursiveFetch) {
+            try {
+                const recursive = await loadRecursiveEntriesFromHF();
+                result.single = mergeByEntryId([...result.single, ...recursive.single]);
+                result.multi = mergeByEntryId([...result.multi, ...recursive.multi]);
+                console.log(`[HF Loader] 📁 Recursive merge: +${recursive.single.length} single, +${recursive.multi.length} multi`);
+            } catch (recursiveError) {
+                console.warn('[HF Loader] ⚠️ Recursive fetch failed:', recursiveError.message);
+            }
+        }
 
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
         return result;
@@ -99,8 +198,8 @@ async function loadLeaderboardData() {
                     loadFromLocal(HF_CONFIG.files.multi)
                 ]);
 
-                result.single = singleData;
-                result.multi = multiData;
+                result.single = normalizeEntryArray(singleData);
+                result.multi = normalizeEntryArray(multiData);
 
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);
                 return result;
