@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 新增 `data/last_updated.json` 作为 website 数据同步时间标记
 - 新增 workflow 守护校验：`validate-sync-workflow.yml`，防止 `sync-hf-data.yml` 回退到 `self-hosted` 或错误 dispatch type
 - Leaderboard 筛选新增 `Version` 下拉，自动拉取 `isagellm` 在 PyPI 上 `>=0.5.0.0` 的全部版本号用于过滤
+- 首页与 README 新增 v0.5 发布意义说明文案（工程可用性）
 
 ### Fixed
 - Workload 筛选改为 benchmark query 风格（`Q1`~`Q8`）并支持动态补充 legacy workload
@@ -36,6 +37,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
 - 首页发布 banner 从 v0.4 宣传语更新为 v0.5 工程可用性说明文案
+- Quick Start 区块从 v0.4 口径升级为 v0.5 口径，并统一示例命令为 `sagellm`
+- `versions.html` 全量包版本与 PyPI 链接更新到最新 0.5.x 发布版本
 - 清理 README 中的 demo 录制/嵌入说明。
 - 调整架构图层级：Core/Control/Gateway 分别为 L2/L3/L4。
 

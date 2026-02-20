@@ -331,7 +331,7 @@
           class="demo-container"
           style="border: 1px solid #333; border-radius: 8px; overflow: hidden; background: #000"
         >
-          <div class="demo-title-bar">📺 sage-llm run --backend ascend</div>
+          <div class="demo-title-bar">📺 sagellm run --backend ascend</div>
 
           <div
             id="demo-player"
@@ -361,7 +361,7 @@
               border: 1px solid #eee;
             "
           >
-            <span style="color: #667eea">$</span> sage-llm serve --port 8000 --backend ascend
+            <span style="color: #667eea">$</span> sagellm serve --port 8000 --backend ascend
           </div>
         </div>
 
@@ -401,9 +401,9 @@
 
       <!-- Quickstart Section -->
       <div class="section" style="background: linear-gradient(135deg, #f6f8fb 0%, #ffffff 100%)">
-        <h2 style="color: #667eea">🚀 Quick Start (v0.4)</h2>
+        <h2 style="color: #667eea">🚀 Quick Start (v0.5)</h2>
         <p style="color: #4a5568; margin-bottom: 25px">
-          Get started with sageLLM in seconds. Key upgrade: new CLI installer.
+          v0.5 标志着 sageLLM 进入工程可用阶段：链路更完整、安装发布更稳定、版本治理更可靠。
         </p>
 
         <div style="display: grid; gap: 20px">
@@ -430,7 +430,7 @@
           <!-- Setup Backend -->
           <div>
             <div style="color: #718096; margin-bottom: 8px; font-weight: 600">
-              🔧 2. Setup Backend (New in 0.4)
+              🔧 2. Setup Backend
             </div>
             <div
               style="
@@ -446,7 +446,7 @@
               <span style="color: #718096"
                 ># Install CUDA, Ascend, or CPU backend automatically</span
               ><br />
-              <span style="color: #48bb78">$</span> sage-llm install cuda
+              <span style="color: #48bb78">$</span> sagellm install cuda
               <span style="color: #718096"># or ascend / cpu</span>
             </div>
           </div>
@@ -467,7 +467,7 @@
                 overflow-x: auto;
               "
             >
-              <span style="color: #48bb78">$</span> sage-llm run -p
+              <span style="color: #48bb78">$</span> sagellm run -p
               <span style="color: #fbbf24">"Hello AI"</span> --backend cuda
             </div>
           </div>
@@ -484,7 +484,7 @@
         >
           <strong style="color: #2d3748">💡 Smart Detection:</strong>
           <span style="color: #4a5568"
-            >v0.4 automatically detects if you're missing dependencies for your hardware and
+            >v0.5 automatically detects if you're missing dependencies for your hardware and
             suggests the correct
             <code
               style="
@@ -494,7 +494,7 @@
                 font-family: &quot;Fira Code&quot;, monospace;
               "
               "
-              >sage-llm install</code
+              >sagellm install</code
             >
             command.</span
           >
