@@ -1,0 +1,46 @@
+name: Validate Sync Workflow Guard
+
+on:
+  push:
+    branches: [main, main-dev]
+    paths:
+      - '.github/workflows/sync-hf-data.yml'
+      - '.github/workflows/validate-sync-workflow.yml'
+  pull_request:
+    paths:
+      - '.github/workflows/sync-hf-data.yml'
+      - '.github/workflows/validate-sync-workflow.yml'
+
+jobs:
+  guard-sync-workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate sync workflow invariants
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          import sys
+
+          workflow_path = Path('.github/workflows/sync-hf-data.yml')
+          content = workflow_path.read_text(encoding='utf-8')
+
+          checks = [
+              ('runner must be ubuntu-latest', re.search(r'^\s*runs-on:\s*ubuntu-latest\s*$', content, flags=re.MULTILINE) is not None),
+              ('must not use self-hosted runner', re.search(r'^\s*runs-on:\s*self-hosted\s*$', content, flags=re.MULTILINE) is None),
+              ('dispatch type must be benchmark-data-updated', 'types: [benchmark-data-updated]' in content),
+              ('permissions must include contents: write', re.search(r'permissions:\s*\n\s*contents:\s*write', content, flags=re.MULTILINE) is not None),
+          ]
+
+          failed = [msg for msg, ok in checks if not ok]
+          if failed:
+              print('❌ sync-hf-data.yml validation failed:')
+              for item in failed:
+                  print(f'  - {item}')
+              sys.exit(1)
+
+          print('✅ sync-hf-data.yml invariants validated')
+          PY

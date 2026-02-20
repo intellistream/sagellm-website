@@ -26,6 +26,22 @@
         Q8: 'Q8 – Mixed Batch',
     };
 
+    const VERSION_COMPONENTS = [
+        { label: 'sageLLM', metadataKey: 'sagellm', pypiPackage: 'isagellm' },
+        { label: 'Benchmark', metadataKey: 'benchmark', pypiPackage: 'isagellm-benchmark' },
+        { label: 'Protocol', metadataKey: 'protocol', pypiPackage: 'isagellm-protocol' },
+        { label: 'Backend', metadataKey: 'backend', pypiPackage: 'isagellm-backend' },
+        { label: 'Core', metadataKey: 'core', pypiPackage: 'isagellm-core' },
+        { label: 'KV Cache', metadataKey: 'kv_cache', pypiPackage: 'isagellm-kv-cache' },
+        { label: 'Control Plane', metadataKey: 'control_plane', pypiPackage: 'isagellm-control-plane' },
+        { label: 'Gateway', metadataKey: 'gateway', pypiPackage: 'isagellm-gateway' },
+        { label: 'Comm', metadataKey: 'comm', pypiPackage: 'isagellm-comm' },
+        { label: 'Compression', metadataKey: 'compression', pypiPackage: 'isagellm-compression' },
+    ];
+
+    const PYPI_CACHE_KEY = 'sagellm_pypi_versions_v1';
+    const PYPI_CACHE_TTL_MS = 10 * 60 * 1000;
+
     // State management
     let state = {
         currentTab: 'single-chip', // single-chip, multi-chip, multi-node
@@ -33,6 +49,9 @@
         multiChipData: [],
         multiNodeData: [],
         totalLoadedEntries: 0,
+        pypiVersions: {},
+        pypiLoaded: false,
+        pypiLoadError: false,
         filters: {
             'single-chip': { hardware: '', model: '', workload: '', precision: '' },
             'multi-chip': { hardware: '', model: '', workload: '', precision: '' },
@@ -50,6 +69,81 @@
         renderFilters();
         renderTable();
         await renderLastUpdated();
+        void loadPyPIVersions();
+    }
+
+    function readPyPICache() {
+        try {
+            const raw = sessionStorage.getItem(PYPI_CACHE_KEY);
+            if (!raw) {
+                return null;
+            }
+            const parsed = JSON.parse(raw);
+            if (!parsed?.savedAt || !parsed?.versions) {
+                return null;
+            }
+            if (Date.now() - parsed.savedAt > PYPI_CACHE_TTL_MS) {
+                return null;
+            }
+            return parsed.versions;
+        } catch (_error) {
+            return null;
+        }
+    }
+
+    function writePyPICache(versions) {
+        try {
+            sessionStorage.setItem(PYPI_CACHE_KEY, JSON.stringify({
+                savedAt: Date.now(),
+                versions,
+            }));
+        } catch (_error) {
+            // ignore cache write failures
+        }
+    }
+
+    async function loadPyPIVersions() {
+        const cached = readPyPICache();
+        if (cached) {
+            state.pypiVersions = cached;
+            state.pypiLoaded = true;
+            renderTable();
+            return;
+        }
+
+        try {
+            const requests = VERSION_COMPONENTS.map(async (component) => {
+                const response = await fetch(`https://pypi.org/pypi/${component.pypiPackage}/json`, {
+                    cache: 'no-cache',
+                });
+
+                if (!response.ok) {
+                    throw new Error(`PyPI ${component.pypiPackage}: ${response.status}`);
+                }
+
+                const payload = await response.json();
+                return [component.pypiPackage, payload?.info?.version || 'N/A'];
+            });
+
+            const settled = await Promise.allSettled(requests);
+            const versions = {};
+            settled.forEach((item) => {
+                if (item.status === 'fulfilled') {
+                    const [pkg, version] = item.value;
+                    versions[pkg] = version;
+                }
+            });
+
+            state.pypiVersions = versions;
+            state.pypiLoaded = true;
+            writePyPICache(versions);
+            renderTable();
+        } catch (error) {
+            console.warn('[Leaderboard] Failed to load PyPI versions:', error);
+            state.pypiLoadError = true;
+            state.pypiLoaded = true;
+            renderTable();
+        }
     }
 
     // Load JSON data (支持 HF 和本地两种模式)
@@ -510,24 +604,34 @@
 
     function renderVersionsSection(entry) {
         const versions = entry.versions || {};
-        const rows = [
-            ['sageLLM', entry.sagellm_version || 'N/A'],
-            ['Benchmark', versions.benchmark || 'N/A'],
-            ['Protocol', versions.protocol || 'N/A'],
-            ['Backend', versions.backend || 'N/A'],
-            ['Core', versions.core || 'N/A'],
-            ['KV Cache', versions.kv_cache || 'N/A'],
-            ['Control Plane', versions.control_plane || 'N/A'],
-            ['Gateway', versions.gateway || 'N/A'],
-            ['Comm', versions.comm || 'N/A'],
-            ['Compression', versions.compression || 'N/A'],
-        ];
+        const rows = VERSION_COMPONENTS.map((component) => {
+            const benchmarkVersion = component.metadataKey === 'sagellm'
+                ? (entry.sagellm_version || versions.sagellm || 'N/A')
+                : (versions[component.metadataKey] || 'N/A');
+            const pypiVersion = state.pypiVersions[component.pypiPackage] || (state.pypiLoaded ? 'N/A' : 'Loading...');
+            const mismatched = benchmarkVersion !== 'N/A' && pypiVersion !== 'N/A' && pypiVersion !== 'Loading...'
+                && compareVersions(benchmarkVersion, pypiVersion) !== 0;
+
+            return {
+                label: component.label,
+                benchmarkVersion,
+                pypiVersion,
+                mismatched,
+            };
+        });
+
+        const mismatchCount = rows.filter((row) => row.mismatched).length;
+        const sourceHint = state.pypiLoaded
+            ? 'Source: benchmark metadata + PyPI latest'
+            : 'Source: benchmark metadata (PyPI versions loading...)';
 
         return `
             <div class="detail-section">
                 <h4>📦 Component Versions</h4>
-                ${rows.map(([k, v]) => `<p><strong>${k}:</strong> ${v}</p>`).join('')}
-                <p><small style="color:#718096">Source: benchmark metadata (entry.versions)</small></p>
+                ${rows.map((row) => `<p><strong>${row.label}:</strong> ${row.benchmarkVersion} <span style="color:#718096">| PyPI: ${row.pypiVersion}</span>${row.mismatched ? ' <span style="color:#e53e3e;font-weight:600">⚠ mismatch</span>' : ''}</p>`).join('')}
+                <p><small style="color:#718096">${sourceHint}</small></p>
+                ${mismatchCount > 0 ? '<p><small style="color:#e53e3e">检测到版本不一致：benchmark 结果中的版本与 PyPI 最新发布不同。</small></p>' : ''}
+                ${state.pypiLoadError ? '<p><small style="color:#dd6b20">PyPI 版本拉取失败，仅展示 benchmark metadata。</small></p>' : ''}
             </div>
         `;
     }

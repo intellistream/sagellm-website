@@ -26,12 +26,15 @@ const HF_CONFIG = {
     maxRecursiveFiles: 500,
 
     // 前端缓存，避免频繁刷新时重复全量拉取
-    cacheTTLms: 5 * 60 * 1000
+    cacheTTLms: 5 * 60 * 1000,
+
+    // 启用标记文件一致性校验，避免同步后继续命中旧缓存
+    validateWithMarker: true
 };
 
 const CACHE_KEY = 'sagellm_hf_leaderboard_cache_v3';
 
-function readCache() {
+function readCacheEnvelope() {
     try {
         const raw = sessionStorage.getItem(CACHE_KEY);
         if (!raw) {
@@ -45,21 +48,44 @@ function readCache() {
         if (age > HF_CONFIG.cacheTTLms) {
             return null;
         }
-        return parsed.data;
+        return parsed;
     } catch (_error) {
         return null;
     }
 }
 
-function writeCache(data) {
+function writeCache(data, marker = null) {
     try {
         sessionStorage.setItem(CACHE_KEY, JSON.stringify({
             savedAt: Date.now(),
+            marker,
             data
         }));
     } catch (_error) {
         // ignore cache write failures
     }
+}
+
+async function getLatestMarker() {
+    try {
+        const marker = await loadFromHuggingFace(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    try {
+        const marker = await loadFromLocal(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    return null;
 }
 
 function normalizeEntryArray(payload) {
@@ -193,10 +219,25 @@ async function loadFromLocal(filename) {
  * @returns {Promise<{single: Array, multi: Array}>}
  */
 async function loadLeaderboardData() {
-    const cached = readCache();
-    if (cached) {
-        console.log('[HF Loader] ✅ Loaded from session cache');
-        return cached;
+    const cachedEnvelope = readCacheEnvelope();
+    if (cachedEnvelope) {
+        if (!HF_CONFIG.validateWithMarker) {
+            console.log('[HF Loader] ✅ Loaded from session cache');
+            return cachedEnvelope.data;
+        }
+
+        const latestMarker = await getLatestMarker();
+        if (latestMarker && cachedEnvelope.marker && cachedEnvelope.marker === latestMarker) {
+            console.log('[HF Loader] ✅ Loaded from session cache (marker matched)');
+            return cachedEnvelope.data;
+        }
+
+        if (!latestMarker) {
+            console.log('[HF Loader] ⚠️ Marker unavailable, fallback to TTL cache');
+            return cachedEnvelope.data;
+        }
+
+        console.log('[HF Loader] ♻️ Marker changed, refreshing leaderboard data');
     }
 
     const result = { single: [], multi: [] };
@@ -204,6 +245,8 @@ async function loadLeaderboardData() {
     // 尝试从 Hugging Face 加载
     try {
         console.log('[HF Loader] Loading from Hugging Face...');
+
+        const marker = await getLatestMarker();
 
         const [singleData, multiData] = await Promise.all([
             loadFromHuggingFace(HF_CONFIG.files.single),
@@ -224,7 +267,7 @@ async function loadLeaderboardData() {
             }
         }
 
-        writeCache(result);
+        writeCache(result, marker);
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
         return result;
 
@@ -244,7 +287,7 @@ async function loadLeaderboardData() {
                 result.single = normalizeEntryArray(singleData);
                 result.multi = normalizeEntryArray(multiData);
 
-                writeCache(result);
+                writeCache(result, null);
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);
                 return result;
 
