@@ -20,6 +20,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HF Data Loader 增加前端缓存（sessionStorage, TTL=5min），减少刷新时全量递归拉取导致的慢加载
 - `index.html` 为 `hf-data-loader.js` / `leaderboard.js` 增加版本化 query 参数，强制客户端更新最新脚本
 - 前端缓存 key 升级到 `sagellm_hf_leaderboard_cache_v2`，避免旧会话缓存导致看不到 Q1~Q8 / 新数据
+- Leaderboard 主表新增 `Workload` 列，`all workloads` 模式下按 `Workload → Version` 排序，避免同版本多 workload 混在一起难以识别
+- 趋势对比仅在单 workload 视图下启用；`all workloads` 视图禁用跨 workload 的趋势计算，避免误导
+- `Component Versions` 面板改为显示 `sageLLM + benchmark + 各组件` 完整版本，并标注来源为 `entry.versions`
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。

@@ -141,6 +141,62 @@
         return WORKLOAD_LABELS[workloadId] || workloadId;
     }
 
+    function compareByReleaseDateDesc(a, b) {
+        const aDate = Date.parse(a?.metadata?.release_date || '') || 0;
+        const bDate = Date.parse(b?.metadata?.release_date || '') || 0;
+        return bDate - aDate;
+    }
+
+    function sortForDisplay(entries, selectedWorkload) {
+        const sorted = [...entries];
+
+        if (selectedWorkload === 'all') {
+            sorted.sort((a, b) => {
+                const workloadCompare = getWorkloadId(a).localeCompare(getWorkloadId(b));
+                if (workloadCompare !== 0) {
+                    return workloadCompare;
+                }
+
+                const versionCompare = compareVersions(b.sagellm_version, a.sagellm_version);
+                if (versionCompare !== 0) {
+                    return versionCompare;
+                }
+
+                return compareByReleaseDateDesc(a, b);
+            });
+            return sorted;
+        }
+
+        sorted.sort((a, b) => {
+            const versionCompare = compareVersions(b.sagellm_version, a.sagellm_version);
+            if (versionCompare !== 0) {
+                return versionCompare;
+            }
+            return compareByReleaseDateDesc(a, b);
+        });
+        return sorted;
+    }
+
+    function buildTrendRows(filtered, selectedWorkload) {
+        if (selectedWorkload === 'all') {
+            return filtered.map((entry) => ({
+                ...entry,
+                trends: {},
+                baselineTrends: {},
+                isBaseline: false,
+            }));
+        }
+
+        const baseline = filtered[filtered.length - 1];
+        return filtered.map((entry, index) => {
+            const prevEntry = filtered[index + 1];
+            const trends = prevEntry ? calculateTrends(entry, prevEntry) : {};
+            const baselineTrends = (index < filtered.length - 1) ? calculateTrends(entry, baseline) : {};
+            const isBaseline = (index === filtered.length - 1);
+            return { ...entry, trends, baselineTrends, isBaseline };
+        });
+    }
+
     // 初始化筛选器默认值（选择第一个可用配置）
     function initializeFilters() {
         ['single-chip', 'multi-chip', 'multi-node'].forEach(tab => {
@@ -267,6 +323,8 @@
                 (filters.precision === 'all' || entry.model.precision === filters.precision);
         });
 
+        const sortedFiltered = sortForDisplay(filtered, filters.workload);
+
         // Show empty state if no data
         if (filtered.length === 0) {
             tbody.innerHTML = '';
@@ -278,16 +336,7 @@
         emptyState.style.display = 'none';
         renderDataStats(data.length, filtered.length);
 
-        // Calculate trends (compare with previous version AND baseline)
-        const baseline = filtered[filtered.length - 1]; // 最早的版本是 baseline
-
-        const withTrends = filtered.map((entry, index) => {
-            const prevEntry = filtered[index + 1]; // Next in array is previous version
-            const trends = prevEntry ? calculateTrends(entry, prevEntry) : {};
-            const baselineTrends = (index < filtered.length - 1) ? calculateTrends(entry, baseline) : {};
-            const isBaseline = (index === filtered.length - 1);
-            return { ...entry, trends, baselineTrends, isBaseline };
-        });
+        const withTrends = buildTrendRows(sortedFiltered, filters.workload);
 
         // Render rows
         tbody.innerHTML = withTrends.map((entry, index) => {
@@ -347,6 +396,7 @@
 
         // 生成配置描述（芯片数/节点数）
         const configText = getConfigText(entry);
+        const workloadText = getWorkloadLabel(getWorkloadId(entry));
 
         return `
             <tr data-entry-id="${entry.entry_id}">
@@ -357,6 +407,7 @@
                         ${entry.isBaseline ? '<span class="version-badge baseline">Baseline</span>' : ''}
                     </div>
                 </td>
+                <td class="config-cell">${workloadText}</td>
                 <td class="config-cell">${configText}</td>
                 <td class="date-cell">${entry.metadata.release_date}</td>
                 <td>${renderMetricCell(m.ttft_ms, t.ttft_ms, bt.ttft_ms, false, false, entry.isBaseline)}</td>
@@ -426,7 +477,7 @@
     function renderDetailsRow(entry, isExpanded) {
         return `
             <tr class="details-row ${isExpanded ? 'show' : ''}" data-details-for="${entry.entry_id}">
-                <td colspan="8" class="details-cell">
+                <td colspan="10" class="details-cell">
                     <div class="details-content">
                         ${renderHardwareSection(entry)}
                         ${renderVersionsSection(entry)}
@@ -458,16 +509,25 @@
     }
 
     function renderVersionsSection(entry) {
-        const v = entry.versions;
+        const versions = entry.versions || {};
+        const rows = [
+            ['sageLLM', entry.sagellm_version || 'N/A'],
+            ['Benchmark', versions.benchmark || 'N/A'],
+            ['Protocol', versions.protocol || 'N/A'],
+            ['Backend', versions.backend || 'N/A'],
+            ['Core', versions.core || 'N/A'],
+            ['KV Cache', versions.kv_cache || 'N/A'],
+            ['Control Plane', versions.control_plane || 'N/A'],
+            ['Gateway', versions.gateway || 'N/A'],
+            ['Comm', versions.comm || 'N/A'],
+            ['Compression', versions.compression || 'N/A'],
+        ];
+
         return `
             <div class="detail-section">
                 <h4>📦 Component Versions</h4>
-                <p><strong>Protocol:</strong> ${v.protocol}</p>
-                <p><strong>Backend:</strong> ${v.backend}</p>
-                <p><strong>Core:</strong> ${v.core}</p>
-                <p><strong>KV Cache:</strong> ${v.kv_cache}</p>
-                <p><strong>Control Plane:</strong> ${v.control_plane || 'N/A'}</p>
-                <p><strong>Gateway:</strong> ${v.gateway || 'N/A'}</p>
+                ${rows.map(([k, v]) => `<p><strong>${k}:</strong> ${v}</p>`).join('')}
+                <p><small style="color:#718096">Source: benchmark metadata (entry.versions)</small></p>
             </div>
         `;
     }
