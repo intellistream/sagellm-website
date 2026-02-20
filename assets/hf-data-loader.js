@@ -29,7 +29,7 @@ const HF_CONFIG = {
     cacheTTLms: 5 * 60 * 1000
 };
 
-const CACHE_KEY = 'sagellm_hf_leaderboard_cache_v2';
+const CACHE_KEY = 'sagellm_hf_leaderboard_cache_v3';
 
 function readCache() {
     try {
