@@ -50,12 +50,13 @@
         multiNodeData: [],
         totalLoadedEntries: 0,
         pypiVersions: {},
+        sagellmVersionOptions: [],
         pypiLoaded: false,
         pypiLoadError: false,
         filters: {
-            'single-chip': { hardware: '', model: '', workload: '', precision: '' },
-            'multi-chip': { hardware: '', model: '', workload: '', precision: '' },
-            'multi-node': { hardware: '', model: '', workload: '', precision: '' }
+            'single-chip': { hardware: '', model: '', version: '', workload: '', precision: '' },
+            'multi-chip': { hardware: '', model: '', version: '', workload: '', precision: '' },
+            'multi-node': { hardware: '', model: '', version: '', workload: '', precision: '' }
         },
         expandedRows: new Set()
     };
@@ -106,7 +107,11 @@
         const cached = readPyPICache();
         if (cached) {
             state.pypiVersions = cached;
+            if (cached.isagellm_releases_050 && Array.isArray(cached.isagellm_releases_050)) {
+                state.sagellmVersionOptions = cached.isagellm_releases_050;
+            }
             state.pypiLoaded = true;
+            renderFilters();
             renderTable();
             return;
         }
@@ -122,21 +127,33 @@
                 }
 
                 const payload = await response.json();
-                return [component.pypiPackage, payload?.info?.version || 'N/A'];
+                const releases = component.pypiPackage === 'isagellm'
+                    ? Object.keys(payload?.releases || {})
+                        .filter((version) => /^\d+(\.\d+){3}$/.test(version))
+                        .filter((version) => compareVersions(version, '0.5.0.0') >= 0)
+                        .sort((a, b) => compareVersions(b, a))
+                    : null;
+
+                return [component.pypiPackage, payload?.info?.version || 'N/A', releases];
             });
 
             const settled = await Promise.allSettled(requests);
             const versions = {};
             settled.forEach((item) => {
                 if (item.status === 'fulfilled') {
-                    const [pkg, version] = item.value;
+                    const [pkg, version, releases] = item.value;
                     versions[pkg] = version;
+                    if (pkg === 'isagellm' && Array.isArray(releases)) {
+                        versions.isagellm_releases_050 = releases;
+                        state.sagellmVersionOptions = releases;
+                    }
                 }
             });
 
             state.pypiVersions = versions;
             state.pypiLoaded = true;
             writePyPICache(versions);
+            renderFilters();
             renderTable();
         } catch (error) {
             console.warn('[Leaderboard] Failed to load PyPI versions:', error);
@@ -300,6 +317,7 @@
                 state.filters[tab] = {
                     hardware: first.hardware.chip_model,
                     model: first.model.name,
+                    version: 'all',
                     workload: 'all',
                     precision: first.model.precision
                 };
@@ -318,7 +336,7 @@
         });
 
         // Filter changes
-        ['hardware', 'model', 'workload', 'precision'].forEach(filterType => {
+        ['hardware', 'model', 'version', 'workload', 'precision'].forEach(filterType => {
             const selectEl = document.getElementById(`filter-${filterType}`);
             if (selectEl) {
                 selectEl.addEventListener('change', () => {
@@ -361,6 +379,7 @@
         // Extract unique values
         const hardwareOptions = getUniqueValues(data, d => d.hardware.chip_model);
         const modelOptions = getUniqueValues(data, d => d.model.name);
+        const versionOptions = getVersionOptions(data);
         const dynamicWorkloads = getUniqueValues(data, d => getWorkloadId(d));
         const workloadOptions = ['all', 'Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6', 'Q7', 'Q8'];
         dynamicWorkloads.forEach(workload => {
@@ -373,8 +392,17 @@
         // Update dropdowns
         updateSelect('filter-hardware', ['all', ...hardwareOptions], filters.hardware);
         updateSelect('filter-model', ['all', ...modelOptions], filters.model);
+        updateSelect('filter-version', ['all', ...versionOptions], filters.version);
         updateSelect('filter-workload', workloadOptions, filters.workload, getWorkloadLabel);
         updateSelect('filter-precision', ['all', ...precisionOptions], filters.precision);
+    }
+
+    function getVersionOptions(data) {
+        const dataVersions = getUniqueValues(data, d => d.sagellm_version);
+        const merged = [...new Set([...(state.sagellmVersionOptions || []), ...dataVersions])]
+            .filter((version) => /^\d+(\.\d+){3}$/.test(version))
+            .sort((a, b) => compareVersions(b, a));
+        return merged;
     }
 
     function getUniqueValues(data, accessor) {
@@ -413,6 +441,7 @@
             const workload = getWorkloadId(entry);
             return (filters.hardware === 'all' || entry.hardware.chip_model === filters.hardware) &&
                 (filters.model === 'all' || entry.model.name === filters.model) &&
+                (filters.version === 'all' || entry.sagellm_version === filters.version) &&
                 (filters.workload === 'all' || workload === filters.workload) &&
                 (filters.precision === 'all' || entry.model.precision === filters.precision);
         });
@@ -726,8 +755,8 @@
 
     // Compare semantic versions (e.g., "0.3.2" > "0.3.1")
     function compareVersions(a, b) {
-        const aParts = a.split('.').map(Number);
-        const bParts = b.split('.').map(Number);
+        const aParts = String(a).split('.').map((part) => Number.parseInt(part, 10) || 0);
+        const bParts = String(b).split('.').map((part) => Number.parseInt(part, 10) || 0);
 
         for (let i = 0; i < Math.max(aParts.length, bParts.length); i++) {
             const aVal = aParts[i] || 0;
