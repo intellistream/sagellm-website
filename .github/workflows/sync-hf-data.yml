@@ -1,5 +1,8 @@
 name: Sync Benchmark Results from Hugging Face
 
+permissions:
+  contents: write
+
 on:
   # 每小时检查一次 HF 是否有更新
   schedule:
@@ -14,7 +17,7 @@ on:
 
 jobs:
   sync-data:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     
     steps:
       - name: Checkout website repo

@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - HF Data Loader 新增递归拉取模式：自动扫描数据集内全部 `*_leaderboard.json` 并合并去重（不再只依赖根目录聚合文件）
 
 ### Fixed
+- `sync-hf-data.yml` 改为 GitHub-hosted runner（`ubuntu-latest`），避免 self-hosted 下线导致同步任务长期排队
+- `sync-hf-data.yml` 增加 `permissions: contents: write`，确保 workflow 可自动提交 `data/` 更新
 - Workload 筛选改为 benchmark query 风格（`Q1`~`Q8`）并支持动态补充 legacy workload
 - Leaderboard 筛选恢复 `All` 选项，支持按 `hardware/model/workload/precision` 任意组合过滤
 - `sync-hf-data.yml` 的 `repository_dispatch` 事件类型改为 `benchmark-data-updated`（与 benchmark 发布流程一致）
