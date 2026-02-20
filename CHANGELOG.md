@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - 修复 agent 指令中的命令错误（sage-dev gh → sagellm-dev gh）
 - 修复页面中重复渲染两个 Performance Leaderboard 的问题（冲突残留导致重复 DOM）
 - HF Data Loader 增加前端缓存（sessionStorage, TTL=5min），减少刷新时全量递归拉取导致的慢加载
+- `index.html` 为 `hf-data-loader.js` / `leaderboard.js` 增加版本化 query 参数，强制客户端更新最新脚本
+- 前端缓存 key 升级到 `sagellm_hf_leaderboard_cache_v2`，避免旧会话缓存导致看不到 Q1~Q8 / 新数据
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
