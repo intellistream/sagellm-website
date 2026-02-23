@@ -52,6 +52,59 @@ sagellm-website/
 3. **允许** 功能特性描述（营销文案）
 4. **允许** CLI 命令示例（公开命令）
 
+## 📝 CHANGELOG 更新规则（强制）
+
+**🚨 每次解决 issue 必须更新 CHANGELOG！**
+
+### 更新规则
+
+- ✅ **必须** 每次解决一个 issue 时更新 `CHANGELOG.md`
+- ✅ **必须** 在 `[Unreleased]` 部分添加本次改动
+- ✅ **必须** 使用正确的分类（Added/Changed/Fixed/Removed）
+- ✅ **必须** 在每次 commit 前更新 CHANGELOG
+
+**注意**：本仓库为公开展示仓库，无需 PyPI 发布，但仍需维护 CHANGELOG 以追踪网站更新历史。
+
+### CHANGELOG 格式
+
+遵循 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) 规范：
+
+```markdown
+## [Unreleased]
+
+### Added
+- 新增的演示或功能
+
+### Changed
+- 改动的页面或文案
+
+### Fixed
+- 修复的问题
+
+### Removed
+- 移除的内容
+```
+
+### 示例工作流
+
+```bash
+# 1. 解决 issue 并修改页面
+vim index.html
+
+# 2. 更新 CHANGELOG.md（强制！）
+vim CHANGELOG.md
+# 在 [Unreleased] 部分添加：
+# ### Added
+# - 新增性能测试演示录屏
+
+# 3. 提交改动
+git add .
+git commit -m "feat: add performance demo"
+
+# 4. 推送到 main-dev
+git push origin main-dev
+```
+
 ## 🎬 演示录屏规范
 
 ### 录制要求
