@@ -23,6 +23,20 @@ REPO_DIR="$(pwd)"
 REPO_NAME="$(basename "$REPO_DIR")"
 PUBLISH_LOG="/tmp/${REPO_NAME}-publish-$$.log"
 
+block_main_push=false
+while read -r local_ref local_sha remote_ref remote_sha; do
+    if [ "$local_ref" = "refs/heads/main" ] || [ "$remote_ref" = "refs/heads/main" ]; then
+        block_main_push=true
+        break
+    fi
+done
+
+if [ "$block_main_push" = true ]; then
+    echo -e "${RED}✗ Direct push to main is forbidden${NC}"
+    echo -e "${YELLOW}  Please push to a feature branch and merge via PR.${NC}"
+    exit 1
+fi
+
 # Safe read: falls back to default if /dev/tty is unavailable (SSH drop, IDE, etc.)
 safe_read() {
     local varname="$1"
