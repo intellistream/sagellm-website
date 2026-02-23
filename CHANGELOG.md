@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- **[#22] `quickstart.sh` 安装策略统一**：确认网站仓库无 Python 包安装需求，quickstart.sh 专注于 git hooks 安装，符合统一规范
+
+
+
 ### Added
 - 新增 `quickstart.sh`，执行后自动安装 `hooks/pre-commit` 与 `hooks/pre-push`
 - 新增 `.github/workflows/ci.yml`，在 PR/Push 上执行 `pre-commit run --all-files`
