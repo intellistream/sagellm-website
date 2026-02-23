@@ -946,5 +946,84 @@
       "notes": "Benchmark run: long_input",
       "verified": false
     }
+  },
+  {
+    "entry_id": "0e0601ba-bc49-406a-bb05-b4393d484207",
+    "sagellm_version": "0.5.2.0",
+    "config_type": "single_gpu",
+    "hardware": {
+      "vendor": "Intel",
+      "chip_model": "CPU",
+      "chip_count": 1,
+      "interconnect": "None",
+      "chips_per_node": 1,
+      "intra_node_interconnect": "None",
+      "memory_per_chip_gb": null,
+      "total_memory_gb": null
+    },
+    "model": {
+      "name": "tiny-gpt2",
+      "parameters": "unknown",
+      "precision": "FP32",
+      "quantization": "None"
+    },
+    "workload": {
+      "input_length": 128,
+      "output_length": 128,
+      "batch_size": 1,
+      "concurrent_requests": 1,
+      "dataset": "default"
+    },
+    "metrics": {
+      "ttft_ms": 163.324,
+      "tbt_ms": 0.012,
+      "tpot_ms": 0.012,
+      "throughput_tps": 391.916,
+      "peak_mem_mb": 700,
+      "error_rate": 0.0,
+      "prefix_hit_rate": 0.0,
+      "kv_used_tokens": 640,
+      "kv_used_bytes": 163840,
+      "evict_count": 0,
+      "evict_ms": 0.0,
+      "spec_accept_rate": null
+    },
+    "cluster": null,
+    "versions": {
+      "protocol": "0.5.2.0",
+      "backend": "0.5.2.13",
+      "core": "0.5.2.0",
+      "control_plane": "N/A",
+      "gateway": "N/A",
+      "kv_cache": "0.5.2.0",
+      "comm": "0.5.2.0",
+      "compression": "N/A",
+      "benchmark": "0.5.2.0"
+    },
+    "environment": {
+      "os": "Linux 6.11.0-1018-azure",
+      "python_version": "3.11.14",
+      "pytorch_version": "2.10.0+cu128",
+      "cuda_version": null,
+      "cann_version": null,
+      "driver_version": null
+    },
+    "kv_cache_config": {
+      "enabled": true,
+      "eviction_policy": "LRU",
+      "budget_tokens": 8192,
+      "prefix_cache_enabled": true
+    },
+    "metadata": {
+      "submitted_at": "2026-02-23T14:38:39.391488+00:00",
+      "submitter": "sagellm-benchmark automated run",
+      "data_source": "automated-benchmark",
+      "reproducible_cmd": "sagellm-benchmark run --workload all --backend cpu --model tiny-gpt2",
+      "git_commit": null,
+      "release_date": "2026-02-23",
+      "changelog_url": "https://github.com/intellistream/sagellm/blob/main/CHANGELOG.md",
+      "notes": "Benchmark run: Q1",
+      "verified": false
+    }
   }
 ]
