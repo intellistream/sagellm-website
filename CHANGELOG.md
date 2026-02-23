@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- 新增 `quickstart.sh`，执行后自动安装 `hooks/pre-commit` 与 `hooks/pre-push`
+- 新增 `.github/workflows/ci.yml`，在 PR/Push 上执行 `pre-commit run --all-files`
+- CI 新增 hooks 保护校验：校验 `pre-commit` / `pre-push` 包含 main 分支保护提示
 - Leaderboard 增加 `Last updated` 显示（读取 `data/last_updated.json` / HF metadata）
 - 新增 `data/last_updated.json` 作为 website 数据同步时间标记
 - HF Data Loader 新增递归拉取模式：自动扫描数据集内全部 `*_leaderboard.json` 并合并去重（不再只依赖根目录聚合文件）
