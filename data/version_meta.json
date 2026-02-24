@@ -22,14 +22,14 @@
       "name": "sagellm (umbrella)",
       "repo": "https://github.com/intellistream/sagellm",
       "pypi_name": "isagellm",
-      "version": "0.5.3.2",
+      "version": "0.5.3.3",
       "group": "core"
     },
     {
       "name": "sagellm-protocol",
       "repo": "https://github.com/intellistream/sagellm-protocol",
       "pypi_name": "isagellm-protocol",
-      "version": "0.5.2.2",
+      "version": "0.5.2.5",
       "group": "core"
     },
     {
@@ -89,5 +89,5 @@
       "group": "infrastructure"
     }
   ],
-  "updated_at": "2026-02-23"
+  "updated_at": "2026-02-24"
 }
