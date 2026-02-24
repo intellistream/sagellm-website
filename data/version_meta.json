@@ -85,7 +85,7 @@
       "name": "sagellm-benchmark",
       "repo": "https://github.com/intellistream/sagellm-benchmark",
       "pypi_name": "isagellm-benchmark",
-      "version": "0.5.3.2",
+      "version": "0.5.3.4",
       "group": "infrastructure"
     }
   ],
