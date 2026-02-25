@@ -29,7 +29,7 @@
       "name": "sagellm-protocol",
       "repo": "https://github.com/intellistream/sagellm-protocol",
       "pypi_name": "isagellm-protocol",
-      "version": "0.5.2.5",
+      "version": "0.5.2.6",
       "group": "core"
     },
     {
@@ -43,51 +43,51 @@
       "name": "sagellm-core",
       "repo": "https://github.com/intellistream/sagellm-core",
       "pypi_name": "isagellm-core",
-      "version": "0.5.2.2",
+      "version": "0.5.2.3",
       "group": "core"
     },
     {
       "name": "sagellm-control-plane",
       "repo": "https://github.com/intellistream/sagellm-control-plane",
       "pypi_name": "isagellm-control-plane",
-      "version": "0.5.2.3",
+      "version": "0.5.2.4",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-gateway",
       "repo": "https://github.com/intellistream/sagellm-gateway",
       "pypi_name": "isagellm-gateway",
-      "version": "0.5.2.2",
+      "version": "0.5.2.3",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-kv-cache",
       "repo": "https://github.com/intellistream/sagellm-kv-cache",
       "pypi_name": "isagellm-kv-cache",
-      "version": "0.5.2.2",
+      "version": "0.5.2.3",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-comm",
       "repo": "https://github.com/intellistream/sagellm-comm",
       "pypi_name": "isagellm-comm",
-      "version": "0.5.2.3",
+      "version": "0.5.2.4",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-compression",
       "repo": "https://github.com/intellistream/sagellm-compression",
       "pypi_name": "isagellm-compression",
-      "version": "0.5.2.2",
+      "version": "0.5.2.3",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-benchmark",
       "repo": "https://github.com/intellistream/sagellm-benchmark",
       "pypi_name": "isagellm-benchmark",
-      "version": "0.5.3.4",
+      "version": "0.5.3.5",
       "group": "infrastructure"
     }
   ],
-  "updated_at": "2026-02-24"
+  "updated_at": "2026-02-25"
 }
