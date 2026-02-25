@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- CI 新增 `pytest tests/` 单元测试步骤，补齐 website 仓库的基础测试门禁。
+- 新增 `tests/test_site_structure.py`，校验核心页面文件、首页关键标识和 `data/last_updated.json` 同步标记。
+
 ### Changed
 - **[#22] `quickstart.sh` 安装策略统一**：确认网站仓库无 Python 包安装需求，quickstart.sh 专注于 git hooks 安装，符合统一规范
 
