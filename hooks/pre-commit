@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
+current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo "")
+if [ "$current_branch" = "main" ]; then
+    echo -e "${RED}✗ Direct commits to main are forbidden${NC}"
+    echo -e "${YELLOW}  Please create/use a feature branch and open PR to main-dev/main.${NC}"
+    exit 1
+fi
+
+echo -e "${GREEN}✓ Pre-commit branch guard passed (${current_branch})${NC}"

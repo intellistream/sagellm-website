@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
+- CI 新增 `pytest tests/` 单元测试步骤，补齐 website 仓库的基础测试门禁。
+- 新增 `tests/test_site_structure.py`，校验核心页面文件、首页关键标识和 `data/last_updated.json` 同步标记。
+
+### Changed
+- **[#22] `quickstart.sh` 安装策略统一**：确认网站仓库无 Python 包安装需求，quickstart.sh 专注于 git hooks 安装，符合统一规范
+
+
+
+### Added
+- 新增 `quickstart.sh`，执行后自动安装 `hooks/pre-commit` 与 `hooks/pre-push`
+- 新增 `.github/workflows/ci.yml`，在 PR/Push 上执行 `pre-commit run --all-files`
+- CI 新增 hooks 保护校验：校验 `pre-commit` / `pre-push` 包含 main 分支保护提示
 - Leaderboard 增加 `Last updated` 显示（读取 `data/last_updated.json` / HF metadata）
 - 新增 `data/last_updated.json` 作为 website 数据同步时间标记
 - 新增 workflow 守护校验：`validate-sync-workflow.yml`，防止 `sync-hf-data.yml` 回退到 `self-hosted` 或错误 dispatch type
