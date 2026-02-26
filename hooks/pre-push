@@ -43,7 +43,7 @@ done
 
 if [ "$block_main_push" = true ]; then
     echo -e "${RED}✗ Direct push to main is forbidden${NC}"
-    echo -e "${YELLOW}  Please push to a feature branch and merge via PR.${NC}"
+    echo -e "${YELLOW}  Please push to main-dev first (git push origin main-dev), then merge via PR.${NC}"
     exit 1
 fi
 
