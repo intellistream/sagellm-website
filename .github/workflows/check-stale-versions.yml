@@ -1,0 +1,38 @@
+name: Check Stale Version References
+
+on:
+  push:
+    branches: [main, main-dev]
+    paths:
+      - 'index.html'
+      - 'versions.html'
+      - 'README.md'
+      - 'data/version_meta.json'
+      - 'assets/version-meta-loader.js'
+      - 'assets/versions-page.js'
+      - 'scripts/check_stale_versions.py'
+      - 'scripts/check_stale_versions.sh'
+      - 'scripts/stale_version_allowlist.txt'
+      - '.github/workflows/check-stale-versions.yml'
+  pull_request:
+    paths:
+      - 'index.html'
+      - 'versions.html'
+      - 'README.md'
+      - 'data/version_meta.json'
+      - 'assets/version-meta-loader.js'
+      - 'assets/versions-page.js'
+      - 'scripts/check_stale_versions.py'
+      - 'scripts/check_stale_versions.sh'
+      - 'scripts/stale_version_allowlist.txt'
+      - '.github/workflows/check-stale-versions.yml'
+
+jobs:
+  stale-version-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run stale-version check
+        run: bash scripts/check_stale_versions.sh

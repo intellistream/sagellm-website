@@ -21,11 +21,72 @@ const HF_CONFIG = {
     fallbackToLocal: true,
     localPath: './data/',
 
-    // 递归扫描数据集中的分文件结果（Q1/Q2...）
+    // 递归拉取数据集内分文件结果（例如 cpu/.../Q1_leaderboard.json）
     recursiveFetch: true,
-    maxRecursiveFiles: 500
+    maxRecursiveFiles: 500,
+
+    // 前端缓存，避免频繁刷新时重复全量拉取
+    cacheTTLms: 5 * 60 * 1000,
+
+    // 启用标记文件一致性校验，避免同步后继续命中旧缓存
+    validateWithMarker: true
 };
 
+const CACHE_KEY = 'sagellm_hf_leaderboard_cache_v3';
+
+function readCacheEnvelope() {
+    try {
+        const raw = sessionStorage.getItem(CACHE_KEY);
+        if (!raw) {
+            return null;
+        }
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.savedAt || !parsed.data) {
+            return null;
+        }
+        const age = Date.now() - parsed.savedAt;
+        if (age > HF_CONFIG.cacheTTLms) {
+            return null;
+        }
+        return parsed;
+    } catch (_error) {
+        return null;
+    }
+}
+
+function writeCache(data, marker = null) {
+    try {
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify({
+            savedAt: Date.now(),
+            marker,
+            data
+        }));
+    } catch (_error) {
+        // ignore cache write failures
+    }
+}
+
+async function getLatestMarker() {
+    try {
+        const marker = await loadFromHuggingFace(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    try {
+        const marker = await loadFromLocal(HF_CONFIG.files.lastUpdated);
+        if (marker && marker.last_updated) {
+            return marker.last_updated;
+        }
+    } catch (_e) {
+        // ignore and fallback
+    }
+
+    return null;
+}
 
 function normalizeEntryArray(payload) {
     if (Array.isArray(payload)) {
@@ -37,11 +98,9 @@ function normalizeEntryArray(payload) {
     return [];
 }
 
-
 function splitSingleAndMulti(entries) {
     const single = [];
     const multi = [];
-
     entries.forEach((entry) => {
         const nodeCount = entry?.cluster?.node_count || 1;
         if (nodeCount > 1) {
@@ -50,45 +109,118 @@ function splitSingleAndMulti(entries) {
             single.push(entry);
         }
     });
-
     return { single, multi };
 }
 
-
-function mergeByEntryId(entries) {
-    const byId = new Map();
-    const fallbackKey = (entry) => {
-        const version = entry?.sagellm_version || 'unknown';
-        const chip = entry?.hardware?.chip_model || 'unknown';
-        const model = entry?.model?.name || 'unknown';
-        const workload = entry?.metadata?.notes || 'unknown';
-        return `${version}|${chip}|${model}|${workload}`;
-    };
-
-    entries.forEach((entry) => {
-        const key = entry?.entry_id || fallbackKey(entry);
-        byId.set(key, entry);
-    });
-
-    return [...byId.values()];
+function normalizeKeyPart(value) {
+    const raw = String(value ?? 'unknown').trim().toLowerCase();
+    return raw.replace(/[^a-z0-9._-]+/g, '-').replace(/-+/g, '-').replace(/^-|-$/g, '') || 'unknown';
 }
 
-
-async function listRecursiveLeaderboardFiles() {
-    const url = `https://huggingface.co/api/datasets/${HF_CONFIG.repo}/tree/${HF_CONFIG.branch}?recursive=true`;
-    const response = await fetch(url, { cache: 'no-cache' });
-    if (!response.ok) {
-        throw new Error(`HF tree API error: ${response.status} ${response.statusText}`);
+function extractWorkloadForKey(entry) {
+    const direct = entry?.workload?.name || entry?.workload_name || entry?.metadata?.workload;
+    if (direct && typeof direct === 'string') {
+        return direct.toUpperCase();
     }
 
-    const tree = await response.json();
-    return tree
-        .filter((item) => item.type === 'file')
-        .map((item) => item.path)
-        .filter((path) => path.endsWith('_leaderboard.json'))
-        .slice(0, HF_CONFIG.maxRecursiveFiles);
+    const notes = entry?.metadata?.notes || '';
+    const qMatch = String(notes).match(/\bQ([1-8])\b/i);
+    if (qMatch) {
+        return `Q${qMatch[1]}`;
+    }
+
+    return 'LEGACY';
 }
 
+function buildIdempotencyKey(entry) {
+    if (entry?.metadata?.idempotency_key) {
+        return String(entry.metadata.idempotency_key);
+    }
+
+    return [
+        normalizeKeyPart(entry?.sagellm_version),
+        normalizeKeyPart(extractWorkloadForKey(entry)),
+        normalizeKeyPart(entry?.model?.name),
+        normalizeKeyPart(entry?.model?.precision),
+        normalizeKeyPart(entry?.hardware?.chip_model),
+        normalizeKeyPart(entry?.hardware?.chip_count),
+        normalizeKeyPart(entry?.cluster?.node_count ?? 1),
+        normalizeKeyPart(entry?.config_type),
+    ].join('|');
+}
+
+function parseEntryTimestamp(entry) {
+    const submittedAt = entry?.metadata?.submitted_at;
+    if (submittedAt) {
+        const ts = Date.parse(submittedAt);
+        if (!Number.isNaN(ts)) {
+            return ts;
+        }
+    }
+
+    const releaseDate = entry?.metadata?.release_date;
+    if (releaseDate) {
+        const ts = Date.parse(releaseDate);
+        if (!Number.isNaN(ts)) {
+            return ts;
+        }
+    }
+
+    return 0;
+}
+
+function preferNewerEntry(current, candidate) {
+    const currentTs = parseEntryTimestamp(current);
+    const candidateTs = parseEntryTimestamp(candidate);
+
+    if (candidateTs !== currentTs) {
+        return candidateTs > currentTs ? candidate : current;
+    }
+
+    const currentTps = Number(current?.metrics?.throughput_tps ?? 0);
+    const candidateTps = Number(candidate?.metrics?.throughput_tps ?? 0);
+    if (candidateTps !== currentTps) {
+        return candidateTps > currentTps ? candidate : current;
+    }
+
+    return current;
+}
+
+function mergeByEntryId(entries) {
+    const byEntryId = new Map();
+    const byIdentityKey = new Map();
+
+    entries.forEach((entry) => {
+        if (!entry || typeof entry !== 'object') {
+            return;
+        }
+
+        const entryId = entry?.entry_id;
+        if (entryId) {
+            const existingById = byEntryId.get(entryId);
+            byEntryId.set(entryId, existingById ? preferNewerEntry(existingById, entry) : entry);
+            return;
+        }
+
+        const identityKey = buildIdempotencyKey(entry);
+        const existingByKey = byIdentityKey.get(identityKey);
+        byIdentityKey.set(
+            identityKey,
+            existingByKey ? preferNewerEntry(existingByKey, entry) : entry,
+        );
+    });
+
+    byEntryId.forEach((entry) => {
+        const identityKey = buildIdempotencyKey(entry);
+        const existingByKey = byIdentityKey.get(identityKey);
+        byIdentityKey.set(
+            identityKey,
+            existingByKey ? preferNewerEntry(existingByKey, entry) : entry,
+        );
+    });
+
+    return [...byIdentityKey.values()];
+}
 
 async function loadFromHuggingFacePath(pathInRepo) {
     const url = `https://huggingface.co/datasets/${HF_CONFIG.repo}/resolve/${HF_CONFIG.branch}/${pathInRepo}`;
@@ -102,6 +234,19 @@ async function loadFromHuggingFacePath(pathInRepo) {
     return await response.json();
 }
 
+async function listRecursiveLeaderboardFiles() {
+    const url = `https://huggingface.co/api/datasets/${HF_CONFIG.repo}/tree/${HF_CONFIG.branch}?recursive=true`;
+    const response = await fetch(url, { cache: 'no-cache' });
+    if (!response.ok) {
+        throw new Error(`HF tree API error: ${response.status} ${response.statusText}`);
+    }
+    const tree = await response.json();
+    return tree
+        .filter((item) => item.type === 'file')
+        .map((item) => item.path)
+        .filter((path) => path.endsWith('_leaderboard.json'))
+        .slice(0, HF_CONFIG.maxRecursiveFiles);
+}
 
 async function loadRecursiveEntriesFromHF() {
     const filePaths = await listRecursiveLeaderboardFiles();
@@ -170,11 +315,34 @@ async function loadFromLocal(filename) {
  * @returns {Promise<{single: Array, multi: Array}>}
  */
 async function loadLeaderboardData() {
+    const cachedEnvelope = readCacheEnvelope();
+    if (cachedEnvelope) {
+        if (!HF_CONFIG.validateWithMarker) {
+            console.log('[HF Loader] ✅ Loaded from session cache');
+            return cachedEnvelope.data;
+        }
+
+        const latestMarker = await getLatestMarker();
+        if (latestMarker && cachedEnvelope.marker && cachedEnvelope.marker === latestMarker) {
+            console.log('[HF Loader] ✅ Loaded from session cache (marker matched)');
+            return cachedEnvelope.data;
+        }
+
+        if (!latestMarker) {
+            console.log('[HF Loader] ⚠️ Marker unavailable, fallback to TTL cache');
+            return cachedEnvelope.data;
+        }
+
+        console.log('[HF Loader] ♻️ Marker changed, refreshing leaderboard data');
+    }
+
     const result = { single: [], multi: [] };
 
     // 尝试从 Hugging Face 加载
     try {
         console.log('[HF Loader] Loading from Hugging Face...');
+
+        const marker = await getLatestMarker();
 
         const [singleData, multiData] = await Promise.all([
             loadFromHuggingFace(HF_CONFIG.files.single),
@@ -195,6 +363,7 @@ async function loadLeaderboardData() {
             }
         }
 
+        writeCache(result, marker);
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
         return result;
 
@@ -214,6 +383,7 @@ async function loadLeaderboardData() {
                 result.single = normalizeEntryArray(singleData);
                 result.multi = normalizeEntryArray(multiData);
 
+                writeCache(result, null);
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);
                 return result;
 

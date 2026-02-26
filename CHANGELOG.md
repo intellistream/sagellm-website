@@ -22,18 +22,46 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - CI 新增 hooks 保护校验：校验 `pre-commit` / `pre-push` 包含 main 分支保护提示
 - Leaderboard 增加 `Last updated` 显示（读取 `data/last_updated.json` / HF metadata）
 - 新增 `data/last_updated.json` 作为 website 数据同步时间标记
-- HF Data Loader 新增递归拉取模式：自动扫描数据集内全部 `*_leaderboard.json` 并合并去重（不再只依赖根目录聚合文件）
+- 新增 workflow 守护校验：`validate-sync-workflow.yml`，防止 `sync-hf-data.yml` 回退到 `self-hosted` 或错误 dispatch type
+- Leaderboard 筛选新增 `Version` 下拉，自动拉取 `isagellm` 在 PyPI 上 `>=0.5.0.0` 的全部版本号用于过滤
+- 首页与 README 新增 v0.5 发布意义说明文案（工程可用性）
+- 新增统一版本元数据源 `data/version_meta.json`，集中维护首页发布文案、Quick Start 文案与包版本清单
+- 新增首页元数据加载器 `assets/version-meta-loader.js` 与版本页渲染器 `assets/versions-page.js`
+- 新增自动同步 workflow `sync-version-meta.yml`，定时/手动拉取 PyPI 最新版本并仅在变更时提交
+- 新增 stale 版本检查脚本 `scripts/check_stale_versions.sh` 与 CI workflow `check-stale-versions.yml`
+- 新增版本元数据维护文档 `docs/VERSION_METADATA.md`，明确单一来源、自动同步与回归检查流程
+- 新增可维护的 stale 检查 allowlist 文件 `scripts/stale_version_allowlist.txt`
+- 新增一致性检查脚本 `scripts/check_stale_versions.py`，校验 `version_meta` 与 `index/README/versions` 的绑定关系
 
 ### Fixed
-- `sync-hf-data.yml` 改为 GitHub-hosted runner（`ubuntu-latest`），避免 self-hosted 下线导致同步任务长期排队
-- `sync-hf-data.yml` 增加 `permissions: contents: write`，确保 workflow 可自动提交 `data/` 更新
+- Leaderboard `Component Versions` 的版本对比逻辑调整：历史 benchmark 版本（低于 PyPI latest）显示为 `historical`，仅当 benchmark 版本高于 PyPI latest 时标记 `⚠ mismatch`，避免所有历史结果都被误报不一致
 - Workload 筛选改为 benchmark query 风格（`Q1`~`Q8`）并支持动态补充 legacy workload
 - Leaderboard 筛选恢复 `All` 选项，支持按 `hardware/model/workload/precision` 任意组合过滤
 - `sync-hf-data.yml` 的 `repository_dispatch` 事件类型改为 `benchmark-data-updated`（与 benchmark 发布流程一致）
+- 修复 `sync-hf-data.yml` 被误回滚到 `self-hosted` runner 的问题，恢复为 `ubuntu-latest` 并启用 `contents: write`
 - 修复 agent 指令中的命令错误（sage-dev gh → sagellm-dev gh）
+- 修复页面中重复渲染两个 Performance Leaderboard 的问题（冲突残留导致重复 DOM）
+- HF Data Loader 增加前端缓存（sessionStorage, TTL=5min），减少刷新时全量递归拉取导致的慢加载
+- 移除 `index.html` 中脚本 URL 的硬编码版本参数，避免固定版本号带来的维护和认知问题
+- 前端缓存 key 升级到 `sagellm_hf_leaderboard_cache_v2`，避免旧会话缓存导致看不到 Q1~Q8 / 新数据
+- 前端缓存 key 再升级到 `sagellm_hf_leaderboard_cache_v3`，强制失效已缓存的旧少量数据
+- HF Data Loader 增加 `last_updated` marker 校验：marker 变化时强制刷新数据，避免同步后继续命中旧缓存
+- Leaderboard 主表新增 `Workload` 列，`all workloads` 模式下按 `Workload → Version` 排序，避免同版本多 workload 混在一起难以识别
+- Leaderboard 主表第一列版本号改为合并显示：连续相同版本仅首行显示版本编号，减少重复视觉噪音
+- Leaderboard 主表移除 `Release Date` 独立列，改为在版本单元格中显示 `vX.Y.Z (release_date)`
+- 趋势对比仅在单 workload 视图下启用；`all workloads` 视图禁用跨 workload 的趋势计算，避免误导
+- `Component Versions` 面板改为显示 `sageLLM + benchmark + 各组件` 完整版本，并标注来源为 `entry.versions`
+- `Component Versions` 面板重构为双源展示：`benchmark metadata` 与 `PyPI latest` 对比，并对不一致版本显式告警
+- HF Data Loader 增加幂等键去重（`version+workload+model+hardware+precision+config`）并保留最新 `submitted_at` 记录，降低重复上传导致的重复行和趋势噪音
 - 修正命令名称：所有地方统一使用 `sagellm`（无连字符），包括演示动画和页面命令示例
 - 修正架构图层级：KV Cache 从 L2 改为 L1（与 Backend/Comm 同级）
 - 移除首页文案中的“3x 吞吐提升”表述，避免不准确性能宣称。
+- 首页发布 banner 从 v0.4 宣传语更新为 v0.5 工程可用性说明文案
+- Quick Start 区块从 v0.4 口径升级为 v0.5 口径，并统一示例命令为 `sagellm`
+- `versions.html` 全量包版本与 PyPI 链接更新到最新 0.5.x 发布版本
+- `versions.html` 从硬编码版本卡片改为动态读取 `version_meta.json` 渲染
+- `README.md` 顶部发布文案与 Quick Start 区块改为由 `sync_version_meta.py` 按 `version_meta.json` 自动同步（单一来源）
+- `sync-version-meta.yml` 改为在 `version_meta.json` 或 `README.md` 变化时才提交，避免手工漂移
 - 清理 README 中的 demo 录制/嵌入说明。
 - 调整架构图层级：Core/Control/Gateway 分别为 L2/L3/L4。
 - Leaderboard 颜色语义优化：按指标语义统一趋势色（含高优/低优指标方向一致性）
@@ -44,6 +72,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated demo recording instructions with Ascend NPU examples.
 
 ### Changed
+- Leaderboard 版本展示策略更新：首页默认按聚合版本号（`X.Y.Z.x`）显示（`x` 表示第四位合集），并在同组三位版本下自动选择表现最佳的四位版本结果；新增可展开入口查看该三位版本对应的完整四位版本明细结果。
+- Leaderboard 表格版本列样式优化：`Latest`/`Baseline` 标识移动到版本号下方展示，减少横向占用，提升首页首屏完整可见性。
+- 首页移动端适配增强：优化标题/容器/卡片/CTA 按钮在 `<=768px` 与 `<=480px` 的布局与间距，改善首屏可读性与触控可用性。
 - Updated all PyPI package references to 0.3.x.x version.
 - Enhanced 0.3 release banner: "Ascend NPU 引擎已实现".
 - Updated badge: "Ascend NPU Native" (was "Ascend Optimized").

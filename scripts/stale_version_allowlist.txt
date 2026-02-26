@@ -1,0 +1,7 @@
+# Regex allowlist for lines that are permitted to contain historical versions.
+# One regex per line.
+# This file is used by scripts/check_stale_versions.py
+
+# Example:
+# changelog history references
+# \[0\.4\.\d+\.\d+\]
