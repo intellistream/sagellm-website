@@ -22,56 +22,56 @@
       "name": "sagellm (umbrella)",
       "repo": "https://github.com/intellistream/sagellm",
       "pypi_name": "isagellm",
-      "version": "0.5.3.3",
+      "version": "0.5.3.14",
       "group": "core"
     },
     {
       "name": "sagellm-protocol",
       "repo": "https://github.com/intellistream/sagellm-protocol",
       "pypi_name": "isagellm-protocol",
-      "version": "0.5.2.11",
+      "version": "0.5.2.13",
       "group": "core"
     },
     {
       "name": "sagellm-backend",
       "repo": "https://github.com/intellistream/sagellm-backend",
       "pypi_name": "isagellm-backend",
-      "version": "0.5.3.13",
+      "version": "0.5.3.17",
       "group": "core"
     },
     {
       "name": "sagellm-core",
       "repo": "https://github.com/intellistream/sagellm-core",
       "pypi_name": "isagellm-core",
-      "version": "0.5.2.21",
+      "version": "0.5.2.25",
       "group": "core"
     },
     {
       "name": "sagellm-control-plane",
       "repo": "https://github.com/intellistream/sagellm-control-plane",
       "pypi_name": "isagellm-control-plane",
-      "version": "0.5.2.18",
+      "version": "0.5.2.21",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-gateway",
       "repo": "https://github.com/intellistream/sagellm-gateway",
       "pypi_name": "isagellm-gateway",
-      "version": "0.5.2.13",
+      "version": "0.5.2.17",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-kv-cache",
       "repo": "https://github.com/intellistream/sagellm-kv-cache",
       "pypi_name": "isagellm-kv-cache",
-      "version": "0.5.2.17",
+      "version": "0.5.2.20",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-comm",
       "repo": "https://github.com/intellistream/sagellm-comm",
       "pypi_name": "isagellm-comm",
-      "version": "0.5.2.15",
+      "version": "0.5.2.18",
       "group": "infrastructure"
     },
     {
@@ -85,7 +85,7 @@
       "name": "sagellm-benchmark",
       "repo": "https://github.com/intellistream/sagellm-benchmark",
       "pypi_name": "isagellm-benchmark",
-      "version": "0.5.3.17",
+      "version": "0.5.3.18",
       "group": "infrastructure"
     }
   ],
