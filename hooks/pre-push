@@ -31,6 +31,9 @@ NC='\033[0m'
 REPO_DIR="$(pwd)"
 REPO_NAME="$(basename "$REPO_DIR")"
 PUBLISH_LOG="/tmp/${REPO_NAME}-publish-$$.log"
+PUSHING_MAIN_DEV=false
+PUSH_LOCAL_SHA=""
+PUSH_REMOTE_BRANCH=""
 
 # --- Block direct push to main ---
 block_main_push=false
@@ -39,12 +42,22 @@ while read -r local_ref local_sha remote_ref remote_sha; do
         block_main_push=true
         break
     fi
+
+    if [ "$local_ref" = "refs/heads/main-dev" ] || [ "$remote_ref" = "refs/heads/main-dev" ]; then
+        PUSHING_MAIN_DEV=true
+        PUSH_LOCAL_SHA="$local_sha"
+        PUSH_REMOTE_BRANCH="main-dev"
+    fi
 done
 
 if [ "$block_main_push" = true ]; then
     echo -e "${RED}✗ Direct push to main is forbidden${NC}"
     echo -e "${YELLOW}  Please push to main-dev first (git push origin main-dev), then merge via PR.${NC}"
     exit 1
+fi
+
+if [ "$PUSHING_MAIN_DEV" != true ]; then
+    exit 0
 fi
 
 # Safe read: falls back to default if /dev/tty is unavailable (SSH, IDE, etc.)
@@ -73,6 +86,8 @@ find_version_file() {
 schedule_publish() {
     local version="$1"
     local package="$2"
+    local target_branch="$3"
+    local target_sha="$4"
 
     if ! command -v sage-pypi-publisher &> /dev/null; then
         echo -e "${YELLOW}⚠ sage-pypi-publisher not found, skipping auto-publish${NC}"
@@ -92,6 +107,18 @@ schedule_publish() {
         sleep 1
 
         cd "$REPO_DIR" || exit 1
+
+        remote_sha="$(git ls-remote origin "refs/heads/${target_branch}" | awk '{print $1}')"
+        if [ -z "$remote_sha" ] || [ "$remote_sha" != "$target_sha" ]; then
+            {
+                echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+                echo "⏭ Skip publish: remote ${target_branch} does not contain expected pushed SHA"
+                echo "   expected=${target_sha}"
+                echo "   remote=${remote_sha}"
+                echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+            } >> "$PUBLISH_LOG" 2>&1
+            exit 0
+        fi
 
         {
             echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -168,14 +195,14 @@ elif [ "$PYPI_CHECK_RESULT" -eq 2 ]; then
     echo -e "${BLUE}📦 Publish ${CURRENT_VERSION} to PyPI after push? [Y/n]:${NC}"
     safe_read response "n"
     if [[ ! "$response" =~ ^[Nn]$ ]]; then
-        schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME"
+        schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME" "$PUSH_REMOTE_BRANCH" "$PUSH_LOCAL_SHA"
     fi
 else
     # Version not on PyPI — offer to publish
     echo -e "${BLUE}📦 Publish ${CURRENT_VERSION} to PyPI after push? [Y/n]:${NC}"
     safe_read response "n"
     if [[ ! "$response" =~ ^[Nn]$ ]]; then
-        schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME"
+        schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME" "$PUSH_REMOTE_BRANCH" "$PUSH_LOCAL_SHA"
     fi
 fi
 
