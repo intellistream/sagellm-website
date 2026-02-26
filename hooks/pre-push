@@ -166,14 +166,14 @@ if [ "$PYPI_CHECK_RESULT" -eq 0 ]; then
 elif [ "$PYPI_CHECK_RESULT" -eq 2 ]; then
     echo -e "${DIM}(PyPI check skipped — network/timeout issue)${NC}"
     echo -e "${BLUE}📦 Publish ${CURRENT_VERSION} to PyPI after push? [Y/n]:${NC}"
-    safe_read response "y"
+    safe_read response "n"
     if [[ ! "$response" =~ ^[Nn]$ ]]; then
         schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME"
     fi
 else
     # Version not on PyPI — offer to publish
     echo -e "${BLUE}📦 Publish ${CURRENT_VERSION} to PyPI after push? [Y/n]:${NC}"
-    safe_read response "y"
+    safe_read response "n"
     if [[ ! "$response" =~ ^[Nn]$ ]]; then
         schedule_publish "$CURRENT_VERSION" "$PACKAGE_NAME"
     fi
