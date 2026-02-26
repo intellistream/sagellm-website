@@ -25,16 +25,14 @@ echo ""
 echo -e "${YELLOW}${BOLD}Step 1/2: Installing Git Hooks${NC}"
 if [ -d "$HOOKS_DIR" ]; then
     if [ -f "$TEMPLATE_DIR/pre-commit" ]; then
-        cp "$TEMPLATE_DIR/pre-commit" "$HOOKS_DIR/pre-commit"
-        chmod +x "$HOOKS_DIR/pre-commit"
+        ln -sf "../../hooks/pre-commit" "$HOOKS_DIR/pre-commit"
         echo -e "${GREEN}✓ Installed pre-commit hook${NC}"
     else
         echo -e "${YELLOW}⚠  pre-commit template not found, skipping${NC}"
     fi
 
     if [ -f "$TEMPLATE_DIR/pre-push" ]; then
-        cp "$TEMPLATE_DIR/pre-push" "$HOOKS_DIR/pre-push"
-        chmod +x "$HOOKS_DIR/pre-push"
+        ln -sf "../../hooks/pre-push" "$HOOKS_DIR/pre-push"
         echo -e "${GREEN}✓ Installed pre-push hook${NC}"
     else
         echo -e "${YELLOW}⚠  pre-push template not found, skipping${NC}"

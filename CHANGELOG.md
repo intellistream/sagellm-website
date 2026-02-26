@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- **quickstart.sh**: replace `cp hooks/pre-{commit,push}` with `ln -sf` to avoid "same file" error when `.git/hooks` entries are already symlinks
+
 ### Changed
 - **[#14 #15] Leaderboard 内容同步**：基于 `data/results/**/**_leaderboard.json` 重新聚合 `data/leaderboard_single.json` / `data/leaderboard_multi.json`，并刷新 `data/last_updated.json`，确保官网 leaderboard 数据可访问且与当前结果目录一致。
 - **Leaderboard 聚合脚本兼容性修复**：`scripts/aggregate_results.py` 新增字段归一化，自动对齐历史数据中的 `interconnect` / `intra_node_interconnect`，避免 schema 校验失败。
