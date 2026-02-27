@@ -1,12 +1,30 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema#",
-    "$id": "https://sagellm.sage.org.ai/schemas/leaderboard_v1.schema.json",
-    "title": "sageLLM Leaderboard Entry",
-    "description": "Schema for sageLLM performance leaderboard entries (single-node and multi-node)",
-    "type": "object",
-    "required": [
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sagellm.sage.org.ai/schemas/leaderboard_v1.schema.json",
+  "title": "sageLLM Leaderboard MVP Schema v1",
+  "description": "MVP schema for leaderboard data used by sagellm-website",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/entry"
+    },
+    {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/entry"
+      }
+    }
+  ],
+  "$defs": {
+    "versionOrNA": {
+      "type": "string",
+      "pattern": "^(\\d+\\.\\d+\\.\\d+(\\.\\d+)?|N/A)$"
+    },
+    "entry": {
+      "type": "object",
+      "required": [
         "entry_id",
         "sagellm_version",
+        "config_type",
         "hardware",
         "model",
         "workload",
@@ -14,583 +32,188 @@
         "versions",
         "environment",
         "metadata"
-    ],
-    "properties": {
+      ],
+      "properties": {
         "entry_id": {
-            "type": "string",
-            "description": "Unique identifier for this leaderboard entry",
-            "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
+          "type": "string",
+          "pattern": "^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$"
         },
         "sagellm_version": {
-            "type": "string",
-            "description": "Main sageLLM umbrella package version (isagellm)",
-            "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
+        },
+        "config_type": {
+          "type": "string",
+          "enum": ["single_gpu", "multi_gpu", "multi_node"]
         },
         "hardware": {
-            "type": "object",
-            "description": "Hardware configuration",
-            "required": [
-                "vendor",
-                "chip_model",
-                "chip_count",
-                "interconnect"
-            ],
-            "properties": {
-                "vendor": {
-                    "type": "string",
-                    "description": "Chip vendor",
-                    "enum": [
-                        "Intel",
-                        "AMD",
-                        "NVIDIA",
-                        "Huawei",
-                        "Other"
-                    ]
-                },
-                "chip_model": {
-                    "type": "string",
-                    "description": "Chip model name",
-                    "examples": [
-                        "Xeon Gold 6248R",
-                        "Ascend 910B",
-                        "A100-80GB",
-                        "H100-80GB"
-                    ]
-                },
-                "chip_count": {
-                    "type": "integer",
-                    "description": "Number of chips/GPUs",
-                    "minimum": 1
-                },
-                "interconnect": {
-                    "type": "string",
-                    "description": "Interconnect type",
-                    "enum": [
-                        "None",
-                        "PCIe",
-                        "NVLink",
-                        "HCCS",
-                        "InfiniBand",
-                        "RoCE",
-                        "CXL",
-                        "Other"
-                    ]
-                },
-                "memory_per_chip_gb": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "Memory per chip in GB",
-                    "minimum": 0
-                },
-                "total_memory_gb": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "Total system memory in GB",
-                    "minimum": 0
-                }
+          "type": "object",
+          "required": ["vendor", "chip_model", "chip_count"],
+          "properties": {
+            "vendor": {
+              "type": "string",
+              "enum": ["Intel", "AMD", "NVIDIA", "Huawei", "Unknown", "Other"]
+            },
+            "chip_model": {
+              "type": "string"
+            },
+            "chip_count": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "interconnect": {
+              "type": "string"
+            },
+            "chips_per_node": {
+              "type": ["integer", "null"],
+              "minimum": 1
+            },
+            "intra_node_interconnect": {
+              "type": ["string", "null"]
+            },
+            "memory_per_chip_gb": {
+              "type": ["number", "null"],
+              "minimum": 0
+            },
+            "total_memory_gb": {
+              "type": ["number", "null"],
+              "minimum": 0
             }
+          },
+          "anyOf": [
+            { "required": ["interconnect"] },
+            { "required": ["intra_node_interconnect"] }
+          ],
+          "additionalProperties": true
         },
         "model": {
-            "type": "object",
-            "description": "Model configuration",
-            "required": [
-                "name",
-                "parameters",
-                "precision"
-            ],
-            "properties": {
-                "name": {
-                    "type": "string",
-                    "description": "Model name",
-                    "examples": [
-                        "Qwen2-7B",
-                        "Llama-3-8B",
-                        "GLM-4-9B"
-                    ]
-                },
-                "parameters": {
-                    "type": "string",
-                    "description": "Model size",
-                    "examples": [
-                        "7B",
-                        "8B",
-                        "13B",
-                        "70B"
-                    ]
-                },
-                "precision": {
-                    "type": "string",
-                    "description": "Model precision/dtype",
-                    "enum": [
-                        "FP32",
-                        "FP16",
-                        "BF16",
-                        "INT8",
-                        "INT4",
-                        "FP8"
-                    ]
-                },
-                "quantization": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Quantization method (if applied)",
-                    "examples": [
-                        "None",
-                        "GPTQ",
-                        "AWQ",
-                        "SmoothQuant",
-                        "LLM.int8()"
-                    ]
-                }
-            }
+          "type": "object",
+          "required": ["name", "parameters", "precision"],
+          "properties": {
+            "name": { "type": "string" },
+            "parameters": { "type": "string" },
+            "precision": {
+              "type": "string",
+              "enum": ["FP32", "FP16", "BF16", "INT8", "INT4", "FP8"]
+            },
+            "quantization": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
         },
         "workload": {
-            "type": "object",
-            "description": "Workload configuration",
-            "required": [
-                "input_length",
-                "output_length"
-            ],
-            "properties": {
-                "input_length": {
-                    "type": "integer",
-                    "description": "Input prompt length in tokens",
-                    "minimum": 1
-                },
-                "output_length": {
-                    "type": "integer",
-                    "description": "Output generation length in tokens",
-                    "minimum": 1
-                },
-                "batch_size": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "description": "Batch size",
-                    "minimum": 1
-                },
-                "concurrent_requests": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "description": "Number of concurrent requests",
-                    "minimum": 1
-                },
-                "dataset": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Dataset used for benchmarking",
-                    "examples": [
-                        "ShareGPT",
-                        "AlpacaEval",
-                        "MMLU",
-                        "Custom"
-                    ]
-                }
-            }
+          "type": "object",
+          "required": ["input_length", "output_length"],
+          "properties": {
+            "input_length": { "type": "integer", "minimum": 1 },
+            "output_length": { "type": "integer", "minimum": 1 },
+            "batch_size": { "type": ["integer", "null"], "minimum": 1 },
+            "concurrent_requests": { "type": ["integer", "null"], "minimum": 1 },
+            "dataset": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
         },
         "metrics": {
-            "type": "object",
-            "description": "Performance metrics (aligned with Protocol v0.1)",
-            "required": [
-                "ttft_ms",
-                "throughput_tps",
-                "peak_mem_mb",
-                "error_rate"
-            ],
-            "properties": {
-                "ttft_ms": {
-                    "type": "number",
-                    "description": "Time to First Token in milliseconds",
-                    "minimum": 0
-                },
-                "tbt_ms": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "Time Between Tokens in milliseconds",
-                    "minimum": 0
-                },
-                "tpot_ms": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "Time Per Output Token in milliseconds",
-                    "minimum": 0
-                },
-                "throughput_tps": {
-                    "type": "number",
-                    "description": "Throughput in tokens per second",
-                    "minimum": 0
-                },
-                "peak_mem_mb": {
-                    "type": "integer",
-                    "description": "Peak memory usage in MB",
-                    "minimum": 0
-                },
-                "error_rate": {
-                    "type": "number",
-                    "description": "Error rate (0.0 to 1.0)",
-                    "minimum": 0,
-                    "maximum": 1
-                },
-                "prefix_hit_rate": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "KV cache prefix hit rate (0.0 to 1.0)",
-                    "minimum": 0,
-                    "maximum": 1
-                },
-                "kv_used_tokens": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "description": "KV cache tokens used",
-                    "minimum": 0
-                },
-                "kv_used_bytes": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "description": "KV cache bytes used",
-                    "minimum": 0
-                },
-                "evict_count": {
-                    "type": [
-                        "integer",
-                        "null"
-                    ],
-                    "description": "Number of KV cache evictions",
-                    "minimum": 0
-                },
-                "evict_ms": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "KV cache eviction time in milliseconds",
-                    "minimum": 0
-                },
-                "spec_accept_rate": {
-                    "type": [
-                        "number",
-                        "null"
-                    ],
-                    "description": "Speculative decoding acceptance rate (0.0 to 1.0)",
-                    "minimum": 0,
-                    "maximum": 1
-                }
-            }
+          "type": "object",
+          "required": ["ttft_ms", "throughput_tps", "peak_mem_mb", "error_rate"],
+          "properties": {
+            "ttft_ms": { "type": "number", "minimum": 0 },
+            "tbt_ms": { "type": ["number", "null"], "minimum": 0 },
+            "tpot_ms": { "type": ["number", "null"], "minimum": 0 },
+            "throughput_tps": { "type": "number", "minimum": 0 },
+            "peak_mem_mb": { "type": "integer", "minimum": 0 },
+            "error_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+            "prefix_hit_rate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+            "kv_used_tokens": { "type": ["integer", "null"], "minimum": 0 },
+            "kv_used_bytes": { "type": ["integer", "null"], "minimum": 0 },
+            "evict_count": { "type": ["integer", "null"], "minimum": 0 },
+            "evict_ms": { "type": ["number", "null"], "minimum": 0 },
+            "spec_accept_rate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": true
         },
         "cluster": {
-            "type": [
-                "object",
-                "null"
-            ],
-            "description": "Multi-node cluster configuration (required for multi-node setups)",
-            "properties": {
-                "node_count": {
-                    "type": "integer",
-                    "description": "Number of nodes in cluster",
-                    "minimum": 2
-                },
-                "comm_backend": {
-                    "type": "string",
-                    "description": "Communication backend",
-                    "enum": [
-                        "NCCL",
-                        "HCCL",
-                        "RCCL",
-                        "Gloo",
-                        "MPI"
-                    ]
-                },
-                "topology_type": {
-                    "type": "string",
-                    "description": "Network topology",
-                    "enum": [
-                        "Single-Node",
-                        "Multi-Node-PCIe",
-                        "Multi-Node-NVLink",
-                        "Multi-Node-InfiniBand",
-                        "Multi-Node-RoCE",
-                        "Other"
-                    ]
-                },
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "required": ["node_count", "comm_backend", "topology_type"],
+              "properties": {
+                "node_count": { "type": "integer", "minimum": 2 },
+                "comm_backend": { "type": "string" },
+                "inter_node_network": { "type": ["string", "null"] },
+                "network_bandwidth_gbps": { "type": ["integer", "null"], "minimum": 0 },
+                "topology_type": { "type": "string" },
                 "parallelism": {
-                    "type": "object",
-                    "description": "Parallelism strategy",
-                    "properties": {
-                        "tensor_parallel": {
-                            "type": "integer",
-                            "description": "Tensor parallelism degree",
-                            "minimum": 1
-                        },
-                        "pipeline_parallel": {
-                            "type": "integer",
-                            "description": "Pipeline parallelism degree",
-                            "minimum": 1
-                        },
-                        "data_parallel": {
-                            "type": "integer",
-                            "description": "Data parallelism degree",
-                            "minimum": 1
-                        }
-                    }
+                  "type": ["object", "null"],
+                  "properties": {
+                    "tensor_parallel": { "type": ["integer", "null"], "minimum": 1 },
+                    "pipeline_parallel": { "type": ["integer", "null"], "minimum": 1 },
+                    "data_parallel": { "type": ["integer", "null"], "minimum": 1 }
+                  },
+                  "additionalProperties": true
                 }
+              },
+              "additionalProperties": true
             }
+          ]
         },
         "versions": {
-            "type": "object",
-            "description": "sageLLM component versions",
-            "required": [
-                "protocol",
-                "backend",
-                "core"
-            ],
-            "properties": {
-                "protocol": {
-                    "type": "string",
-                    "description": "isagellm-protocol version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "backend": {
-                    "type": "string",
-                    "description": "isagellm-backend version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "core": {
-                    "type": "string",
-                    "description": "isagellm-core version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "control_plane": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-control-plane version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "gateway": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-gateway version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "kv_cache": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-kv-cache version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "comm": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-comm version (required for multi-node)",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "compression": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-compression version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                },
-                "benchmark": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "isagellm-benchmark version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
-                }
-            }
+          "type": "object",
+          "required": ["protocol", "backend", "core"],
+          "properties": {
+            "protocol": { "$ref": "#/$defs/versionOrNA" },
+            "backend": { "$ref": "#/$defs/versionOrNA" },
+            "core": { "$ref": "#/$defs/versionOrNA" },
+            "control_plane": { "$ref": "#/$defs/versionOrNA" },
+            "gateway": { "$ref": "#/$defs/versionOrNA" },
+            "kv_cache": { "$ref": "#/$defs/versionOrNA" },
+            "comm": { "$ref": "#/$defs/versionOrNA" },
+            "compression": { "$ref": "#/$defs/versionOrNA" },
+            "benchmark": { "$ref": "#/$defs/versionOrNA" }
+          },
+          "additionalProperties": true
         },
         "environment": {
-            "type": "object",
-            "description": "Runtime environment",
-            "required": [
-                "os",
-                "python_version"
-            ],
-            "properties": {
-                "os": {
-                    "type": "string",
-                    "description": "Operating system",
-                    "examples": [
-                        "Ubuntu 22.04",
-                        "CentOS 8",
-                        "openEuler 22.03"
-                    ]
-                },
-                "python_version": {
-                    "type": "string",
-                    "description": "Python version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+$"
-                },
-                "pytorch_version": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "PyTorch version",
-                    "pattern": "^\\d+\\.\\d+\\.\\d+.*$"
-                },
-                "cuda_version": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "CUDA version (for NVIDIA)",
-                    "pattern": "^\\d+\\.\\d+.*$"
-                },
-                "cann_version": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "CANN version (for Huawei Ascend)",
-                    "pattern": "^\\d+\\.\\d+.*$"
-                },
-                "driver_version": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "GPU/NPU driver version"
-                }
-            }
+          "type": "object",
+          "required": ["os", "python_version"],
+          "properties": {
+            "os": { "type": "string" },
+            "python_version": { "type": "string" },
+            "pytorch_version": { "type": ["string", "null"] },
+            "cuda_version": { "type": ["string", "null"] },
+            "cann_version": { "type": ["string", "null"] },
+            "driver_version": { "type": ["string", "null"] }
+          },
+          "additionalProperties": true
         },
         "kv_cache_config": {
-            "type": [
-                "object",
-                "null"
-            ],
-            "description": "KV cache configuration",
-            "properties": {
-                "enabled": {
-                    "type": "boolean",
-                    "description": "Whether KV cache is enabled"
-                },
-                "eviction_policy": {
-                    "type": "string",
-                    "description": "Eviction policy",
-                    "enum": [
-                        "None",
-                        "LRU",
-                        "LFU",
-                        "FIFO",
-                        "Lifetime-Aware"
-                    ]
-                },
-                "budget_tokens": {
-                    "type": "integer",
-                    "description": "KV cache budget in tokens",
-                    "minimum": 0
-                },
-                "prefix_cache_enabled": {
-                    "type": "boolean",
-                    "description": "Whether prefix caching is enabled"
-                }
-            }
+          "type": ["object", "null"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "eviction_policy": { "type": ["string", "null"] },
+            "budget_tokens": { "type": ["integer", "null"], "minimum": 0 },
+            "prefix_cache_enabled": { "type": ["boolean", "null"] }
+          },
+          "additionalProperties": true
         },
         "metadata": {
-            "type": "object",
-            "description": "Entry metadata",
-            "required": [
-                "submitted_at",
-                "submitter",
-                "data_source"
-            ],
-            "properties": {
-                "submitted_at": {
-                    "type": "string",
-                    "description": "Submission timestamp (ISO 8601)",
-                    "format": "date-time"
-                },
-                "submitter": {
-                    "type": "string",
-                    "description": "Submitter name or organization"
-                },
-                "data_source": {
-                    "type": "string",
-                    "description": "Data source type",
-                    "enum": [
-                        "automated-benchmark",
-                        "manual-submission",
-                        "community-contribution"
-                    ]
-                },
-                "reproducible_cmd": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Command to reproduce this benchmark"
-                },
-                "git_commit": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Git commit hash (sagellm version)",
-                    "pattern": "^[a-f0-9]{40}$"
-                },
-                "release_date": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "sageLLM version release date (ISO 8601)",
-                    "format": "date"
-                },
-                "changelog_url": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "URL to CHANGELOG for this version",
-                    "format": "uri"
-                },
-                "notes": {
-                    "type": [
-                        "string",
-                        "null"
-                    ],
-                    "description": "Additional notes or observations"
-                },
-                "verified": {
-                    "type": [
-                        "boolean",
-                        "null"
-                    ],
-                    "description": "Whether this entry has been verified by maintainers"
-                }
-            }
+          "type": "object",
+          "required": ["submitted_at", "submitter", "data_source"],
+          "properties": {
+            "submitted_at": { "type": "string", "format": "date-time" },
+            "submitter": { "type": "string" },
+            "data_source": { "type": "string" },
+            "reproducible_cmd": { "type": ["string", "null"] },
+            "git_commit": { "type": ["string", "null"] },
+            "release_date": { "type": ["string", "null"], "format": "date" },
+            "changelog_url": { "type": ["string", "null"] },
+            "notes": { "type": ["string", "null"] },
+            "verified": { "type": ["boolean", "null"] }
+          },
+          "additionalProperties": true
         }
+      },
+      "additionalProperties": true
     }
+  }
 }

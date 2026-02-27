@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- **[#14 #15 + sagellm#26 #28] Leaderboard MVP（Schema-first）**
+	- 新增并冻结 MVP 数据契约：`data/schemas/leaderboard_v1.schema.json`（兼容单条 entry 与 entry 列表）
+	- 补齐最小多机展示数据：`data/leaderboard_multi.json`（1 条 multi-node 样例）
+	- 首页 Leaderboard 区块新增数据模型标识，确保展示与 schema 来源一致
+
+### Changed
+- `data/validate_schema.py` 升级为可一次校验多个文件，支持 object/array 两种 payload，输出统一 pass/fail 摘要
+- `data/FIELD_SPECIFICATION.md`、`data/VALIDATION_RULES.md` 收敛为 MVP 规范，字段与网站展示列一一对应
+- `data/examples/*.json` 对齐硬件互联字段（补充 `interconnect`），确保示例与 schema 一致
+
 ### Fixed
 - **quickstart.sh**: replace `cp hooks/pre-{commit,push}` with `ln -sf` to avoid "same file" error when `.git/hooks` entries are already symlinks
 
