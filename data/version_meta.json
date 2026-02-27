@@ -22,7 +22,7 @@
       "name": "sagellm (umbrella)",
       "repo": "https://github.com/intellistream/sagellm",
       "pypi_name": "isagellm",
-      "version": "0.5.4.0",
+      "version": "0.5.4.1",
       "group": "core"
     },
     {
