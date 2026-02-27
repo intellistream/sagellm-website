@@ -22,7 +22,7 @@
       "name": "sagellm (umbrella)",
       "repo": "https://github.com/intellistream/sagellm",
       "pypi_name": "isagellm",
-      "version": "0.5.3.14",
+      "version": "0.5.3.17",
       "group": "core"
     },
     {
@@ -36,7 +36,7 @@
       "name": "sagellm-backend",
       "repo": "https://github.com/intellistream/sagellm-backend",
       "pypi_name": "isagellm-backend",
-      "version": "0.5.3.17",
+      "version": "0.5.3.24",
       "group": "core"
     },
     {
@@ -57,7 +57,7 @@
       "name": "sagellm-gateway",
       "repo": "https://github.com/intellistream/sagellm-gateway",
       "pypi_name": "isagellm-gateway",
-      "version": "0.5.2.17",
+      "version": "0.5.2.20",
       "group": "infrastructure"
     },
     {
@@ -71,7 +71,7 @@
       "name": "sagellm-comm",
       "repo": "https://github.com/intellistream/sagellm-comm",
       "pypi_name": "isagellm-comm",
-      "version": "0.5.2.18",
+      "version": "0.5.2.21",
       "group": "infrastructure"
     },
     {
@@ -85,9 +85,9 @@
       "name": "sagellm-benchmark",
       "repo": "https://github.com/intellistream/sagellm-benchmark",
       "pypi_name": "isagellm-benchmark",
-      "version": "0.5.3.18",
+      "version": "0.5.3.20",
       "group": "infrastructure"
     }
   ],
-  "updated_at": "2026-02-26"
+  "updated_at": "2026-02-27"
 }
