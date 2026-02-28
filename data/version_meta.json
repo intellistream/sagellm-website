@@ -22,7 +22,7 @@
       "name": "sagellm (umbrella)",
       "repo": "https://github.com/intellistream/sagellm",
       "pypi_name": "isagellm",
-      "version": "0.5.4.1",
+      "version": "0.5.4.3",
       "group": "core"
     },
     {
@@ -43,21 +43,21 @@
       "name": "sagellm-core",
       "repo": "https://github.com/intellistream/sagellm-core",
       "pypi_name": "isagellm-core",
-      "version": "0.5.4.0",
+      "version": "0.5.4.1",
       "group": "core"
     },
     {
       "name": "sagellm-control-plane",
       "repo": "https://github.com/intellistream/sagellm-control-plane",
       "pypi_name": "isagellm-control-plane",
-      "version": "0.5.4.0",
+      "version": "0.5.4.1",
       "group": "infrastructure"
     },
     {
       "name": "sagellm-gateway",
       "repo": "https://github.com/intellistream/sagellm-gateway",
       "pypi_name": "isagellm-gateway",
-      "version": "0.5.4.0",
+      "version": "0.5.4.1",
       "group": "infrastructure"
     },
     {
