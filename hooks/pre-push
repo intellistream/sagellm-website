@@ -260,10 +260,6 @@ elif [ "$PYPI_CHECK_RESULT" -eq 2 ]; then
 fi
 
 echo -e "${GREEN}✓ [${REPO_NAME}] Version: ${CURRENT_VERSION}${NC}"
-# Private mode: version-check only; CI/manual handles publishing.
-if [ "$PUBLISH_MODE" = "private" ]; then
-    exit 0
-fi
 
 
 if has_pypi_token; then
