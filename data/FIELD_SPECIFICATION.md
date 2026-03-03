@@ -13,22 +13,22 @@ This document defines the MVP leaderboard data contract used by the website.
 Schema accepts both:
 
 1. **single entry object** (for example files)
-2. **entry array** (for website data files)
+1. **entry array** (for website data files)
 
 ## Required fields per entry
 
-| Field | Type | Notes |
-|---|---|---|
-| `entry_id` | string(UUID) | unique record id |
-| `sagellm_version` | string | `X.Y.Z` or `X.Y.Z.W` |
-| `config_type` | string | `single_gpu` / `multi_gpu` / `multi_node` |
-| `hardware` | object | hardware metadata |
-| `model` | object | model metadata |
-| `workload` | object | workload shape |
-| `metrics` | object | benchmark metrics |
-| `versions` | object | component versions |
-| `environment` | object | runtime env |
-| `metadata` | object | provenance and reproducibility |
+| Field             | Type         | Notes                                     |
+| ----------------- | ------------ | ----------------------------------------- |
+| `entry_id`        | string(UUID) | unique record id                          |
+| `sagellm_version` | string       | `X.Y.Z` or `X.Y.Z.W`                      |
+| `config_type`     | string       | `single_gpu` / `multi_gpu` / `multi_node` |
+| `hardware`        | object       | hardware metadata                         |
+| `model`           | object       | model metadata                            |
+| `workload`        | object       | workload shape                            |
+| `metrics`         | object       | benchmark metrics                         |
+| `versions`        | object       | component versions                        |
+| `environment`     | object       | runtime env                               |
+| `metadata`        | object       | provenance and reproducibility            |
 
 ## Key nested fields used by website MVP
 
@@ -63,6 +63,7 @@ Schema accepts both:
 Website render fields must be present in schema and examples:
 
 - version: `sagellm_version`
-- config filters: `hardware.chip_model`, `model.name`, `model.precision`, workload id from `metadata.notes` / workload hints
-- trend metrics: `metrics.ttft_ms`, `metrics.throughput_tps`, `metrics.peak_mem_mb`, `metrics.error_rate`, `metrics.prefix_hit_rate`
-
+- config filters: `hardware.chip_model`, `model.name`, `model.precision`, workload id from
+  `metadata.notes` / workload hints
+- trend metrics: `metrics.ttft_ms`, `metrics.throughput_tps`, `metrics.peak_mem_mb`,
+  `metrics.error_rate`, `metrics.prefix_hit_rate`

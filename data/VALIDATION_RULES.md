@@ -14,18 +14,19 @@ python data/validate_schema.py \
 
 1. **Payload shape**
    - accepts entry object or entry array
-2. **Entry required keys**
-   - `entry_id`, `sagellm_version`, `config_type`, `hardware`, `model`, `workload`, `metrics`, `versions`, `environment`, `metadata`
-3. **Hardware minimum**
+1. **Entry required keys**
+   - `entry_id`, `sagellm_version`, `config_type`, `hardware`, `model`, `workload`, `metrics`,
+     `versions`, `environment`, `metadata`
+1. **Hardware minimum**
    - `vendor`, `chip_model`, `chip_count`
    - at least one of `interconnect` / `intra_node_interconnect`
-4. **Metrics minimum**
+1. **Metrics minimum**
    - `ttft_ms`, `throughput_tps`, `peak_mem_mb`, `error_rate`
    - all non-negative, and `error_rate` in `[0,1]`
-5. **Cluster rules**
+1. **Cluster rules**
    - single-node: `cluster = null`
    - multi-node: object with `node_count>=2`, `comm_backend`, `topology_type`
-6. **Version rules**
+1. **Version rules**
    - required `protocol`, `backend`, `core`
    - semver-like `X.Y.Z(.W)` or `N/A`
 
@@ -34,4 +35,3 @@ python data/validate_schema.py \
 - Schema mismatch = invalid data, do not publish to website data files.
 - Missing required metrics = reject record.
 - Multi-node record without valid `cluster` = reject record.
-

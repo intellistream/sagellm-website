@@ -5,18 +5,17 @@
 For Python packages in this repository, version must have exactly one hardcoded source:
 
 1. Only one hardcoded version location is allowed: `src/<package>/_version.py`
-2. `pyproject.toml` must use dynamic version:
+1. `pyproject.toml` must use dynamic version:
    - `[project] dynamic = ["version"]`
    - `[tool.setuptools.dynamic] version = {attr = "<package>._version.__version__"}`
-3. `src/<package>/__init__.py` must import version from `_version.py`:
+1. `src/<package>/__init__.py` must import version from `_version.py`:
    - `from <package>._version import __version__`
-4. Do not hardcode version in `pyproject.toml` (`project.version`) or `__init__.py`
-5. For version bump, update only `_version.py`
+1. Do not hardcode version in `pyproject.toml` (`project.version`) or `__init__.py`
+1. For version bump, update only `_version.py`
 
 ## Reminder
 
 When asked to update package version, change only `_version.py`.
-
 
 ## Git Hooks（强制 - Mandatory）
 
@@ -25,8 +24,8 @@ When asked to update package version, change only `_version.py`.
 ### 安装要求
 
 1. 克隆仓库后，**第一件事**必须运行 `./quickstart.sh` 安装 Git hooks
-2. 如果仓库提供 `hooks/` 目录，必须确保 `.git/hooks/pre-commit` 和 `.git/hooks/pre-push` 已正确链接或复制
-3. 每次 `git commit` 和 `git push` 都必须经过 hooks 检查（ruff format / ruff check / pytest 等）
+1. 如果仓库提供 `hooks/` 目录，必须确保 `.git/hooks/pre-commit` 和 `.git/hooks/pre-push` 已正确链接或复制
+1. 每次 `git commit` 和 `git push` 都必须经过 hooks 检查（ruff format / ruff check / pytest 等）
 
 ### 禁止绕过 Hooks
 
@@ -46,4 +45,5 @@ When asked to update package version, change only `_version.py`.
 - 永远不要创建 `.venv` 或 `venv`（无任何例外）。
 - NEVER create `.venv`/`venv` in this repository under any circumstance.
 - 必须复用当前已配置的非-venv Python 环境（如现有 conda 环境）。
-- If any script/task suggests creating a virtualenv, skip that step and continue with the existing environment.
+- If any script/task suggests creating a virtualenv, skip that step and continue with the existing
+  environment.
