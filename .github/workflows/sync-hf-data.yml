@@ -7,10 +7,10 @@ on:
   # 每小时检查一次 HF 是否有更新
   schedule:
     - cron: '0 * * * *'
-  
+
   # 手动触发
   workflow_dispatch:
-  
+
   # 也可以通过 repository_dispatch 触发（用于 HF webhook）
   repository_dispatch:
     types: [benchmark-data-updated]
@@ -18,27 +18,27 @@ on:
 jobs:
   sync-data:
     runs-on: ubuntu-latest
-    
+
     steps:
       - name: Checkout website repo
         uses: actions/checkout@v4
         with:
           ref: main
-      
+
       - name: Download data from Hugging Face
         run: |
           mkdir -p data
-          
+
           HF_REPO="intellistream/sagellm-benchmark-results"
-          
+
           echo "📥 Downloading leaderboard_single.json..."
           curl -L "https://huggingface.co/datasets/${HF_REPO}/resolve/main/leaderboard_single.json" \
                -o data/leaderboard_single.json
-          
+
           echo "📥 Downloading leaderboard_multi.json..."
           curl -L "https://huggingface.co/datasets/${HF_REPO}/resolve/main/leaderboard_multi.json" \
                -o data/leaderboard_multi.json
-          
+
           echo "✅ Download complete"
           ls -la data/
 
@@ -47,7 +47,7 @@ jobs:
           TS=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
           echo "{\"last_updated\": \"${TS}\"}" > data/last_updated.json
           echo "✓ Updated data/last_updated.json: ${TS}"
-      
+
       - name: Check for changes
         id: check
         run: |
@@ -58,13 +58,13 @@ jobs:
             echo "Changes detected"
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-      
+
       - name: Commit and push changes
         if: steps.check.outputs.changed == 'true'
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          
+
           git add data/
           git commit -m "chore: sync benchmark data from Hugging Face [skip ci]"
           git push
