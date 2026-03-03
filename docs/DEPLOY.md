@@ -24,7 +24,7 @@ git push -u origin main
 Settings → Pages → Source:
   - Branch: main
   - Folder: / (root)
-  
+
 Save and wait 1-2 minutes.
 ```
 
@@ -45,6 +45,6 @@ Settings → Pages → Custom domain:
     sagellm.ai → intellistream.github.io
 ```
 
----
+______________________________________________________________________
 
 **Current Status**: ✅ Local files ready, waiting for GitHub push

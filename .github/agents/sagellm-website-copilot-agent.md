@@ -13,9 +13,9 @@
 **这是 sageLLM 项目唯一的公开仓库**，用于：
 
 1. **展示推理速度**：通过 asciinema 终端录屏展示实时推理
-2. **营销材料**：功能特性、架构优势、使用场景
-3. **快速入门**：CLI 命令示例、安装指南
-4. **社区入口**：提供文档链接、GitHub 链接
+1. **营销材料**：功能特性、架构优势、使用场景
+1. **快速入门**：CLI 命令示例、安装指南
+1. **社区入口**：提供文档链接、GitHub 链接
 
 **核心原则**：
 
@@ -41,16 +41,16 @@ sagellm-website/
 ### ❌ 禁止内容
 
 1. **禁止** 包含任何源代码（Python/C++/CUDA）
-2. **禁止** 包含配置文件（含敏感信息）
-3. **禁止** 引用私有仓库链接
-4. **禁止** 暴露内部架构细节
+1. **禁止** 包含配置文件（含敏感信息）
+1. **禁止** 引用私有仓库链接
+1. **禁止** 暴露内部架构细节
 
 ### ✅ 允许内容
 
 1. **允许** asciinema 终端录屏（`.cast` 文件）
-2. **允许** HTML/CSS/JavaScript（前端展示）
-3. **允许** 功能特性描述（营销文案）
-4. **允许** CLI 命令示例（公开命令）
+1. **允许** HTML/CSS/JavaScript（前端展示）
+1. **允许** 功能特性描述（营销文案）
+1. **允许** CLI 命令示例（公开命令）
 
 ## 📝 CHANGELOG 更新规则（强制）
 
@@ -157,9 +157,9 @@ AsciinemaPlayer.create("demos/xxx.cast", element, {
 ### 添加新演示
 
 1. 录制 `.cast` 文件（或使用脚本生成）
-2. 放入 `demos/` 目录
-3. 在 `index.html` 中添加播放器
-4. 提交并推送到 GitHub
+1. 放入 `demos/` 目录
+1. 在 `index.html` 中添加播放器
+1. 提交并推送到 GitHub
 
 ### 更新文案
 
@@ -172,8 +172,8 @@ AsciinemaPlayer.create("demos/xxx.cast", element, {
 ### GitHub Pages
 
 1. 在 GitHub 仓库 Settings → Pages
-2. Source: `main` 分支，根目录
-3. 访问: `https://<username>.github.io/sagellm-website/`
+1. Source: `main` 分支，根目录
+1. 访问: `https://<username>.github.io/sagellm-website/`
 
 ### 本地预览
 
@@ -207,7 +207,7 @@ npx serve .
 - **asciinema**: https://asciinema.org/
 - **GitHub Pages**: https://pages.github.com/
 
----
+______________________________________________________________________
 
 ## 🔄 贡献工作流程（强制）
 
@@ -227,7 +227,7 @@ npx serve .
    - **必须** 添加相关的 label
    - **必须** 描述清楚问题/需求
 
-2. **开发修复** - 在本地分支解决问题
+1. **开发修复** - 在本地分支解决问题
 
    ```bash
    git fetch origin main-dev
@@ -240,7 +240,7 @@ npx serve .
    - **必须** 分支名包含 issue 号：`feature/#123-xxx`
    - **必须** 演示材料清晰、完整
 
-3. **发起 Pull Request** - 提交代码供审查
+1. **发起 Pull Request** - 提交代码供审查
 
    ```bash
    git push origin feature/#123-short-description
@@ -252,11 +252,12 @@ npx serve .
 
    - **必须** 针对 `main-dev` 分支发起 PR
 
-4. **代码审查与合并** - 等待审批后合并到 main-dev
+1. **代码审查与合并** - 等待审批后合并到 main-dev
+
    - **必须** 至少一名维护者审批才能合并
    - **必须** 合并到 `main-dev` 分支
 
----
+______________________________________________________________________
 
 **维护者**: IntelliStream Team **许可证**: MIT License (仅限演示材料)
 
@@ -305,8 +306,6 @@ sage-dev gh view sagellm-{repo_name} <issue_number>
 - 需要安装 `isagellm-dev-tools` 包
 - 需要安装 GitHub CLI（`gh`）并通过认证
 
-
-
 ## Git Hooks（强制 - Mandatory）
 
 🚨 **所有开发者必须安装 pre-commit 和 pre-push hooks，绝对不允许跳过。**
@@ -314,8 +313,8 @@ sage-dev gh view sagellm-{repo_name} <issue_number>
 ### 安装要求
 
 1. 克隆仓库后，**第一件事**必须运行 `./quickstart.sh` 安装 Git hooks
-2. 如果仓库提供 `hooks/` 目录，必须确保 `.git/hooks/pre-commit` 和 `.git/hooks/pre-push` 已正确链接或复制
-3. 每次 `git commit` 和 `git push` 都必须经过 hooks 检查（ruff format / ruff check / pytest 等）
+1. 如果仓库提供 `hooks/` 目录，必须确保 `.git/hooks/pre-commit` 和 `.git/hooks/pre-push` 已正确链接或复制
+1. 每次 `git commit` 和 `git push` 都必须经过 hooks 检查（ruff format / ruff check / pytest 等）
 
 ### 禁止绕过 Hooks
 

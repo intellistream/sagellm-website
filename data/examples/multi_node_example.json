@@ -6,6 +6,7 @@
         "vendor": "Huawei",
         "chip_model": "Ascend 910B",
         "chip_count": 8,
+        "interconnect": "HCCS",
         "chips_per_node": 4,
         "intra_node_interconnect": "HCCS",
         "memory_per_chip_gb": 64,

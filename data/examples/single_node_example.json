@@ -6,6 +6,7 @@
         "vendor": "NVIDIA",
         "chip_model": "A100-80GB",
         "chip_count": 1,
+        "interconnect": "None",
         "chips_per_node": 1,
         "intra_node_interconnect": "None",
         "memory_per_chip_gb": 80,

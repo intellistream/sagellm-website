@@ -6,6 +6,7 @@
         "vendor": "NVIDIA",
         "chip_model": "A100-80GB",
         "chip_count": 8,
+        "interconnect": "NVLink",
         "chips_per_node": 8,
         "intra_node_interconnect": "NVLink",
         "memory_per_chip_gb": 80,
