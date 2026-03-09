@@ -7,6 +7,9 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Changed
+- `hooks/pre-push` 默认不再因检测到发布凭证而自动发布；只有显式使用 `git push -o sagellm-publish origin main-dev` 或 `SAGELLM_PUBLISH_ON_PUSH=1 git push origin main-dev` 时才会触发发布。
+
 ### Fixed
 
 - **CI/CD pre-commit 错误修复**：

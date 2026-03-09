@@ -1,12 +1,12 @@
 #!/bin/bash
-# Pre-push hook — version check + post-push PyPI publish
+# Pre-push hook — version check + optional post-push PyPI publish
 #
 # Flow:
 #   1. Block direct push to main branch
 #   2. Only proceed for main-dev pushes (other branches: skip cleanly)
 #   3. Auto-bump version if unchanged in recent commits
 #   4. Exit 0 → git push proceeds immediately
-#   5. Background job publishes to PyPI after push finishes (if token present)
+#   5. Background job publishes to PyPI after push finishes only when publish is explicitly requested
 #
 # Version bumping: auto-increments last segment if version unchanged.
 # This hook may create one version-bump commit before the push.
@@ -16,6 +16,8 @@ if [ "${_SAGE_PP_RUNNING:-0}" = "1" ]; then exit 0; fi
 
 # Publish mode: "public" → publish openly; "private" → internal only
 PUBLISH_MODE=private
+PUBLISH_TRIGGER_FLAG="sagellm-publish"
+PUBLISH_TRIGGER_ENV="SAGELLM_PUBLISH_ON_PUSH"
 
 # Colors
 RED='\033[0;31m'
@@ -111,6 +113,39 @@ bump_patch() {
     echo "${parts[*]}"
 }
 
+# Publish is opt-in: require an explicit push flag (or env override for tooling/CI).
+has_publish_flag() {
+    if [ "${!PUBLISH_TRIGGER_ENV:-0}" = "1" ]; then
+        return 0
+    fi
+
+    local option_count="${GIT_PUSH_OPTION_COUNT:-0}"
+    if [ "$option_count" -gt 0 ] 2>/dev/null; then
+        local idx=0
+        while [ "$idx" -lt "$option_count" ]; do
+            local option_var="GIT_PUSH_OPTION_${idx}"
+            local option_value="${!option_var:-}"
+            if [ "$option_value" = "$PUBLISH_TRIGGER_FLAG" ]; then
+                return 0
+            fi
+            idx=$((idx + 1))
+        done
+    fi
+
+    local parent_cmd=""
+    if command -v ps &>/dev/null; then
+        parent_cmd="$(ps -o args= -p "$PPID" 2>/dev/null || true)"
+    fi
+
+    case " $parent_cmd " in
+        *" -o ${PUBLISH_TRIGGER_FLAG} "*|*" --push-option=${PUBLISH_TRIGGER_FLAG} "*|*" --push-option ${PUBLISH_TRIGGER_FLAG} "*)
+            return 0
+            ;;
+    esac
+
+    return 1
+}
+
 # Check if PyPI token is available (no interaction needed)
 has_pypi_token() {
     if [ -n "${TWINE_PASSWORD:-}" ] || [ -n "${TWINE_TOKEN:-}" ] || [ -n "${UV_PUBLISH_TOKEN:-}" ]; then
@@ -160,7 +195,7 @@ schedule_publish() {
     local package="$2"
 
     if ! resolve_publisher_cmd; then
-        echo -e "${YELLOW}⚠ sage-pypi-publisher not found, skipping auto-publish${NC}"
+        echo -e "${YELLOW}⚠ sage-pypi-publisher not found, skipping requested publish${NC}"
         echo -e "${DIM}  Install: python -m pip install isage-pypi-publisher${NC}"
         return
     fi
@@ -285,11 +320,14 @@ fi
 echo -e "${GREEN}✓ [${REPO_NAME}] Version: ${CURRENT_VERSION}${NC}"
 
 
-if has_pypi_token; then
-    echo -e "${BLUE}📦 Auto-publishing ${CURRENT_VERSION} to PyPI (token found)...${NC}"
+if ! has_publish_flag; then
+    echo -e "${DIM}  (publish disabled by default — use 'git push -o ${PUBLISH_TRIGGER_FLAG} origin main-dev' to publish)${NC}"
+elif has_pypi_token; then
+    echo -e "${BLUE}📦 Publish requested for ${CURRENT_VERSION} via push flag...${NC}"
     WANT_PUBLISH=true
 else
-    echo -e "${DIM}  (no PyPI token — skipping publish. Add token to ~/.pypirc or set TWINE_PASSWORD)${NC}"
+    echo -e "${YELLOW}⚠ Publish flag detected but no PyPI token found; skipping publish.${NC}"
+    echo -e "${DIM}  Add token to ~/.pypirc or set TWINE_PASSWORD, then push again with -o ${PUBLISH_TRIGGER_FLAG}.${NC}"
 fi
 
 if [ "$WANT_PUBLISH" = true ]; then
