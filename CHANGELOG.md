@@ -8,6 +8,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Changed
+- `.gitignore` 现在默认忽略本地 `.env` / `.env.local` / `.env.*` 配置文件，同时保留 `.env.example` / `.env.template` 模板文件可提交，避免网站同步脚本或本地凭证被误提交。
 - 官网首页下载区块的 DOM / i18n 标识已从 `qinglu_*` 统一清理为 `changzheng_*`，避免品牌改名后继续保留旧内部命名。
 - 移除 legacy 的 `downloads/qinglu/windows/` 静态下载页、`data/qinglu_release.json` 与旧同步脚本，统一只保留长征下载链路。
 - Hugging Face 自动拉取 workflow 已重命名为 `sync-changzheng-hf-release.yml`，并改为同步 `changzheng/windows` 发布目录。
