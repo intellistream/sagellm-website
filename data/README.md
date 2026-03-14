@@ -1,5 +1,17 @@
 # sageLLM Leaderboard Data Model
 
+## Source Of Truth
+
+- Local benchmark outputs: owned by `sagellm-benchmark`. The stable publishable interface is `leaderboard_manifest.json` plus per-entry `*_leaderboard.json` files emitted from canonical `execution_result` artifacts.
+- HF dataset: the primary distribution surface for the website. It should publish `leaderboard_single.json`, `leaderboard_multi.json`, and `last_updated.json` snapshots derived from validated standard leaderboard artifacts.
+- Website `data/`: a compatibility cache for checked-in snapshots and offline development. It should not be edited by hand and should not ingest raw compare directory layouts.
+
+## Update Policy
+
+- Preferred path: benchmark uploads validated entries to the HF dataset, and the website consumes the HF snapshot files.
+- Offline compatibility path: run `sagellm-benchmark/sync_results_to_website.sh`, which calls `scripts/aggregate_results.py` on benchmark `leaderboard_manifest.json` exports and regenerates the same snapshot files locally.
+- Fail-fast rule: invalid leaderboard entries or malformed manifests must be fixed at the benchmark export side; do not patch website data by hand.
+
 > **完成日期:** 2026-01-28\
 > **负责人:** IntelliStream Team (数据模型设计)\
 > **状态:** ✅ 已完成
@@ -219,42 +231,44 @@ ______________________________________________________________________
 
 ______________________________________________________________________
 
-## � 结果更新流程 (How to Update Results)
+## 结果更新流程 (How to Update Results)
 
-任何新的 benchmark 测试结果可通过以下流程合入到 Leaderboard：
+任何新的 benchmark 测试结果应通过标准导出链路进入 Leaderboard：
 
-### 1. 准备数据
+### 1. 在 benchmark 侧生成标准导出物
 
-请参考 [`FIELD_SPECIFICATION.md`](FIELD_SPECIFICATION.md) 构造符合规范的 JSON 数据对象。
+使用 `sagellm-benchmark run` / `compare` / `vllm-compare run` 生成：
 
-- 确保包含完整的 `entry_id` (唯一标识), `metrics` (P99, QPS, Success Rate), 和 `metadata`。
-- 也可以参考 `examples/` 目录下的样例文件。
+- `*.canonical.json`
+- `*_leaderboard.json`
+- `leaderboard_manifest.json`
+
+网站侧不再直接接受手工拼装的 leaderboard 条目，也不再理解 compare 原始目录结构。
 
 ### 2. 本地验证
 
-在提交前，**必须**使用验证脚本确保数据格式正确：
+在同步到 website 或上传到 HF 前，**必须**先验证标准导出链路：
 
 ```bash
-# 将你的新数据保存为临时文件 (e.g. new_entry.json)
-python validate_schema.py new_entry.json
+# website 离线聚合（基于 leaderboard_manifest.json）
+python scripts/aggregate_results.py --source-dir /path/to/sagellm-benchmark/outputs
+
+# 验证聚合后的 website 快照
+python validate_schema.py data/leaderboard_single.json data/leaderboard_multi.json
 ```
 
-如果验证失败，脚本会报错指出缺失字段或类型错误；如果成功，只会输出 `Validation successful`。
+如果验证失败，脚本会直接报错指出 manifest、schema 或字段问题。
 
-### 3. 合并数据
+### 3. 分发数据
 
-验证通过后，将数据**追加**到对应的主数据文件中：
-
-- **单机测试结果**: 编辑 `leaderboard_single.json`，将新条目加入 JSON 数组。
-- **多机/集群结果**: 编辑 `leaderboard_multi.json`，将新条目加入 JSON 数组。
-
-> **注意**: 请保持 JSON 数组格式的合法性（注意逗号分隔）。
+- HF 主路径：使用 `sagellm-benchmark upload-hf --input /path/to/outputs` 上传标准导出结果并刷新 HF 快照。
+- Website 离线路径：仅在需要本地或离线预览时，运行 `sync_results_to_website.sh` 生成 `data/leaderboard_single.json` / `data/leaderboard_multi.json` / `data/last_updated.json`。
 
 ### 4. 提交更改
 
 ```bash
-git add leaderboard_single.json  # 或 leaderboard_multi.json
-git commit -m "feat(data): add benchmark results for [Model/Version]"
+git add data/leaderboard_single.json data/leaderboard_multi.json data/last_updated.json
+git commit -m "chore(data): refresh offline leaderboard snapshots"
 git push
 ```
 
