@@ -322,6 +322,7 @@
         singleChipData: [],
         multiChipData: [],
         multiNodeData: [],
+        compareSnapshot: null,
         totalLoadedEntries: 0,
         pypiVersions: {},
         sagellmVersionOptions: [],
@@ -464,6 +465,7 @@
                 const data = await window.HFDataLoader.loadLeaderboardData();
                 singleData = data.single;
                 multiData = data.multi;
+                state.compareSnapshot = data.compare || null;
             } else {
                 // 备用：直接从本地加载
                 console.log('[Leaderboard] HF Loader not available, using local data...');
@@ -478,6 +480,7 @@
 
                 singleData = await singleRes.json();
                 multiData = await multiRes.json();
+                state.compareSnapshot = null;
             }
 
             // 按芯片数和节点数分类
@@ -1075,6 +1078,10 @@
         const title = getOverviewTitle(summaries, leaders, comparisonView);
         const subtitle = getOverviewSubtitle(entries, summaries.length, comparisonView, viewOptions);
         const badges = getOverviewBadges(entries, summaries.length, leaders, comparisonView);
+        const compareSnapshotGroup = findCompareSnapshotGroup(entries, comparisonView);
+        const headToHeadHtml = compareSnapshotGroup
+            ? renderHeadToHeadFromSnapshot(compareSnapshotGroup)
+            : renderHeadToHead(summaries);
 
         el.innerHTML = `
             <div class="overview-hero">
@@ -1084,7 +1091,7 @@
                 <div class="overview-badges">
                     ${badges.map((badge) => `<div class="overview-badge">${badge}</div>`).join('')}
                 </div>
-                ${renderHeadToHead(summaries)}
+                ${headToHeadHtml}
             </div>
             <div class="overview-grid">
                 ${summaries.map((summary) => renderEngineSummaryCard(summary, leaders)).join('')}
@@ -1717,6 +1724,72 @@
                 <div class="head-to-head-delta">TBT ${t('gap')}: ${tbtDelta}</div>
             </div>
         `;
+    }
+
+    function findCompareSnapshotGroup(entries, comparisonView) {
+        const groups = Array.isArray(state.compareSnapshot?.groups) ? state.compareSnapshot.groups : [];
+        if (!groups.length) {
+            return null;
+        }
+
+        let scopeKey = comparisonView?.focusGroup?.key || null;
+        if (!scopeKey) {
+            const scopedGroups = buildCompareGroups(entries);
+            if (scopedGroups.length === 1) {
+                scopeKey = scopedGroups[0].key;
+            }
+        }
+        if (!scopeKey) {
+            return null;
+        }
+
+        return groups.find((group) => group && group.scope_key === scopeKey) || null;
+    }
+
+    function renderHeadToHeadFromSnapshot(group) {
+        const pair = group?.preferred_pair;
+        if (!pair?.left || !pair?.right) {
+            return '';
+        }
+
+        const left = pair.left;
+        const right = pair.right;
+        const throughputDelta = formatSnapshotDelta(pair?.deltas?.throughput_pct_left_vs_right, true);
+        const ttftDelta = formatSnapshotDelta(pair?.deltas?.ttft_pct_left_vs_right, false);
+        const tbtDelta = formatSnapshotDelta(pair?.deltas?.tbt_pct_left_vs_right, false);
+
+        return `
+            <div class="head-to-head">
+                <div class="head-to-head-side">
+                    <strong>${getEngineLabel(left.engine)}</strong>
+                    <span>TTFT ${formatNumber(left.metrics.ttft_ms)} ms • TBT ${formatNumber(left.metrics.tbt_ms)} ms • TPS ${formatNumber(left.metrics.throughput_tps)}</span>
+                </div>
+                <div class="head-to-head-divider">${t('versusShort')}</div>
+                <div class="head-to-head-side">
+                    <strong>${getEngineLabel(right.engine)}</strong>
+                    <span>TTFT ${formatNumber(right.metrics.ttft_ms)} ms • TBT ${formatNumber(right.metrics.tbt_ms)} ms • TPS ${formatNumber(right.metrics.throughput_tps)}</span>
+                </div>
+            </div>
+            <div class="head-to-head-deltas">
+                <div class="head-to-head-delta">${t('throughputGap')}: ${throughputDelta}</div>
+                <div class="head-to-head-delta">TTFT ${t('gap')}: ${ttftDelta}</div>
+                <div class="head-to-head-delta">TBT ${t('gap')}: ${tbtDelta}</div>
+            </div>
+        `;
+    }
+
+    function formatSnapshotDelta(value, higherIsBetter) {
+        if (!Number.isFinite(value)) {
+            return '-';
+        }
+
+        const absValue = Math.abs(value).toFixed(1);
+        if (value === 0) {
+            return t('parity');
+        }
+
+        const isBetter = higherIsBetter ? value > 0 : value < 0;
+        return isBetter ? `${absValue}% ${t('better')}` : `${absValue}% ${t('worse')}`;
     }
 
     function relativeDelta(left, right, higherIsBetter) {

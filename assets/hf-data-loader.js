@@ -14,6 +14,7 @@ const HF_CONFIG = {
     files: {
         single: 'leaderboard_single.json',
         multi: 'leaderboard_multi.json',
+        compare: 'leaderboard_compare.json',
         lastUpdated: 'last_updated.json'
     },
 
@@ -290,9 +291,18 @@ async function loadFromLocal(filename) {
     return await response.json();
 }
 
+async function loadOptionalJson(loader, filename) {
+    try {
+        return await loader(filename);
+    } catch (error) {
+        console.warn(`[HF Loader] Optional file unavailable: ${filename}`, error?.message || error);
+        return null;
+    }
+}
+
 /**
  * 加载 leaderboard 数据（优先 HF，失败则本地）
- * @returns {Promise<{single: Array, multi: Array}>}
+ * @returns {Promise<{single: Array, multi: Array, compare: Object}>}
  */
 async function loadLeaderboardData() {
     const cachedEnvelope = readCacheEnvelope();
@@ -316,7 +326,7 @@ async function loadLeaderboardData() {
         console.log('[HF Loader] ♻️ Marker changed, refreshing leaderboard data');
     }
 
-    const result = { single: [], multi: [] };
+    const result = { single: [], multi: [], compare: null };
 
     // 尝试从 Hugging Face 加载
     try {
@@ -324,13 +334,15 @@ async function loadLeaderboardData() {
 
         const marker = await getLatestMarker();
 
-        const [singleData, multiData] = await Promise.all([
+        const [singleData, multiData, compareData] = await Promise.all([
             loadFromHuggingFace(HF_CONFIG.files.single),
-            loadFromHuggingFace(HF_CONFIG.files.multi)
+            loadFromHuggingFace(HF_CONFIG.files.multi),
+            loadOptionalJson(loadFromHuggingFace, HF_CONFIG.files.compare)
         ]);
 
         result.single = normalizeEntryArray(singleData);
         result.multi = normalizeEntryArray(multiData);
+        result.compare = compareData && typeof compareData === 'object' ? compareData : null;
 
         writeCache(result, marker);
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
@@ -344,13 +356,15 @@ async function loadLeaderboardData() {
             try {
                 console.log('[HF Loader] Trying local fallback...');
 
-                const [singleData, multiData] = await Promise.all([
+                const [singleData, multiData, compareData] = await Promise.all([
                     loadFromLocal(HF_CONFIG.files.single),
-                    loadFromLocal(HF_CONFIG.files.multi)
+                    loadFromLocal(HF_CONFIG.files.multi),
+                    loadOptionalJson(loadFromLocal, HF_CONFIG.files.compare)
                 ]);
 
                 result.single = normalizeEntryArray(singleData);
                 result.multi = normalizeEntryArray(multiData);
+                result.compare = compareData && typeof compareData === 'object' ? compareData : null;
 
                 writeCache(result, null);
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);

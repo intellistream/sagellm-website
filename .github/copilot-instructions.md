@@ -47,5 +47,7 @@ When asked to update package version, change only `_version.py`.
 - 永远不要创建 `.venv` 或 `venv`（无任何例外）。
 - NEVER create `.venv`/`venv` in this repository under any circumstance.
 - 必须复用当前已配置的非-venv Python 环境（如现有 conda 环境）。
+- 所有测试、lint、脚本执行都必须使用当前已配置的 conda 环境；禁止为了运行命令而新建或激活仓库内虚拟环境。
+- 禁止建议或执行 `python -m venv`、`uv venv`、`virtualenv`、`source .venv/bin/activate` 等命令。
 - If any script/task suggests creating a virtualenv, skip that step and continue with the existing
   environment.
