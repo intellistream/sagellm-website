@@ -1380,67 +1380,6 @@
         </div>
       </div>
 
-      <div class="section">
-        <h2 data-i18n="changzheng_title">🪟 长征 Desktop 下载</h2>
-        <p data-i18n="changzheng_desc">
-          将长征作为 SageLLM 的桌面发布落点：既然官网仓库本身就是 public，就直接把 Windows 安装包同步到官网静态目录并统一分发。
-        </p>
-
-        <div class="download-grid">
-          <div class="download-card">
-            <h3 id="changzheng-release-title">长征 Windows 安装包</h3>
-            <p id="changzheng-release-desc">
-              面向科学发现大模型的桌面工作台，提供本地 gateway 管理、内嵌 workstation、日志诊断与内部试用安装链路。
-            </p>
-
-            <div class="download-meta">
-              <div class="download-meta-item">
-                <span data-i18n="changzheng_meta_version">最新版本</span>
-                <strong id="changzheng-version">0.1.0.0</strong>
-              </div>
-              <div class="download-meta-item">
-                <span data-i18n="changzheng_meta_channel">发布通道</span>
-                <strong id="changzheng-channel">Public Preview</strong>
-              </div>
-              <div class="download-meta-item">
-                <span data-i18n="changzheng_meta_platform">平台</span>
-                <strong id="changzheng-platform">Windows x64</strong>
-              </div>
-              <div class="download-meta-item">
-                <span data-i18n="changzheng_meta_source">分发方式</span>
-                <strong id="changzheng-distribution">Public website static hosting</strong>
-              </div>
-            </div>
-
-            <div class="download-actions">
-              <a id="changzheng-download-link" class="download-link primary" href="/downloads/changzheng/windows/">
-                ⬇️ <span data-i18n="changzheng_download_cta">下载最新安装包</span>
-              </a>
-              <a id="changzheng-release-link" class="download-link secondary" href="/downloads/changzheng/windows/">
-                📦 <span data-i18n="changzheng_release_cta">查看全部版本</span>
-              </a>
-              <a id="changzheng-doc-link" class="download-link secondary" href="https://github.com/intellistream/sagellm-website/blob/main/docs/WINDOWS_RELEASE.md">
-                📄 <span data-i18n="changzheng_docs_cta">查看发布说明</span>
-              </a>
-            </div>
-
-            <div class="download-note" id="changzheng-note">
-              现在改为官网直出：下载页会公开列出 `.msi/.exe` 与 `.sha256`，首页只展示最新版本摘要。
-            </div>
-          </div>
-
-          <div class="download-card">
-            <h3 data-i18n="changzheng_how_title">推荐发布方式</h3>
-            <ul class="bullets">
-              <li data-i18n="changzheng_how_1">官网首页展示下载按钮与最新版本摘要</li>
-              <li data-i18n="changzheng_how_2">公开安装包同步到 /downloads/changzheng/windows/</li>
-              <li data-i18n="changzheng_how_3">首页与下载页共同读取 JSON manifest</li>
-              <li data-i18n="changzheng_how_4">后续再补签名、自动更新与 CDN 加速</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <!-- Leaderboard Section -->
       <div class="leaderboard-section" id="leaderboard">
         <div class="leaderboard-heading">
@@ -2005,22 +1944,6 @@
           workstation_bullet_3: "Model and page status grouped in the header.",
           workstation_note: "A workstation-style interface for local inference deployment.",
 
-          changzheng_title: "🪟 Changzheng Desktop Downloads",
-          changzheng_desc:
-            "Use the public website itself as Changzheng's download hub: homepage shows the summary, while the actual installers are synced into the website static download directory.",
-          changzheng_meta_version: "Latest version",
-          changzheng_meta_channel: "Channel",
-          changzheng_meta_platform: "Platform",
-          changzheng_meta_source: "Distribution",
-          changzheng_download_cta: "Download latest installer",
-          changzheng_release_cta: "All releases",
-          changzheng_docs_cta: "Release guide",
-          changzheng_how_title: "Recommended publishing path",
-          changzheng_how_1: "Homepage provides the canonical download entry and latest summary.",
-          changzheng_how_2: "Installers are synced into /downloads/changzheng/windows/.",
-          changzheng_how_3: "Homepage and download page both read the JSON manifest.",
-          changzheng_how_4: "Add signed binaries, auto-update, and CDN later.",
-
           arch_title: "🏗️ System Architecture",
           arch_desc:
             "Layered design with protocol-first approach, CPU-first development, and PD separation for optimal performance.",
@@ -2197,21 +2120,6 @@
           workstation_bullet_2: "中部保留统一会话窗口",
           workstation_bullet_3: "顶部集中呈现模型与页面状态",
           workstation_note: "适用于本地化部署场景的推理工作台展示界面。",
-
-          changzheng_title: "🪟 长征 Desktop 下载",
-          changzheng_desc: "把长征作为 SageLLM 的桌面发布落点：官网仓库本身公开，因此首页展示摘要，真正安装包同步到官网静态下载目录。",
-          changzheng_meta_version: "最新版本",
-          changzheng_meta_channel: "发布通道",
-          changzheng_meta_platform: "平台",
-          changzheng_meta_source: "分发方式",
-          changzheng_download_cta: "下载最新安装包",
-          changzheng_release_cta: "查看全部版本",
-          changzheng_docs_cta: "查看发布说明",
-          changzheng_how_title: "推荐发布方式",
-          changzheng_how_1: "官网首页展示下载按钮与最新版本摘要",
-          changzheng_how_2: "公开安装包同步到 /downloads/changzheng/windows/",
-          changzheng_how_3: "首页和下载页共同读取 JSON manifest",
-          changzheng_how_4: "后续再补签名、自动更新与 CDN 加速",
 
           arch_title: "🏗️ 系统架构",
           arch_desc: "分层设计，遵循协议优先、CPU 优先、PD 分离原则，实现最优性能。",
@@ -2460,43 +2368,7 @@
           });
         }
 
-        loadQingluReleaseMeta();
       });
-
-      async function loadQingluReleaseMeta() {
-        try {
-          const response = await fetch("./data/changzheng_release.json", { cache: "no-store" });
-          if (!response.ok) {
-            return;
-          }
-          const data = await response.json();
-          const setText = (id, value) => {
-            const el = document.getElementById(id);
-            if (el && typeof value === "string" && value.trim()) {
-              el.textContent = value;
-            }
-          };
-          const setHref = (id, value) => {
-            const el = document.getElementById(id);
-            if (el && typeof value === "string" && value.trim()) {
-              el.href = value;
-            }
-          };
-
-          setText("changzheng-release-title", data.title);
-          setText("changzheng-release-desc", data.description);
-          setText("changzheng-version", data.version);
-          setText("changzheng-channel", data.channel);
-          setText("changzheng-platform", data.platform);
-          setText("changzheng-distribution", data.distribution);
-          setText("changzheng-note", data.note);
-          setHref("changzheng-download-link", data.latest_artifact_url || data.download_url);
-          setHref("changzheng-release-link", data.release_url || data.download_url);
-          setHref("changzheng-doc-link", data.docs_url);
-        } catch (err) {
-          console.warn("Failed to load changzheng release metadata", err);
-        }
-      }
     </script>
 
     <!-- Asciinema Player Script Integration -->

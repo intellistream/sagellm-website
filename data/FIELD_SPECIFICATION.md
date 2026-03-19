@@ -6,6 +6,7 @@ This document defines the MVP leaderboard data contract used by the website.
 
 - Schema: `data/schemas/leaderboard_v1.schema.json`
 - Display data: `data/leaderboard_single.json`, `data/leaderboard_multi.json`
+- Derived compare snapshot: `data/leaderboard_compare.json`
 - Samples: `data/examples/single_node_example.json`, `data/examples/multi_node_example.json`
 
 ## Top-level format
@@ -67,3 +68,22 @@ Website render fields must be present in schema and examples:
   `metadata.notes` / workload hints
 - trend metrics: `metrics.ttft_ms`, `metrics.throughput_tps`, `metrics.peak_mem_mb`,
   `metrics.error_rate`, `metrics.prefix_hit_rate`
+
+## Derived compare snapshot
+
+`leaderboard_compare.json` is generated from validated leaderboard entries after deduplication. It is not covered by `leaderboard_v1.schema.json` because it is a website-facing derived view, not a primary benchmark result contract.
+
+Expected top-level fields:
+
+- `schema_version = leaderboard-compare-snapshot/v1`
+- `generated_at`
+- `group_count`
+- `preferred_pair_count`
+- `groups[]`
+
+Each compare group carries:
+
+- `scope_key`: exact compare scope key used by the website (`model|hardware|precision|workload|config_type|chip_count|node_count`)
+- `scope`: human-readable decomposition of that same compare scope
+- `engines[]`: one preferred row per engine after deduplication
+- `preferred_pair`: the head-to-head pair the website should render first, prioritizing `sagellm vs vllm` and `sagellm vs vllm-ascend`

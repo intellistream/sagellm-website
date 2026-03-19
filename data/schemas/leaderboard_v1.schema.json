@@ -44,6 +44,9 @@
         "engine_version": {
           "type": "string"
         },
+        "canonical_path": {
+          "type": "string"
+        },
         "sagellm_version": {
           "type": "string",
           "pattern": "^\\d+\\.\\d+\\.\\d+(\\.\\d+)?$"
@@ -217,6 +220,10 @@
             "changelog_url": { "type": ["string", "null"] },
             "notes": { "type": ["string", "null"] },
             "verified": { "type": ["boolean", "null"] }
+            ,"idempotency_key": { "type": ["string", "null"] }
+            ,"canonical_artifact_id": { "type": ["string", "null"] }
+            ,"canonical_artifact_kind": { "type": ["string", "null"] }
+            ,"manifest_source": { "type": ["string", "null"] }
           },
           "additionalProperties": true
         }

@@ -44,6 +44,23 @@ _该区块由 `data/version_meta.json` 驱动，运行 `python scripts/sync_vers
 - Consistency/stale check: `bash scripts/check_stale_versions.sh`
 - 维护说明：`docs/VERSION_METADATA.md`
 
+## Benchmark Data Chain
+
+website does not ingest raw compare directories and does not hand-edit benchmark rows.
+
+The only supported leaderboard data chain is:
+
+1. `sagellm-benchmark compare` or `sagellm-benchmark vllm-compare run`
+2. canonical `*.canonical.json`
+3. standard `*_leaderboard.json` + `leaderboard_manifest.json`
+4. benchmark `publish` refreshes HF and website-ready snapshots:
+	- `data/leaderboard_single.json`
+	- `data/leaderboard_multi.json`
+	- `data/leaderboard_compare.json`
+	- `data/last_updated.json`
+
+Homepage rendering consumes only those snapshot files, with `leaderboard_compare.json` providing the direct `sageLLM vs vLLM` head-to-head gap view.
+
 ## Repository Quickstart
 
 本仓库提供统一的 `quickstart.sh` 模式入口：

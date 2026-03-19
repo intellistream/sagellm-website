@@ -14,16 +14,13 @@ const HF_CONFIG = {
     files: {
         single: 'leaderboard_single.json',
         multi: 'leaderboard_multi.json',
+        compare: 'leaderboard_compare.json',
         lastUpdated: 'last_updated.json'
     },
 
     // 备用：本地数据（当 HF 不可用时）
     fallbackToLocal: true,
     localPath: './data/',
-
-    // 递归拉取数据集内分文件结果（例如 cpu/.../Q1_leaderboard.json）
-    recursiveFetch: true,
-    maxRecursiveFiles: 500,
 
     // 前端缓存，避免频繁刷新时重复全量拉取
     cacheTTLms: 5 * 60 * 1000,
@@ -252,52 +249,6 @@ function mergeByEntryId(entries) {
     return [...byIdentityKey.values()];
 }
 
-async function loadFromHuggingFacePath(pathInRepo) {
-    const url = `https://huggingface.co/datasets/${HF_CONFIG.repo}/resolve/${HF_CONFIG.branch}/${pathInRepo}`;
-    const response = await fetch(url, {
-        headers: { Accept: 'application/json' },
-        cache: 'no-cache'
-    });
-    if (!response.ok) {
-        throw new Error(`HF file API error: ${response.status} ${response.statusText}`);
-    }
-    return await response.json();
-}
-
-async function listRecursiveLeaderboardFiles() {
-    const url = `https://huggingface.co/api/datasets/${HF_CONFIG.repo}/tree/${HF_CONFIG.branch}?recursive=true`;
-    const response = await fetch(url, { cache: 'no-cache' });
-    if (!response.ok) {
-        throw new Error(`HF tree API error: ${response.status} ${response.statusText}`);
-    }
-    const tree = await response.json();
-    return tree
-        .filter((item) => item.type === 'file')
-        .map((item) => item.path)
-        .filter((path) => path.endsWith('_leaderboard.json'))
-        .slice(0, HF_CONFIG.maxRecursiveFiles);
-}
-
-async function loadRecursiveEntriesFromHF() {
-    const filePaths = await listRecursiveLeaderboardFiles();
-    if (!filePaths.length) {
-        return { single: [], multi: [] };
-    }
-
-    const payloads = await Promise.allSettled(filePaths.map((path) => loadFromHuggingFacePath(path)));
-    const allEntries = [];
-    payloads.forEach((result, idx) => {
-        if (result.status === 'fulfilled') {
-            allEntries.push(...normalizeEntryArray(result.value));
-        } else {
-            console.warn(`[HF Loader] Skip unreadable file: ${filePaths[idx]}`);
-        }
-    });
-
-    const deduped = mergeByEntryId(allEntries);
-    return splitSingleAndMulti(deduped);
-}
-
 /**
  * 从 Hugging Face Hub 加载 JSON 文件
  * @param {string} filename - 文件名
@@ -340,9 +291,18 @@ async function loadFromLocal(filename) {
     return await response.json();
 }
 
+async function loadOptionalJson(loader, filename) {
+    try {
+        return await loader(filename);
+    } catch (error) {
+        console.warn(`[HF Loader] Optional file unavailable: ${filename}`, error?.message || error);
+        return null;
+    }
+}
+
 /**
  * 加载 leaderboard 数据（优先 HF，失败则本地）
- * @returns {Promise<{single: Array, multi: Array}>}
+ * @returns {Promise<{single: Array, multi: Array, compare: Object}>}
  */
 async function loadLeaderboardData() {
     const cachedEnvelope = readCacheEnvelope();
@@ -366,7 +326,7 @@ async function loadLeaderboardData() {
         console.log('[HF Loader] ♻️ Marker changed, refreshing leaderboard data');
     }
 
-    const result = { single: [], multi: [] };
+    const result = { single: [], multi: [], compare: null };
 
     // 尝试从 Hugging Face 加载
     try {
@@ -374,24 +334,15 @@ async function loadLeaderboardData() {
 
         const marker = await getLatestMarker();
 
-        const [singleData, multiData] = await Promise.all([
+        const [singleData, multiData, compareData] = await Promise.all([
             loadFromHuggingFace(HF_CONFIG.files.single),
-            loadFromHuggingFace(HF_CONFIG.files.multi)
+            loadFromHuggingFace(HF_CONFIG.files.multi),
+            loadOptionalJson(loadFromHuggingFace, HF_CONFIG.files.compare)
         ]);
 
         result.single = normalizeEntryArray(singleData);
         result.multi = normalizeEntryArray(multiData);
-
-        if (HF_CONFIG.recursiveFetch) {
-            try {
-                const recursive = await loadRecursiveEntriesFromHF();
-                result.single = mergeByEntryId([...result.single, ...recursive.single]);
-                result.multi = mergeByEntryId([...result.multi, ...recursive.multi]);
-                console.log(`[HF Loader] 📁 Recursive merge: +${recursive.single.length} single, +${recursive.multi.length} multi`);
-            } catch (recursiveError) {
-                console.warn('[HF Loader] ⚠️ Recursive fetch failed:', recursiveError.message);
-            }
-        }
+        result.compare = compareData && typeof compareData === 'object' ? compareData : null;
 
         writeCache(result, marker);
         console.log(`[HF Loader] ✅ Loaded from HF: ${result.single.length} single, ${result.multi.length} multi`);
@@ -405,13 +356,15 @@ async function loadLeaderboardData() {
             try {
                 console.log('[HF Loader] Trying local fallback...');
 
-                const [singleData, multiData] = await Promise.all([
+                const [singleData, multiData, compareData] = await Promise.all([
                     loadFromLocal(HF_CONFIG.files.single),
-                    loadFromLocal(HF_CONFIG.files.multi)
+                    loadFromLocal(HF_CONFIG.files.multi),
+                    loadOptionalJson(loadFromLocal, HF_CONFIG.files.compare)
                 ]);
 
                 result.single = normalizeEntryArray(singleData);
                 result.multi = normalizeEntryArray(multiData);
+                result.compare = compareData && typeof compareData === 'object' ? compareData : null;
 
                 writeCache(result, null);
                 console.log(`[HF Loader] ✅ Loaded from local: ${result.single.length} single, ${result.multi.length} multi`);

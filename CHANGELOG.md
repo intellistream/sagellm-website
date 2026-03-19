@@ -8,6 +8,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 ## [Unreleased]
 
 ### Changed
+- 刷新 website leaderboard 到固定 `vllm-ascend v0.11.0` 基线的正式 compare 快照（`formal_compare_20260318_vllm_ascend_0110_fixlog`）：同步 `data/leaderboard_single.json`、`data/leaderboard_compare.json` 与 `data/last_updated.json`。
+- 刷新 website leaderboard 到 `formal_compare_20260316_ascend_slotfix_postprefix` 的 publish-ready 快照：同步 `data/leaderboard_single.json`、`data/leaderboard_compare.json`、`data/leaderboard_multi.json` 与 `data/last_updated.json`，确保页面展示使用本轮 slot-fix 后的正式 compare 数据。
+- 刷新 website leaderboard 快照到最新 Ascend formal compare 产物（`sagellm` vs `vllm`，profile=`vllm_random`）：同步更新 `data/leaderboard_single.json`、`data/leaderboard_compare.json` 与 `data/last_updated.json`，确保官网展示使用最新 publish-ready 数据。
+- Leaderboard 现在优先消费 benchmark 发布的 `leaderboard_compare.json`，在同 scope 下直接展示标准化的 `sageLLM vs vLLM` head-to-head gap；若线上快照尚未刷新到该文件，则前端回退到已有 entry 数据做只读比较，而不是手工修补 website JSON。
+- `scripts/aggregate_results.py` 现兼容 benchmark 的 `leaderboard-export-manifest/v2`，并会离线同步生成 `leaderboard_compare.json`，使 website compatibility cache 与 benchmark publish 输出保持一致。
+- 官网首页暂时移除了长征 Windows 下载区块与对应 manifest 拉取逻辑，避免继续暴露当前返回 404 的公开下载入口；SageLLM Workstation 展示区保持不变。
+- Leaderboard 数据流现在明确收口到 HF snapshot 主路径：前端 `assets/hf-data-loader.js` 只读取 `leaderboard_single.json`、`leaderboard_multi.json` 与 `last_updated.json`，不再递归扫描 HF dataset 内部分散的 per-entry 文件。
+- `scripts/aggregate_results.py` 现改为离线兼容聚合工具，只消费 `sagellm-benchmark` 标准导出的 `leaderboard_manifest.json` + `*_leaderboard.json`，并对每条 entry 执行 website schema 校验；website 不再理解 compare 原始目录结构或 `data/results/**` 历史布局。
 - 官网 Hugging Face 数据同步与长征发布同步 workflow 现在只允许写入 `main-dev`，并停用旧的 `main -> main-dev` 自动回灌流程，避免自动任务继续绕过 `main-dev` 直接污染 `main`。
 - `.gitignore` 现在默认忽略本地 `.env` / `.env.local` / `.env.*` 配置文件，同时保留 `.env.example` / `.env.template` 模板文件可提交，避免网站同步脚本或本地凭证被误提交。
 - 官网首页下载区块的 DOM / i18n 标识已从 `qinglu_*` 统一清理为 `changzheng_*`，避免品牌改名后继续保留旧内部命名。
