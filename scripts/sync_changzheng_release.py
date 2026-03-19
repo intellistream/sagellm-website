@@ -49,7 +49,7 @@ class ReleaseArtifact:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="同步 changzheng-desktop Windows 安装包到 sagellm-website 公共下载目录。"
+        description="同步 changzheng-desktop Windows 安装包到 vllm-hust-website 公共下载目录。"
     )
     parser.add_argument(
         "--source-dir",

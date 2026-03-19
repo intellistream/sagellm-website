@@ -20,7 +20,7 @@ def _fetch_latest_version(package_name: str) -> str:
     url = PYPI_URL.format(package=package_name)
     context = ssl.create_default_context()
     request = urllib.request.Request(
-        url, headers={"User-Agent": "sagellm-website-version-sync/1.0"}
+        url, headers={"User-Agent": "vllm-hust-website-version-sync/1.0"}
     )
 
     try:

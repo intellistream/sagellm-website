@@ -2,8 +2,8 @@
 # Pre-push hook — version check + optional post-push PyPI publish
 #
 # Flow:
-#   1. Block direct push to main branch
-#   2. Only proceed for main-dev pushes (other branches: skip cleanly)
+#   1. Run guard checks for pushes that target main/main-dev
+#   2. Skip cleanly for other branches
 #   3. If publish is requested and the version already exists on PyPI, bump BUILD digit
 #   4. Exit 0 → git push proceeds immediately
 #   5. Background job publishes to PyPI after push finishes only when publish is explicitly requested
@@ -32,24 +32,20 @@ WANT_PUBLISH=false
 REPO_DIR="$(pwd)"
 REPO_NAME="$(basename "$REPO_DIR")"
 PUBLISH_LOG="/tmp/${REPO_NAME}-publish-$$.log"
-PUSHING_MAIN_DEV=false
+PUSHING_RELEASE_BRANCH=false
 PUSH_LOCAL_SHA=""
 
-# --- Block direct push to main; detect main-dev push ---
+# --- Detect pushes targeting release branches (main/main-dev) ---
 while read -r local_ref local_sha remote_ref remote_sha; do
-    if [ "$local_ref" = "refs/heads/main" ] || [ "$remote_ref" = "refs/heads/main" ]; then
-        echo -e "${RED}✗ Direct push to main is forbidden${NC}"
-        echo -e "${YELLOW}  Please push to main-dev first, then merge via PR.${NC}"
-        exit 1
-    fi
-    if [ "$local_ref" = "refs/heads/main-dev" ] || [ "$remote_ref" = "refs/heads/main-dev" ]; then
-        PUSHING_MAIN_DEV=true
+    if [ "$local_ref" = "refs/heads/main" ] || [ "$remote_ref" = "refs/heads/main" ] \
+        || [ "$local_ref" = "refs/heads/main-dev" ] || [ "$remote_ref" = "refs/heads/main-dev" ]; then
+        PUSHING_RELEASE_BRANCH=true
         PUSH_LOCAL_SHA="$local_sha"
     fi
 done
 
-# Version check + publish only applies to main-dev pushes
-if [ "$PUSHING_MAIN_DEV" != true ]; then
+# Version check + publish only applies to release branch pushes
+if [ "$PUSHING_RELEASE_BRANCH" != true ]; then
     exit 0
 fi
 

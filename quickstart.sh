@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# sagellm-website: Quick Start
+# vllm-hust-website: Quick Start
 # 统一 standard/dev 安装语义：
 # - standard: 依赖优先从 PyPI 安装（若本仓库含可安装 Python 项目）
 # - dev:      在 standard 基础上，尽量使用本地 editable 覆盖
@@ -25,7 +25,7 @@ SKIP_CLEANUP="false"
 CLEANUP_PREFIX="${QUICKSTART_CLEANUP_PREFIX:-isagellm-website}"
 
 show_help() {
-    echo "sagellm-website Quick Start"
+    echo "vllm-hust-website Quick Start"
     echo ""
     echo "用法:"
     echo "  ./quickstart.sh                 默认开发安装 (--dev)"
@@ -218,7 +218,7 @@ main() {
     detect_python
 
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-    echo -e "${BOLD}${BLUE}sagellm-website Quick Start${NC}"
+    echo -e "${BOLD}${BLUE}vllm-hust-website Quick Start${NC}"
     echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
     echo -e "${BLUE}📂 Project root: ${NC}${PROJECT_ROOT}"
     echo -e "${BLUE}🔧 Install mode: ${NC}${INSTALL_MODE}"

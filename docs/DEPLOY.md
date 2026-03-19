@@ -4,7 +4,7 @@
 
 ```bash
 # On GitHub.com:
-# 1. Create new repository: intellistream/sagellm-website
+# 1. Create new repository: intellistream/vllm-hust-website
 # 2. Make it PUBLIC ✅
 # 3. Add description: "sageLLM Demo Website - Interactive inference speed showcase"
 ```
@@ -12,8 +12,8 @@
 ### 2. Push to GitHub
 
 ```bash
-cd /home/shuhao/sagellm-website
-git remote add origin git@github.com:intellistream/sagellm-website.git
+cd /home/shuhao/vllm-hust-website
+git remote add origin git@github.com:intellistream/vllm-hust-website.git
 git branch -M main
 git push -u origin main
 ```
@@ -31,7 +31,7 @@ Save and wait 1-2 minutes.
 ### 4. Access Website
 
 ```
-https://intellistream.github.io/sagellm-website/
+https://intellistream.github.io/vllm-hust-website/
 ```
 
 ### 5. Optional: Custom Domain

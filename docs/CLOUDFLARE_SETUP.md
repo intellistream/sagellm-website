@@ -2,7 +2,7 @@
 
 ### GitHub 端配置
 
-- [x] CNAME 文件已创建：`sagellm.sage.org.ai`
+- [x] CNAME 文件已创建：`vllm-hust.sage.org.ai`
 - [x] 自定义域名已配置
 - [x] 代码已推送到 GitHub
 
@@ -11,12 +11,12 @@
 **经检测，您的配置（列表第一行）完全正确，且已生效！**
 
 ```
-CNAME sagellm intellistream.github.io Proxied
+CNAME vllm-hust intellistream.github.io Proxied
 ```
 
 ### 🔍 验证结果
 
-- **URL**: https://sagellm.sage.org.ai/
+- **URL**: https://vllm-hust.sage.org.ai/
 - **HTTP 状态**: `200 OK`
 - **SSL**: Cloudflare SSL 正常工作
 - **CDN**: Cloudflare CDN 正常工作 (`cf-cache-status: DYNAMIC`)

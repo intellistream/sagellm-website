@@ -1,10 +1,10 @@
-# sagellm-website Copilot Instructions
+# vllm-hust-website Copilot Instructions
 
 ## 仓库信息
 
 | 字段     | 值                                        |
 | -------- | ----------------------------------------- |
-| 仓库名   | sagellm-website                           |
+| 仓库名   | vllm-hust-website                           |
 | 可见性   | **Public** (公开仓库)                     |
 | 主要职责 | sageLLM 公开展示网站 - 演示材料和营销页面 |
 
@@ -34,7 +34,7 @@
 ## 📦 仓库结构
 
 ```
-sagellm-website/
+vllm-hust-website/
 ├── index.html              # 主页（渐变背景 + asciinema 播放器）
 ├── demos/                  # 终端录屏文件
 │   └── sagellm-inference.cast
@@ -181,7 +181,7 @@ AsciinemaPlayer.create("demos/xxx.cast", element, {
 
 1. 在 GitHub 仓库 Settings → Pages
 1. Source: `main` 分支，根目录
-1. 访问: `https://<username>.github.io/sagellm-website/`
+1. 访问: `https://<username>.github.io/vllm-hust-website/`
 
 ### 本地预览
 
@@ -200,7 +200,7 @@ npx serve .
 | 仓库                    | 可见性  | 关系                     |
 | ----------------------- | ------- | ------------------------ |
 | `intellistream/sagellm` | Private | 核心引擎（不可引用链接） |
-| `sagellm-website`       | Public  | 本仓库                   |
+| `vllm-hust-website`       | Public  | 本仓库                   |
 
 ## 开发规范
 

@@ -1,4 +1,4 @@
-# Website Demo Kit (SageLLM Inference)
+# vllm-hust-website (Website Demo Kit)
 
 <!-- BEGIN:VERSION_META -->
 

@@ -200,7 +200,7 @@ ______________________________________________________________________
 ## 📂 文件结构
 
 ```
-sagellm-website/data/
+vllm-hust-website/data/
 ├── README.md                          # 本文件
 ├── FIELD_SPECIFICATION.md             # 字段规范文档（详细版）
 ├── validate_schema.py                 # 数据验证脚本
